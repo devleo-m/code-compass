@@ -2,3 +2,5 @@
 
 export { Button } from './Button';
 export { Card } from './Card';
+export { ProtectedRoute } from './ProtectedRoute';
+export { Layout } from './Layout';
