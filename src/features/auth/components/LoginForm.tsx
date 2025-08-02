@@ -1,7 +1,7 @@
 'use client';
 
 // 1. Imports
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/shared/components';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { AUTH_CONFIG } from '@/shared/utils/constants';
@@ -22,15 +22,6 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   const { login, isLoading, error } = useAuth();
 
   // 6. Lógica
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const success = await login({ email, password });
-    if (success && onSuccess) {
-      onSuccess();
-    }
-  };
-
   const handleUserTypeChange = (type: 'admin' | 'student') => {
     setUserType(type);
     if (type === 'admin') {
@@ -42,13 +33,28 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     }
   };
 
+  // Carregar credenciais automaticamente quando o componente montar
+  useEffect(() => {
+    setEmail(AUTH_CONFIG.student.email);
+    setPassword(AUTH_CONFIG.student.password);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const success = await login({ email, password });
+    if (success && onSuccess) {
+      onSuccess();
+    }
+  };
+
   // 7. Render
   return (
     <div className="w-full max-w-md mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Seleção de tipo de usuário */}
         <fieldset className="space-y-2">
-          <legend className="block text-sm font-medium text-gray-700">
+          <legend className="block text-sm font-medium text-gray-900">
             Tipo de Usuário
           </legend>
           <div className="flex space-x-4">
@@ -61,7 +67,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                 onChange={() => handleUserTypeChange('student')}
                 className="mr-2"
               />
-              <span className="text-sm">Aluno</span>
+              <span className="text-sm font-medium text-gray-900">Aluno</span>
             </label>
             <label className="flex items-center">
               <input
@@ -72,14 +78,14 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                 onChange={() => handleUserTypeChange('admin')}
                 className="mr-2"
               />
-              <span className="text-sm">Administrador</span>
+              <span className="text-sm font-medium text-gray-900">Administrador</span>
             </label>
           </div>
         </fieldset>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-900">
             Email
           </label>
           <input
@@ -95,7 +101,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
         {/* Senha */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-900">
             Senha
           </label>
           <input
@@ -126,8 +132,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         </Button>
 
         {/* Credenciais de teste */}
-        <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-md">
-          <p className="font-medium mb-1">Credenciais de Teste:</p>
+        <div className="text-xs text-gray-600 bg-gray-50 p-3 rounded-md">
+          <p className="font-medium mb-1 text-gray-900">Credenciais de Teste:</p>
           <p><strong>Admin:</strong> {AUTH_CONFIG.admin.email} / {AUTH_CONFIG.admin.password}</p>
           <p><strong>Aluno:</strong> {AUTH_CONFIG.student.email} / {AUTH_CONFIG.student.password}</p>
         </div>

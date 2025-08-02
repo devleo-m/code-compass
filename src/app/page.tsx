@@ -1,7 +1,7 @@
 // 1. Imports
 import Link from 'next/link';
 import { Button } from '@/shared/components';
-import { APP_CONFIG } from '@/shared/utils/constants';
+import { APP_CONFIG, LEARNING_PATHS } from '@/shared/utils/constants';
 
 // 2. Componente
 export default function LandingPage() {
@@ -30,11 +30,11 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Aprenda JavaScript e TypeScript de forma interativa
+            Aprenda programação de forma interativa
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             {APP_CONFIG.description}. Trilhas estruturadas, quizzes interativos e 
-            acompanhamento de progresso para dominar as tecnologias web.
+            acompanhamento de progresso para dominar as tecnologias mais demandadas do mercado.
           </p>
           <Link href="/login">
             <Button size="lg" variant="primary">
@@ -51,44 +51,28 @@ export default function LandingPage() {
             Escolha sua trilha de aprendizado
           </h3>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* JavaScript Card */}
-            <div className="bg-white rounded-lg shadow-md p-8 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">JS</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Object.values(LEARNING_PATHS).map((path) => (
+              <div
+                key={path.id}
+                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer"
+              >
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl`}>
+                  {path.icon}
+                </div>
+                <h4 className="text-lg font-bold text-gray-900 mb-2">
+                  {path.name}
+                </h4>
+                <p className="text-sm text-gray-600 mb-4">
+                  {path.description}
+                </p>
+                <Link href={`/learning/${path.id}`}>
+                  <Button variant="outline" size="sm" className="w-full">
+                    Estudar {path.name}
+                  </Button>
+                </Link>
               </div>
-              <h4 className="text-2xl font-bold text-gray-900 mb-4">
-                JavaScript
-              </h4>
-              <p className="text-gray-600 mb-6">
-                Domine os fundamentos da linguagem mais popular da web. 
-                Do básico ao avançado, com exemplos práticos e projetos reais.
-              </p>
-              <Link href="/login">
-                <Button variant="outline" className="w-full">
-                  Estudar JavaScript
-                </Button>
-              </Link>
-            </div>
-
-            {/* TypeScript Card */}
-            <div className="bg-white rounded-lg shadow-md p-8 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">TS</span>
-              </div>
-              <h4 className="text-2xl font-bold text-gray-900 mb-4">
-                TypeScript
-              </h4>
-              <p className="text-gray-600 mb-6">
-                Evolua do JavaScript para TypeScript. Tipagem estática, 
-                melhor tooling e desenvolvimento mais seguro e produtivo.
-              </p>
-              <Link href="/login">
-                <Button variant="outline" className="w-full">
-                  Estudar TypeScript
-                </Button>
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
