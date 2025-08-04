@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { ROUTES, LEARNING_PATHS } from '@/shared/utils/constants';
 import { Footer } from './Footer';
+import { Breadcrumbs } from './Breadcrumbs';
 
 // 2. Tipos/Interfaces
 interface LayoutProps {
@@ -186,6 +187,11 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumbs */}
+        <div className="mb-6">
+          <Breadcrumbs />
+        </div>
+        
         {children}
       </main>
 
