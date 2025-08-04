@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { ROUTES, LEARNING_PATHS } from '@/shared/utils/constants';
+import { Footer } from './Footer';
 
 // 2. Tipos/Interfaces
 interface LayoutProps {
@@ -33,34 +34,55 @@ export function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
-            <Link href={ROUTES.dashboard} className="text-xl font-bold text-blue-600">
+            <Link
+              href={ROUTES.dashboard}
+              className="text-xl font-bold text-blue-600"
+            >
               Code Compass
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href={ROUTES.dashboard} className="text-gray-700 hover:text-blue-600">
+              <Link
+                href={ROUTES.dashboard}
+                className="text-gray-700 hover:text-blue-600"
+              >
                 Dashboard
               </Link>
-              
+
               {/* Learning Dropdown */}
               <div className="relative">
                 <button
                   type="button"
-                  onClick={() => setIsLearningDropdownOpen(!isLearningDropdownOpen)}
+                  onClick={() =>
+                    setIsLearningDropdownOpen(!isLearningDropdownOpen)
+                  }
                   className="text-gray-700 hover:text-blue-600 flex items-center"
                   aria-label="Abrir menu de trilhas"
                 >
                   Trilhas
-                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className="ml-1 w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
-                
+
                 {isLearningDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
                     <div className="p-4">
-                      <h3 className="text-sm font-semibold text-gray-900 mb-3">Trilhas de Aprendizado</h3>
+                      <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                        Trilhas de Aprendizado
+                      </h3>
                       <div className="grid grid-cols-2 gap-2">
                         {Object.values(LEARNING_PATHS).map((path) => (
                           <Link
@@ -78,17 +100,18 @@ export function Layout({ children }: LayoutProps) {
                   </div>
                 )}
               </div>
-              
-              <Link href={ROUTES.progress} className="text-gray-700 hover:text-blue-600">
+
+              <Link
+                href={ROUTES.progress}
+                className="text-gray-700 hover:text-blue-600"
+              >
                 Progresso
               </Link>
             </nav>
 
             {/* User Menu */}
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">
-                Olá, {user?.name}
-              </span>
+              <span className="text-sm text-gray-700">Olá, {user?.name}</span>
               <button
                 type="button"
                 onClick={handleLogout}
@@ -105,8 +128,19 @@ export function Layout({ children }: LayoutProps) {
               className="md:hidden p-2"
               aria-label="Abrir menu mobile"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
@@ -115,11 +149,16 @@ export function Layout({ children }: LayoutProps) {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-gray-200">
               <nav className="space-y-2">
-                <Link href={ROUTES.dashboard} className="block text-gray-700 hover:text-blue-600">
+                <Link
+                  href={ROUTES.dashboard}
+                  className="block text-gray-700 hover:text-blue-600"
+                >
                   Dashboard
                 </Link>
                 <div className="space-y-1">
-                  <div className="text-sm font-medium text-gray-900 mb-2">Trilhas:</div>
+                  <div className="text-sm font-medium text-gray-900 mb-2">
+                    Trilhas:
+                  </div>
                   <div className="grid grid-cols-2 gap-1 pl-4">
                     {Object.values(LEARNING_PATHS).map((path) => (
                       <Link
@@ -133,7 +172,10 @@ export function Layout({ children }: LayoutProps) {
                     ))}
                   </div>
                 </div>
-                <Link href={ROUTES.progress} className="block text-gray-700 hover:text-blue-600">
+                <Link
+                  href={ROUTES.progress}
+                  className="block text-gray-700 hover:text-blue-600"
+                >
                   Progresso
                 </Link>
               </nav>
@@ -146,7 +188,9 @@ export function Layout({ children }: LayoutProps) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
- 

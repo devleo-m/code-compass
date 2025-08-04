@@ -137,7 +137,7 @@ export default function LandingPage() {
             Plataforma educacional para desenvolvedores
           </p>
           <div className="text-sm text-gray-400">
-            © 2024 Code Compass. Todos os direitos reservados.
+            © {new Date().getFullYear()} Code Compass. Todos os direitos reservados.
           </div>
         </div>
       </footer>
