@@ -13,6 +13,9 @@ export interface User {
   };
 }
 
+// Re-exportar tipos de aprendizado
+export * from './learning';
+
 export interface LearningPath {
   id: string;
   technology: 'javascript' | 'typescript';
