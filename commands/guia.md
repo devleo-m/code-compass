@@ -100,7 +100,7 @@ src/
 ## 5. Roadmap de Desenvolvimento
 
 ### Fase 1: Fundação e Estrutura Base
-**Status**: ✅ Concluída | **Duração Estimada**: 2-3 dias
+**Status**: ⏳ Em Andamento | **Duração Estimada**: 2-3 dias
 
 #### 1.1 Configuração Inicial do Projeto
 - [x] Criar projeto Next.js 15 com TypeScript
@@ -115,13 +115,14 @@ src/
 - [x] Criar arquivos de configuração base
 
 #### 1.3 Componentes Base
-- [ ] Layout principal (Header, Footer, Navigation)
+- [x] Layout principal (Header, Navigation) - **Implementado parcialmente**
 - [x] Sistema de design tokens
-- [x] Componentes base (Button, Card, Modal)
+- [x] Componentes base (Button, Card)
 - [ ] Sistema de loading e error boundaries
+- [ ] Footer - **Pendente**
 
 ### Fase 2: Autenticação Simulada
-**Status**: ✅ Concluída | **Duração Estimada**: 1-2 dias
+**Status**: ⏳ Em Andamento | **Duração Estimada**: 1-2 dias
 
 #### 2.1 Sistema de Login Simulado
 - [x] Página de login com credenciais fixas
@@ -134,33 +135,33 @@ src/
 - [x] Design da página inicial
 - [x] Seleção de tecnologia (JavaScript/TypeScript)
 - [x] Componentes de apresentação
-- [x] Animações e transições
+- [ ] Animações e transições - **Pendente**
 
 #### 2.3 Sistema de Navegação
-- [x] Breadcrumbs
 - [x] Menu de navegação
-- [x] Histórico de navegação
+- [ ] Breadcrumbs - **Pendente**
+- [ ] Histórico de navegação - **Pendente**
 - [x] URLs semânticas
 
 ### Fase 3: Módulo de Trilha de Aprendizado
-**Status**: ✅ Concluída | **Duração Estimada**: 3-4 dias
+**Status**: ⏳ Pendente | **Duração Estimada**: 3-4 dias
 
 #### 3.1 Estrutura de Dados
-- [x] Definir schema de dados para trilhas (15 trilhas implementadas)
-- [x] Criar tipos TypeScript
-- [x] Dados mock para todas as tecnologias
+- [ ] Definir schema de dados para trilhas
+- [ ] Criar tipos TypeScript
+- [ ] Dados mock para todas as tecnologias
 
 #### 3.2 Componentes da Trilha
-- [x] Lista de módulos/lições
-- [x] Indicadores de progresso
-- [x] Sistema de badges/conquistas
-- [x] Filtros e busca
+- [ ] Lista de módulos/lições
+- [ ] Indicadores de progresso
+- [ ] Sistema de badges/conquistas
+- [ ] Filtros e busca
 
 #### 3.3 Páginas de Conteúdo
-- [x] Visualizador de markdown
-- [x] Navegação entre lições
-- [x] Sistema de anotações
-- [x] Progresso automático
+- [ ] Visualizador de markdown
+- [ ] Navegação entre lições
+- [ ] Sistema de anotações
+- [ ] Progresso automático
 
 ### Fase 4: Módulo de Quizzes
 **Status**: ⏳ Pendente | **Duração Estimada**: 4-5 dias
