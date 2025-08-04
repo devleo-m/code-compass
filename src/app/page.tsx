@@ -29,15 +29,15 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6 animate-fade-in">
             Aprenda programação de forma interativa
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-fade-in-delay">
             {APP_CONFIG.description}. Trilhas estruturadas, quizzes interativos e 
             acompanhamento de progresso para dominar as tecnologias mais demandadas do mercado.
           </p>
           <Link href="/login">
-            <Button size="lg" variant="primary">
+            <Button size="lg" variant="primary" className="animate-bounce-in">
               Começar Agora
             </Button>
           </Link>

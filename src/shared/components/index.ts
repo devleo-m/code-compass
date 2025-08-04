@@ -7,3 +7,4 @@ export { Layout } from './Layout';
 export { Footer } from './Footer';
 export { Loading, PageLoading, ButtonLoading, CardLoading } from './Loading';
 export { ErrorBoundary, withErrorBoundary, ErrorFallback } from './ErrorBoundary';
+export { Breadcrumbs, useBreadcrumbs } from './Breadcrumbs';

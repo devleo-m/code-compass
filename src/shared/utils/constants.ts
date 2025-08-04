@@ -23,6 +23,7 @@ export const STORAGE_KEYS = {
   progress: 'code-compass-progress',
   theme: 'code-compass-theme',
   notes: 'code-compass-notes',
+  navigationHistory: 'code-compass-navigation-history',
 } as const;
 
 export const ROUTES = {
