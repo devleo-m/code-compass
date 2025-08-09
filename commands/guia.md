@@ -10,6 +10,8 @@ O **Code Compass** é uma plataforma educacional interativa para aprendizado de 
 - Criar uma interface intuitiva e responsiva
 - Permitir acompanhamento de progresso individual
 - Oferecer conteúdo prático e teórico integrado
+- **NOVO**: Separar claramente as funcionalidades de admin e aluno
+- **NOVO**: Implementar sistema de autorização robusto
 
 ## 2. Arquitetura e Tecnologias
 
@@ -31,7 +33,8 @@ src/
 │   ├── learning-path/     # Módulo de trilha de aprendizado
 │   ├── quizzes/          # Módulo de quizzes
 │   ├── progress/         # Módulo de progresso
-│   └── auth/             # Módulo de autenticação simulada (admin/aluno)
+│   ├── auth/             # Módulo de autenticação simulada (admin/aluno)
+│   └── admin/            # Módulo de administração (CRUD de conteúdo)
 ├── shared/               # Componentes e utilitários compartilhados
 │   ├── components/       # Componentes reutilizáveis
 │   ├── hooks/           # Custom hooks
@@ -79,6 +82,7 @@ src/
 - Navegação baseada em breadcrumbs
 - Histórico de navegação preservado
 - URLs semânticas e SEO-friendly
+- **NOVO**: Proteção de rotas baseada em autorização
 
 ### 4.3 Responsividade:
 - Mobile-first design
@@ -96,6 +100,12 @@ src/
 - Navegação por teclado
 - Contraste adequado
 - Screen reader friendly
+
+### 4.6 **NOVO**: Sistema de Autorização:
+- **Admin**: Acesso total para criar, editar e gerenciar conteúdo
+- **Aluno**: Acesso limitado apenas para estudar e acompanhar progresso
+- **Separação clara**: Admin não pode estudar, aluno não pode criar conteúdo
+- **Proteção de rotas**: Middleware ou componentes wrapper para verificação
 
 ## 5. Roadmap de Desenvolvimento
 
@@ -122,14 +132,15 @@ src/
 - [x] Footer - **Implementado**
 
 ### Fase 2: Autenticação Simulada
-**Status**: ✅ Concluída | **Duração Estimada**: 1-2 dias
+**Status**: ⚠️ **Parcialmente Concluída - Requer Correções** | **Duração Estimada**: 1-2 dias
 
 #### 2.1 Sistema de Login Simulado
 - [x] Página de login com credenciais fixas
 - [x] Simulação de admin (acesso total)
 - [x] Simulação de aluno (acesso limitado)
 - [x] Persistência de sessão no LocalStorage
-- [x] Proteção de rotas baseada no tipo de usuário
+- [ ] **CORREÇÃO NECESSÁRIA**: Proteção de rotas baseada no tipo de usuário
+- [ ] **CORREÇÃO NECESSÁRIA**: Redirecionamento correto no logout
 
 #### 2.2 Página Inicial (Landing Page)
 - [x] Design da página inicial
@@ -143,8 +154,35 @@ src/
 - [x] Histórico de navegação - **Implementado**
 - [x] URLs semânticas
 
+### **NOVA FASE**: Fase 2.5: Segurança e Autorização
+**Status**: ⏳ **Pendente - Alta Prioridade** | **Duração Estimada**: 2-3 dias
+
+#### 2.5.1 Proteção de Rotas
+- [ ] Implementar middleware de proteção de rotas
+- [ ] Criar componente `ProtectedRoute` para páginas sensíveis
+- [ ] Verificar autenticação antes de renderizar conteúdo
+- [ ] Redirecionar usuários não autenticados para login
+
+#### 2.5.2 Sistema de Logout e Redirecionamento
+- [ ] Implementar redirecionamento automático no logout
+- [ ] Usar `useRouter` do Next.js para navegação programática
+- [ ] Redirecionar para página inicial (`/`) após logout
+- [ ] Limpar estado da aplicação no logout
+
+#### 2.5.3 Separação de Funcionalidades por Tipo de Usuário
+- [ ] **Admin**: Dashboard focado em criação de conteúdo
+- [ ] **Aluno**: Dashboard focado em estudo e progresso
+- [ ] Componentes condicionais baseados no tipo de usuário
+- [ ] Rotas específicas para admin (ex: `/admin/content`)
+
+#### 2.5.4 Validação de Autorização
+- [ ] Verificar permissões antes de renderizar funcionalidades
+- [ ] Bloquear acesso a funcionalidades não autorizadas
+- [ ] Feedback visual para ações não permitidas
+- [ ] Logs de tentativas de acesso não autorizado
+
 ### Fase 3: Módulo de Trilha de Aprendizado
-**Status**: ✅ Concluída | **Duração Estimada**: 3-4 dias
+**Status**: ⚠️ **Parcialmente Concluída - Requer Correções** | **Duração Estimada**: 3-4 dias
 
 #### 3.1 Estrutura de Dados
 - [x] Definir schema de dados para trilhas - **Implementado**
@@ -162,6 +200,12 @@ src/
 - [x] Navegação entre lições - **Implementado**
 - [x] Sistema de anotações - **Implementado**
 - [x] Progresso automático - **Implementado**
+
+#### 3.4 **CORREÇÃO NECESSÁRIA**: Dashboard Diferenciado
+- [ ] **Admin**: Ver botões de "Criar Trilha", "Editar Conteúdo", "Gerenciar Usuários"
+- [ ] **Aluno**: Ver botões de "Começar Trilha", "Ver Progresso", "Anotações"
+- [ ] Componentes condicionais baseados no tipo de usuário
+- [ ] Interface específica para cada perfil
 
 ### Fase 4: Módulo de Quizzes
 **Status**: ⏳ Pendente | **Duração Estimada**: 4-5 dias
@@ -198,6 +242,33 @@ src/
 - [ ] Gráficos e estatísticas
 - [ ] Metas e objetivos
 - [ ] Certificados/conquistas
+
+### **NOVA FASE**: Fase 5.5: Sistema de Administração
+**Status**: ⏳ **Pendente - Média Prioridade** | **Duração Estimada**: 4-5 dias
+
+#### 5.5.1 Dashboard de Admin
+- [ ] Visão geral de estatísticas da plataforma
+- [ ] Número total de usuários ativos
+- [ ] Trilhas mais populares
+- [ ] Métricas de engajamento
+
+#### 5.5.2 Gerenciamento de Conteúdo
+- [ ] CRUD de trilhas de aprendizado
+- [ ] Editor de markdown para lições
+- [ ] Sistema de upload de arquivos
+- [ ] Versionamento de conteúdo
+
+#### 5.5.3 Gerenciamento de Usuários
+- [ ] Lista de todos os usuários
+- [ ] Estatísticas individuais de progresso
+- [ ] Sistema de roles e permissões
+- [ ] Bloqueio/desbloqueio de contas
+
+#### 5.5.4 Sistema de Quizzes (Admin)
+- [ ] Criação de quizzes personalizados
+- [ ] Banco de perguntas
+- [ ] Configuração de dificuldade
+- [ ] Análise de resultados
 
 ### Fase 6: Integração e Polimento
 **Status**: ⏳ Pendente | **Duração Estimada**: 2-3 dias
@@ -255,6 +326,12 @@ src/
 - [ ] Acessibilidade é mantida
 - [ ] Documentação está atualizada
 
+### **NOVO**: Para funcionalidades de segurança:
+- [ ] Rotas protegidas não são acessíveis sem autenticação
+- [ ] Logout redireciona corretamente
+- [ ] Admin e aluno veem interfaces apropriadas
+- [ ] Tentativas de acesso não autorizado são bloqueadas
+
 ### Para o projeto completo:
 - [ ] 100% de cobertura de testes críticos
 - [ ] Performance score > 90 (Lighthouse)
@@ -273,6 +350,12 @@ src/
 - [ ] Funcionalidade testada manualmente
 - [ ] Performance validada
 
+### **NOVO**: Para funcionalidades de segurança:
+- [ ] Proteção de rotas implementada e testada
+- [ ] Logout funciona corretamente
+- [ ] Separação de funcionalidades por tipo de usuário
+- [ ] Testes de segurança passando
+
 ### Para cada fase:
 - [ ] Todas as tarefas da fase completadas
 - [ ] Integração com fases anteriores funcionando
@@ -281,13 +364,14 @@ src/
 
 ## 8. Notas e Observações
 
-### Prioridades:
-1. **Funcionalidade**: Sistema deve funcionar corretamente
-2. **Usabilidade**: Interface intuitiva e responsiva
-3. **Performance**: Carregamento rápido e eficiente
-4. **Manutenibilidade**: Código limpo e bem estruturado
+### **ATUALIZADO**: Prioridades:
+1. **Segurança**: Proteção de rotas e autorização (ALTA PRIORIDADE)
+2. **Funcionalidade**: Sistema deve funcionar corretamente
+3. **Usabilidade**: Interface intuitiva e responsiva
+4. **Performance**: Carregamento rápido e eficiente
+5. **Manutenibilidade**: Código limpo e bem estruturado
 
-### Decisões Técnicas:
+### **ATUALIZADO**: Decisões Técnicas:
 - Usar App Router do Next.js 15 para melhor performance
 - Zustand para estado global (mais simples que Redux)
 - Tailwind CSS para desenvolvimento rápido
@@ -295,17 +379,31 @@ src/
 - **Biome** para linting e formatação (mais rápido que ESLint)
 - **100% Frontend** - sem backend, tudo via LocalStorage
 - Autenticação simulada (admin/aluno) com credenciais fixas
+- **NOVO**: Sistema de autorização robusto com proteção de rotas
+- **NOVO**: Separação clara entre funcionalidades de admin e aluno
 - Husky configurado apenas no final para não atrapalhar desenvolvimento
 
-### Futuras Melhorias:
+### **ATUALIZADO**: Futuras Melhorias:
 - Backend real para persistência (quando necessário)
 - Gamificação avançada
 - Comunidade e fóruns
 - Certificados digitais
 - Sistema de autenticação real
+- **NOVO**: Sistema de moderação de conteúdo
+- **NOVO**: Analytics avançados para admin
+
+### **NOVO**: Problemas Identificados e Soluções:
+- **Problema**: Logout não redireciona corretamente
+  - **Solução**: Implementar `useRouter` do Next.js para redirecionamento automático
+- **Problema**: Dashboard não tem proteção de rota
+  - **Solução**: Criar middleware ou componente `ProtectedRoute`
+- **Problema**: Admin e aluno compartilham o mesmo dashboard
+  - **Solução**: Implementar componentes condicionais baseados no tipo de usuário
+- **Problema**: Falta de separação de responsabilidades
+  - **Solução**: Criar módulo específico de administração
 
 ---
 
-**Última atualização**: [Data será atualizada conforme o desenvolvimento]
-**Versão**: 1.0
-**Próxima revisão**: Após aprovação da Fase 1
+**Última atualização**: Dezembro 2024
+**Versão**: 1.1
+**Próxima revisão**: Após implementação da Fase 2.5 (Segurança e Autorização)
