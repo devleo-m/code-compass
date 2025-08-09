@@ -10,9 +10,9 @@ import type { LearningPath } from '@/shared/types/learning'
 
 // 2. Tipos/Interfaces
 interface LearningPathPageProps {
-    params: {
+    params: Promise<{
         pathId: string
-    }
+    }>
 }
 
 // 3. Componente
