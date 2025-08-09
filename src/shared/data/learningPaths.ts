@@ -1,38 +1,32 @@
 // Dados mock para trilhas de aprendizado
-import type {
-  LearningPath,
-  Lesson,
-  Module,
-  Question,
-  Quiz,
-} from '@/shared/types/learning';
+import type { LearningPath, Lesson, Module, Question, Quiz } from '@/shared/types/learning'
 
 // 1. Dados de JavaScript
 export const javascriptPath: LearningPath = {
-  id: 'javascript',
-  name: 'JavaScript',
-  description: 'Aprenda JavaScript do básico ao avançado',
-  icon: '🟨',
-  color: 'yellow',
-  technologies: ['ES6+', 'DOM', 'Async/Await', 'Modules'],
-  difficulty: 'beginner',
-  estimatedTime: 40,
-  totalLessons: 24,
-  totalQuizzes: 6,
-  modules: [
-    {
-      id: 'js-basics',
-      title: 'Fundamentos do JavaScript',
-      description: 'Conceitos básicos e sintaxe da linguagem',
-      order: 1,
-      progress: 0,
-      isCompleted: false,
-      lessons: [
+    id: 'javascript',
+    name: 'JavaScript',
+    description: 'Aprenda JavaScript do básico ao avançado',
+    icon: '🟨',
+    color: 'yellow',
+    technologies: ['ES6+', 'DOM', 'Async/Await', 'Modules'],
+    difficulty: 'beginner',
+    estimatedTime: 40,
+    totalLessons: 24,
+    totalQuizzes: 6,
+    modules: [
         {
-          id: 'js-intro',
-          title: 'Introdução ao JavaScript',
-          description: 'O que é JavaScript e por que aprender',
-          content: `
+            id: 'js-basics',
+            title: 'Fundamentos do JavaScript',
+            description: 'Conceitos básicos e sintaxe da linguagem',
+            order: 1,
+            progress: 0,
+            isCompleted: false,
+            lessons: [
+                {
+                    id: 'js-intro',
+                    title: 'Introdução ao JavaScript',
+                    description: 'O que é JavaScript e por que aprender',
+                    content: `
 # Introdução ao JavaScript
 
 JavaScript é uma linguagem de programação de alto nível, interpretada e dinâmica. Foi criada em 1995 por Brendan Eich na Netscape.
@@ -57,18 +51,18 @@ JavaScript é uma linguagem de programação de alto nível, interpretada e din�
 console.log("Olá, mundo!");
 \`\`\`
           `,
-          order: 1,
-          estimatedTime: 15,
-          difficulty: 'easy',
-          tags: ['introdução', 'básico'],
-          isCompleted: false,
-          isLocked: false,
-        },
-        {
-          id: 'js-variables',
-          title: 'Variáveis e Tipos de Dados',
-          description: 'Como declarar variáveis e tipos básicos',
-          content: `
+                    order: 1,
+                    estimatedTime: 15,
+                    difficulty: 'easy',
+                    tags: ['introdução', 'básico'],
+                    isCompleted: false,
+                    isLocked: false,
+                },
+                {
+                    id: 'js-variables',
+                    title: 'Variáveis e Tipos de Dados',
+                    description: 'Como declarar variáveis e tipos básicos',
+                    content: `
 # Variáveis e Tipos de Dados
 
 ## Declarando variáveis
@@ -114,18 +108,18 @@ let indefinido = undefined;
 let nulo = null;
 \`\`\`
           `,
-          order: 2,
-          estimatedTime: 20,
-          difficulty: 'easy',
-          tags: ['variáveis', 'tipos', 'básico'],
-          isCompleted: false,
-          isLocked: false,
-        },
-        {
-          id: 'js-operators',
-          title: 'Operadores',
-          description: 'Operadores aritméticos, de comparação e lógicos',
-          content: `
+                    order: 2,
+                    estimatedTime: 20,
+                    difficulty: 'easy',
+                    tags: ['variáveis', 'tipos', 'básico'],
+                    isCompleted: false,
+                    isLocked: false,
+                },
+                {
+                    id: 'js-operators',
+                    title: 'Operadores',
+                    description: 'Operadores aritméticos, de comparação e lógicos',
+                    content: `
 # Operadores em JavaScript
 
 ## Operadores Aritméticos
@@ -167,62 +161,60 @@ a || b;   // true (OR)
 !a;       // false (NOT)
 \`\`\`
           `,
-          order: 3,
-          estimatedTime: 25,
-          difficulty: 'easy',
-          tags: ['operadores', 'aritméticos', 'comparação'],
-          isCompleted: false,
-          isLocked: false,
+                    order: 3,
+                    estimatedTime: 25,
+                    difficulty: 'easy',
+                    tags: ['operadores', 'aritméticos', 'comparação'],
+                    isCompleted: false,
+                    isLocked: false,
+                },
+            ],
+            quiz: {
+                id: 'js-basics-quiz',
+                title: 'Quiz: Fundamentos do JavaScript',
+                description: 'Teste seus conhecimentos sobre os fundamentos',
+                timeLimit: 10,
+                passingScore: 70,
+                attempts: 0,
+                bestScore: 0,
+                isCompleted: false,
+                questions: [
+                    {
+                        id: 'q1',
+                        type: 'multiple-choice',
+                        question: 'Qual é a forma mais moderna de declarar uma variável que pode ser alterada?',
+                        options: ['var', 'let', 'const', 'variable'],
+                        correctAnswer: 'let',
+                        explanation: 'let é a forma mais moderna e recomendada para variáveis que podem ser alteradas.',
+                        difficulty: 'easy',
+                        points: 10,
+                    },
+                    {
+                        id: 'q2',
+                        type: 'true-false',
+                        question: 'JavaScript é uma linguagem tipada estaticamente.',
+                        options: ['Verdadeiro', 'Falso'],
+                        correctAnswer: 'Falso',
+                        explanation: 'JavaScript é uma linguagem dinamicamente tipada.',
+                        difficulty: 'easy',
+                        points: 10,
+                    },
+                ],
+            },
         },
-      ],
-      quiz: {
-        id: 'js-basics-quiz',
-        title: 'Quiz: Fundamentos do JavaScript',
-        description: 'Teste seus conhecimentos sobre os fundamentos',
-        timeLimit: 10,
-        passingScore: 70,
-        attempts: 0,
-        bestScore: 0,
-        isCompleted: false,
-        questions: [
-          {
-            id: 'q1',
-            type: 'multiple-choice',
-            question:
-              'Qual é a forma mais moderna de declarar uma variável que pode ser alterada?',
-            options: ['var', 'let', 'const', 'variable'],
-            correctAnswer: 'let',
-            explanation:
-              'let é a forma mais moderna e recomendada para variáveis que podem ser alteradas.',
-            difficulty: 'easy',
-            points: 10,
-          },
-          {
-            id: 'q2',
-            type: 'true-false',
-            question: 'JavaScript é uma linguagem tipada estaticamente.',
-            options: ['Verdadeiro', 'Falso'],
-            correctAnswer: 'Falso',
-            explanation: 'JavaScript é uma linguagem dinamicamente tipada.',
-            difficulty: 'easy',
-            points: 10,
-          },
-        ],
-      },
-    },
-    {
-      id: 'js-functions',
-      title: 'Funções',
-      description: 'Como criar e usar funções',
-      order: 2,
-      progress: 0,
-      isCompleted: false,
-      lessons: [
         {
-          id: 'js-function-basics',
-          title: 'Funções Básicas',
-          description: 'Declarando e chamando funções',
-          content: `
+            id: 'js-functions',
+            title: 'Funções',
+            description: 'Como criar e usar funções',
+            order: 2,
+            progress: 0,
+            isCompleted: false,
+            lessons: [
+                {
+                    id: 'js-function-basics',
+                    title: 'Funções Básicas',
+                    description: 'Declarando e chamando funções',
+                    content: `
 # Funções em JavaScript
 
 ## Declarando funções
@@ -262,44 +254,44 @@ const mensagem = saudacao("Maria");
 console.log(mensagem); // "Olá, Maria!"
 \`\`\`
           `,
-          order: 1,
-          estimatedTime: 20,
-          difficulty: 'easy',
-          tags: ['funções', 'básico'],
-          isCompleted: false,
-          isLocked: true,
+                    order: 1,
+                    estimatedTime: 20,
+                    difficulty: 'easy',
+                    tags: ['funções', 'básico'],
+                    isCompleted: false,
+                    isLocked: true,
+                },
+            ],
         },
-      ],
-    },
-  ],
-};
+    ],
+}
 
 // 2. Dados de TypeScript
 export const typescriptPath: LearningPath = {
-  id: 'typescript',
-  name: 'TypeScript',
-  description: 'JavaScript com tipagem estática',
-  icon: '🔷',
-  color: 'blue',
-  technologies: ['Types', 'Interfaces', 'Generics', 'Decorators'],
-  difficulty: 'intermediate',
-  estimatedTime: 30,
-  totalLessons: 18,
-  totalQuizzes: 4,
-  modules: [
-    {
-      id: 'ts-basics',
-      title: 'Fundamentos do TypeScript',
-      description: 'Introdução à tipagem estática',
-      order: 1,
-      progress: 0,
-      isCompleted: false,
-      lessons: [
+    id: 'typescript',
+    name: 'TypeScript',
+    description: 'JavaScript com tipagem estática',
+    icon: '🔷',
+    color: 'blue',
+    technologies: ['Types', 'Interfaces', 'Generics', 'Decorators'],
+    difficulty: 'intermediate',
+    estimatedTime: 30,
+    totalLessons: 18,
+    totalQuizzes: 4,
+    modules: [
         {
-          id: 'ts-intro',
-          title: 'Introdução ao TypeScript',
-          description: 'O que é TypeScript e suas vantagens',
-          content: `
+            id: 'ts-basics',
+            title: 'Fundamentos do TypeScript',
+            description: 'Introdução à tipagem estática',
+            order: 1,
+            progress: 0,
+            isCompleted: false,
+            lessons: [
+                {
+                    id: 'ts-intro',
+                    title: 'Introdução ao TypeScript',
+                    description: 'O que é TypeScript e suas vantagens',
+                    content: `
 # Introdução ao TypeScript
 
 TypeScript é um superset do JavaScript que adiciona tipagem estática opcional.
@@ -334,44 +326,44 @@ console.log(saudacao("TypeScript"));
 tsc hello.ts
 \`\`\`
           `,
-          order: 1,
-          estimatedTime: 15,
-          difficulty: 'easy',
-          tags: ['introdução', 'typescript'],
-          isCompleted: false,
-          isLocked: false,
+                    order: 1,
+                    estimatedTime: 15,
+                    difficulty: 'easy',
+                    tags: ['introdução', 'typescript'],
+                    isCompleted: false,
+                    isLocked: false,
+                },
+            ],
         },
-      ],
-    },
-  ],
-};
+    ],
+}
 
 // 3. Dados de React
 export const reactPath: LearningPath = {
-  id: 'react',
-  name: 'React',
-  description: 'Biblioteca JavaScript para interfaces',
-  icon: '⚛️',
-  color: 'cyan',
-  technologies: ['React Hooks', 'Context API', 'Redux', 'Next.js'],
-  difficulty: 'intermediate',
-  estimatedTime: 50,
-  totalLessons: 30,
-  totalQuizzes: 8,
-  modules: [
-    {
-      id: 'react-basics',
-      title: 'Fundamentos do React',
-      description: 'Componentes e JSX',
-      order: 1,
-      progress: 0,
-      isCompleted: false,
-      lessons: [
+    id: 'react',
+    name: 'React',
+    description: 'Biblioteca JavaScript para interfaces',
+    icon: '⚛️',
+    color: 'cyan',
+    technologies: ['React Hooks', 'Context API', 'Redux', 'Next.js'],
+    difficulty: 'intermediate',
+    estimatedTime: 50,
+    totalLessons: 30,
+    totalQuizzes: 8,
+    modules: [
         {
-          id: 'react-intro',
-          title: 'Introdução ao React',
-          description: 'O que é React e por que usar',
-          content: `
+            id: 'react-basics',
+            title: 'Fundamentos do React',
+            description: 'Componentes e JSX',
+            order: 1,
+            progress: 0,
+            isCompleted: false,
+            lessons: [
+                {
+                    id: 'react-intro',
+                    title: 'Introdução ao React',
+                    description: 'O que é React e por que usar',
+                    content: `
 # Introdução ao React
 
 React é uma biblioteca JavaScript para construir interfaces de usuário.
@@ -408,51 +400,47 @@ const elemento = (
 );
 \`\`\`
           `,
-          order: 1,
-          estimatedTime: 20,
-          difficulty: 'easy',
-          tags: ['react', 'componentes', 'jsx'],
-          isCompleted: false,
-          isLocked: false,
+                    order: 1,
+                    estimatedTime: 20,
+                    difficulty: 'easy',
+                    tags: ['react', 'componentes', 'jsx'],
+                    isCompleted: false,
+                    isLocked: false,
+                },
+            ],
         },
-      ],
-    },
-  ],
-};
+    ],
+}
 
 // 4. Exportando todas as trilhas
 export const learningPaths: Record<string, LearningPath> = {
-  javascript: javascriptPath,
-  typescript: typescriptPath,
-  react: reactPath,
-};
+    javascript: javascriptPath,
+    typescript: typescriptPath,
+    react: reactPath,
+}
 
 // 5. Função para obter trilha por ID
 export function getLearningPath(id: string): LearningPath | null {
-  return learningPaths[id] || null;
+    return learningPaths[id] || null
 }
 
 // 6. Função para listar todas as trilhas
 export function getAllLearningPaths(): LearningPath[] {
-  return Object.values(learningPaths);
+    return Object.values(learningPaths)
 }
 
 // 7. Função para obter módulo por ID
 export function getModule(pathId: string, moduleId: string): Module | null {
-  const path = getLearningPath(pathId);
-  if (!path) return null;
+    const path = getLearningPath(pathId)
+    if (!path) return null
 
-  return path.modules.find((module) => module.id === moduleId) || null;
+    return path.modules.find((module) => module.id === moduleId) || null
 }
 
 // 8. Função para obter lição por ID
-export function getLesson(
-  pathId: string,
-  moduleId: string,
-  lessonId: string
-): Lesson | null {
-  const module = getModule(pathId, moduleId);
-  if (!module) return null;
+export function getLesson(pathId: string, moduleId: string, lessonId: string): Lesson | null {
+    const module = getModule(pathId, moduleId)
+    if (!module) return null
 
-  return module.lessons.find((lesson) => lesson.id === lessonId) || null;
+    return module.lessons.find((lesson) => lesson.id === lessonId) || null
 }
