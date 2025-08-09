@@ -253,7 +253,7 @@ src/
 
 #### 4.3 Páginas de Quiz
 - [x] Página de lista de quizzes - **Implementado**
-- [ ] Página de quiz individual
+- [x] Página de quiz individual - **Implementado**
 - [ ] Página de resultados
 - [ ] Sistema de navegação
 
