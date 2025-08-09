@@ -84,7 +84,7 @@ export function ProgressIndicator({ progress, className = '' }: ProgressIndicato
                     total={progress.totalLessons}
                     label='Lições Concluídas'
                     icon={
-                        <svg className='w-5 h-5 text-blue-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <svg className='w-5 h-5 text-blue-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
                             <path
                                 strokeLinecap='round'
                                 strokeLinejoin='round'
@@ -100,7 +100,7 @@ export function ProgressIndicator({ progress, className = '' }: ProgressIndicato
                     total={progress.totalQuizzes}
                     label='Quizzes Concluídos'
                     icon={
-                        <svg className='w-5 h-5 text-blue-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <svg className='w-5 h-5 text-blue-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
                             <path
                                 strokeLinecap='round'
                                 strokeLinejoin='round'
@@ -154,7 +154,7 @@ export function CircularProgress({ percentage, size = 120 }: { percentage: numbe
 
     return (
         <div className='relative inline-block'>
-            <svg width={size} height={size} className='transform -rotate-90'>
+            <svg width={size} height={size} className='transform -rotate-90' aria-hidden='true'>
                 {/* Círculo de fundo */}
                 <circle
                     cx={size / 2}

@@ -237,21 +237,27 @@ src/
 - [x] Interface específica para cada perfil - **Implementado**
 
 ### Fase 4: Módulo de Quizzes
-**Status**: ⏳ Pendente | **Duração Estimada**: 4-5 dias
+**Status**: 🚧 **Em Progresso - Estrutura Básica Implementada** | **Duração Estimada**: 4-5 dias
 
 #### 4.1 Estrutura de Quizzes
-- [ ] Schema de dados para quizzes
-- [ ] Tipos de perguntas (múltipla escolha, verdadeiro/falso)
-- [ ] Sistema de pontuação
-- [ ] Dados mock para testes
+- [x] Schema de dados para quizzes - **Implementado**
+- [x] Tipos de perguntas (múltipla escolha, verdadeiro/falso) - **Implementado**
+- [x] Sistema de pontuação - **Implementado**
+- [x] Dados mock para testes - **Implementado**
 
 #### 4.2 Interface do Quiz
-- [ ] Componente de pergunta
+- [x] Componente de pergunta - **Implementado**
 - [ ] Timer (opcional)
 - [ ] Barra de progresso
 - [ ] Feedback imediato
 
-#### 4.3 Resultados e Análise
+#### 4.3 Páginas de Quiz
+- [x] Página de lista de quizzes - **Implementado**
+- [ ] Página de quiz individual
+- [ ] Página de resultados
+- [ ] Sistema de navegação
+
+#### 4.4 Resultados e Análise
 - [ ] Página de resultados
 - [ ] Análise de respostas
 - [ ] Sugestões de estudo

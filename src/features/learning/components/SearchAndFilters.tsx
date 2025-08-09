@@ -1,101 +1,39 @@
 'use client'
 
 // 1. Imports
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/shared/components'
-import type { LearningFilters, LearningPath, Lesson, Module, SearchResult } from '@/shared/types/learning'
 
 // 2. Tipos/Interfaces
 interface SearchAndFiltersProps {
-    paths: LearningPath[]
-    onSearch: (results: SearchResult[]) => void
-    onFiltersChange: (filters: LearningFilters) => void
+    onSearch: (query: string) => void
+    onFilterChange: (filters: any) => void
+    results?: any[]
+    onResultClick?: (result: any) => void
     className?: string
 }
 
-interface FilterOption {
-    value: string
-    label: string
-    count?: number
-}
-
 // 3. Componente principal
-export function SearchAndFilters({ paths, onSearch, onFiltersChange, className = '' }: SearchAndFiltersProps) {
+export function SearchAndFilters({ onSearch, onFilterChange, className = '' }: SearchAndFiltersProps) {
     // 4. Estados
     const [searchQuery, setSearchQuery] = useState('')
-    const [filters, setFilters] = useState<LearningFilters>({})
+    const [filters, setFilters] = useState<any>({})
     const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
     // 5. Lógica
-    const searchResults = useMemo(() => {
-        if (!searchQuery.trim()) return []
-
-        const query = searchQuery.toLowerCase()
-        const results: SearchResult[] = []
-
-        paths.forEach((path) => {
-            // Buscar no nome e descrição da trilha
-            if (path.name.toLowerCase().includes(query) || path.description.toLowerCase().includes(query)) {
-                results.push({
-                    type: 'path',
-                    id: path.id,
-                    title: path.name,
-                    description: path.description,
-                    path: `/learning/${path.id}`,
-                    relevance: 100,
-                })
-            }
-
-            // Buscar nos módulos
-            path.modules.forEach((module) => {
-                if (module.title.toLowerCase().includes(query) || module.description.toLowerCase().includes(query)) {
-                    results.push({
-                        type: 'module',
-                        id: module.id,
-                        title: module.title,
-                        description: module.description,
-                        path: `/learning/${path.id}/module/${module.id}`,
-                        relevance: 80,
-                    })
-                }
-
-                // Buscar nas lições
-                module.lessons.forEach((lesson) => {
-                    if (
-                        lesson.title.toLowerCase().includes(query) ||
-                        lesson.description.toLowerCase().includes(query) ||
-                        lesson.content.toLowerCase().includes(query)
-                    ) {
-                        results.push({
-                            type: 'lesson',
-                            id: lesson.id,
-                            title: lesson.title,
-                            description: lesson.description,
-                            path: `/learning/${path.id}/module/${module.id}/lesson/${lesson.id}`,
-                            relevance: 60,
-                        })
-                    }
-                })
-            })
-        })
-
-        // Ordenar por relevância
-        return results.sort((a, b) => b.relevance - a.relevance)
-    }, [searchQuery, paths])
-
     const handleSearch = () => {
-        onSearch(searchResults)
+        onSearch(searchQuery)
     }
 
-    const handleFiltersChange = (newFilters: Partial<LearningFilters>) => {
+    const handleFiltersChange = (newFilters: Partial<any>) => {
         const updatedFilters = { ...filters, ...newFilters }
         setFilters(updatedFilters)
-        onFiltersChange(updatedFilters)
+        onFilterChange(updatedFilters)
     }
 
     const clearFilters = () => {
         setFilters({})
-        onFiltersChange({})
+        onFilterChange({})
     }
 
     // 6. Render
@@ -104,7 +42,7 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
             {/* Barra de busca */}
             <div className='relative'>
                 <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-                    <svg className='h-5 w-5 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <svg className='h-5 w-5 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
                         <path
                             strokeLinecap='round'
                             strokeLinejoin='round'
@@ -131,6 +69,7 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
             {/* Filtros */}
             <div className='border border-gray-200 rounded-lg'>
                 <button
+                    type='button'
                     onClick={() => setIsFiltersOpen(!isFiltersOpen)}
                     className='w-full px-4 py-2 text-left flex items-center justify-between hover:bg-gray-50'
                 >
@@ -142,6 +81,7 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                         fill='none'
                         stroke='currentColor'
                         viewBox='0 0 24 24'
+                        aria-hidden='true'
                     >
                         <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
                     </svg>
@@ -151,7 +91,7 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                     <div className='px-4 pb-4 space-y-4'>
                         {/* Dificuldade */}
                         <div>
-                            <label className='block text-sm font-medium text-gray-700 mb-2'>Dificuldade</label>
+                            <legend className='block text-sm font-medium text-gray-700 mb-2'>Dificuldade</legend>
                             <div className='space-y-2'>
                                 {[
                                     { value: 'beginner', label: 'Iniciante' },
@@ -176,16 +116,17 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                         </div>
 
                         {/* Duração */}
-                        <div>
-                            <label className='block text-sm font-medium text-gray-700 mb-2'>Duração</label>
+                        <fieldset>
+                            <legend className='block text-sm font-medium text-gray-700 mb-2'>Duração</legend>
                             <div className='space-y-2'>
                                 {[
-                                    { value: 'short', label: 'Curta (< 10h)' },
-                                    { value: 'medium', label: 'Média (10-30h)' },
-                                    { value: 'long', label: 'Longa (> 30h)' },
+                                    { value: 'short', label: 'Curta (< 10h)', id: 'duration-short' },
+                                    { value: 'medium', label: 'Média (10-30h)', id: 'duration-medium' },
+                                    { value: 'long', label: 'Longa (> 30h)', id: 'duration-long' },
                                 ].map((option) => (
-                                    <label key={option.value} className='flex items-center'>
+                                    <label key={option.value} className='flex items-center' htmlFor={option.id}>
                                         <input
+                                            id={option.id}
                                             type='checkbox'
                                             checked={filters.duration === option.value}
                                             onChange={(e) =>
@@ -199,19 +140,20 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                                     </label>
                                 ))}
                             </div>
-                        </div>
+                        </fieldset>
 
                         {/* Status */}
-                        <div>
-                            <label className='block text-sm font-medium text-gray-700 mb-2'>Status</label>
+                        <fieldset>
+                            <legend className='block text-sm font-medium text-gray-700 mb-2'>Status</legend>
                             <div className='space-y-2'>
                                 {[
-                                    { value: 'not_started', label: 'Não iniciado' },
-                                    { value: 'in_progress', label: 'Em andamento' },
-                                    { value: 'completed', label: 'Concluído' },
+                                    { value: 'not_started', label: 'Não iniciado', id: 'status-not-started' },
+                                    { value: 'in_progress', label: 'Em andamento', id: 'status-in-progress' },
+                                    { value: 'completed', label: 'Concluído', id: 'status-completed' },
                                 ].map((option) => (
-                                    <label key={option.value} className='flex items-center'>
+                                    <label key={option.value} className='flex items-center' htmlFor={option.id}>
                                         <input
+                                            id={option.id}
                                             type='checkbox'
                                             checked={filters.status === option.value}
                                             onChange={(e) =>
@@ -225,14 +167,14 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                                     </label>
                                 ))}
                             </div>
-                        </div>
+                        </fieldset>
 
                         {/* Botões de ação */}
                         <div className='flex space-x-2 pt-2'>
                             <Button variant='outline' size='sm' onClick={clearFilters}>
                                 Limpar Filtros
                             </Button>
-                            <Button variant='primary' size='sm' onClick={() => onFiltersChange(filters)}>
+                            <Button variant='primary' size='sm' onClick={() => onFilterChange(filters)}>
                                 Aplicar Filtros
                             </Button>
                         </div>
@@ -248,13 +190,13 @@ export function SearchResults({
     results,
     onResultClick,
 }: {
-    results: SearchResult[]
-    onResultClick: (result: SearchResult) => void
+    results: any[]
+    onResultClick: (result: any) => void
 }) {
     if (results.length === 0) {
         return (
             <div className='text-center py-8'>
-                <svg className='mx-auto h-12 w-12 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <svg className='mx-auto h-12 w-12 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
                     <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -274,10 +216,17 @@ export function SearchResults({
 
             <div className='space-y-3'>
                 {results.map((result) => (
-                    <div
+                    <button
+                        type='button'
                         key={`${result.type}-${result.id}`}
-                        className='bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer'
+                        className='w-full text-left bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow'
                         onClick={() => onResultClick(result)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault()
+                                onResultClick(result)
+                            }
+                        }}
                     >
                         <div className='flex items-start space-x-3'>
                             <div className='flex-shrink-0'>
@@ -319,6 +268,7 @@ export function SearchResults({
                                     fill='none'
                                     stroke='currentColor'
                                     viewBox='0 0 24 24'
+                                    aria-hidden='true'
                                 >
                                     <path
                                         strokeLinecap='round'
@@ -329,7 +279,7 @@ export function SearchResults({
                                 </svg>
                             </div>
                         </div>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>

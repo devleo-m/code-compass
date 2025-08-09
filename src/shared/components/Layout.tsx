@@ -17,7 +17,6 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
     // 4. Estados
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [isLearningDropdownOpen, setIsLearningDropdownOpen] = useState(false)
 
     // 5. Hooks
     const { user, logout } = useAuth()
@@ -39,65 +38,18 @@ export function Layout({ children }: LayoutProps) {
                             Code Compass
                         </Link>
 
-                        {/* Desktop Navigation */}
-                        <nav className='hidden md:flex items-center space-x-8'>
-                            <Link href={ROUTES.dashboard} className='text-gray-700 hover:text-blue-600'>
+                        {/* Navigation Links */}
+                        <div className='hidden md:flex items-center space-x-8'>
+                            <Link href='/dashboard' className='text-gray-700 hover:text-blue-600 transition-colors'>
                                 Dashboard
                             </Link>
-
-                            {/* Learning Dropdown */}
-                            <div className='relative'>
-                                <button
-                                    type='button'
-                                    onClick={() => setIsLearningDropdownOpen(!isLearningDropdownOpen)}
-                                    className='text-gray-700 hover:text-blue-600 flex items-center'
-                                    aria-label='Abrir menu de trilhas'
-                                >
-                                    Trilhas
-                                    <svg
-                                        className='ml-1 w-4 h-4'
-                                        fill='none'
-                                        stroke='currentColor'
-                                        viewBox='0 0 24 24'
-                                        aria-hidden='true'
-                                    >
-                                        <path
-                                            strokeLinecap='round'
-                                            strokeLinejoin='round'
-                                            strokeWidth={2}
-                                            d='M19 9l-7 7-7-7'
-                                        />
-                                    </svg>
-                                </button>
-
-                                {isLearningDropdownOpen && (
-                                    <div className='absolute top-full left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50'>
-                                        <div className='p-4'>
-                                            <h3 className='text-sm font-semibold text-gray-900 mb-3'>
-                                                Trilhas de Aprendizado
-                                            </h3>
-                                            <div className='grid grid-cols-2 gap-2'>
-                                                {Object.values(LEARNING_PATHS).map((path) => (
-                                                    <Link
-                                                        key={path.id}
-                                                        href={`/learning/${path.id}`}
-                                                        className='flex items-center p-2 rounded hover:bg-gray-50 text-sm'
-                                                        onClick={() => setIsLearningDropdownOpen(false)}
-                                                    >
-                                                        <span className='mr-2'>{path.icon}</span>
-                                                        <span className='text-gray-700'>{path.name}</span>
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
-                            <Link href={ROUTES.progress} className='text-gray-700 hover:text-blue-600'>
-                                Progresso
+                            <Link href='/learning' className='text-gray-700 hover:text-blue-600 transition-colors'>
+                                Trilhas
                             </Link>
-                        </nav>
+                            <Link href='/quizzes' className='text-gray-700 hover:text-blue-600 transition-colors'>
+                                Quizzes
+                            </Link>
+                        </div>
 
                         {/* User Menu */}
                         <div className='flex items-center space-x-4'>

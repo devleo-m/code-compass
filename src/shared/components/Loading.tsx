@@ -19,7 +19,7 @@ export function Loading({ size = 'md', text = 'Carregando...', fullScreen = fals
     // 5. Efeitos
     useEffect(() => {
         const interval = setInterval(() => {
-            setDots((prev) => (prev.length >= 3 ? '' : prev + '.'))
+            setDots((prev) => (prev.length >= 3 ? '' : `${prev}.`))
         }, 500)
 
         return () => clearInterval(interval)

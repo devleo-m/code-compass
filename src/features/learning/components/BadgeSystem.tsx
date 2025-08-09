@@ -2,7 +2,7 @@
 
 // 1. Imports
 import { useState } from 'react'
-import type { Badge, BadgeCriteria } from '@/shared/types/learning'
+import type { Badge } from '@/shared/types/learning'
 
 // 2. Tipos/Interfaces
 interface BadgeSystemProps {
@@ -21,27 +21,23 @@ export function BadgeCard({ badge, onClick, className = '' }: BadgeCardProps) {
     const [isHovered, setIsHovered] = useState(false)
 
     return (
-        <div
+        <button
+            type='button'
             className={`relative group cursor-pointer ${className}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}
         >
             {/* Badge */}
-            <div
-                className={`
-        relative w-16 h-16 rounded-full flex items-center justify-center text-2xl
-        transition-all duration-300 transform
-        ${badge.isEarned ? 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg' : 'bg-gray-200 text-gray-400'}
-        ${isHovered ? 'scale-110' : 'scale-100'}
-      `}
-            >
-                <span className='text-2xl'>{badge.icon}</span>
-
+            <div className='relative'>
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl ${badge.color}`}>
+                    {badge.icon}
+                </div>
+                
                 {/* Indicador de conquista */}
                 {badge.isEarned && (
                     <div className='absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center'>
-                        <svg className='w-3 h-3 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                        <svg className='w-3 h-3 text-white' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
                             <path
                                 fillRule='evenodd'
                                 d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
@@ -65,7 +61,7 @@ export function BadgeCard({ badge, onClick, className = '' }: BadgeCardProps) {
                     <div className='absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900'></div>
                 </div>
             )}
-        </div>
+        </button>
     )
 }
 
@@ -156,10 +152,10 @@ export function BadgeProgress({
             <div className='flex items-center space-x-2'>
                 {isCompleted ? (
                     <>
-                        <svg className='w-4 h-4 text-green-600' fill='currentColor' viewBox='0 0 20 20'>
+                        <svg className='w-4 h-4 text-green-600' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
                             <path
                                 fillRule='evenodd'
-                                d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+                                d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
                                 clipRule='evenodd'
                             />
                         </svg>
@@ -167,10 +163,10 @@ export function BadgeProgress({
                     </>
                 ) : (
                     <>
-                        <svg className='w-4 h-4 text-blue-600' fill='currentColor' viewBox='0 0 20 20'>
+                        <svg className='w-4 h-4 text-blue-600' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
                             <path
                                 fillRule='evenodd'
-                                d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z'
+                                d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
                                 clipRule='evenodd'
                             />
                         </svg>
@@ -195,8 +191,8 @@ export function BadgeNotification({ badge, onClose }: { badge: Badge; onClose: (
                     <p className='text-sm text-gray-600'>{badge.name}</p>
                     <p className='text-xs text-gray-500 mt-1'>{badge.description}</p>
                 </div>
-                <button onClick={onClose} className='text-gray-400 hover:text-gray-600'>
-                    <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <button onClick={onClose} className='text-gray-400 hover:text-gray-600' type='button'>
+                    <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
                         <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
                     </svg>
                 </button>
@@ -250,7 +246,7 @@ export const defaultBadges: Badge[] = [
         id: 'module-complete',
         name: 'Módulo Completo',
         description: 'Complete um módulo inteiro',
-        icon: '🏆',
+        icon: '��',
         color: 'purple',
         criteria: {
             type: 'lessons_completed',

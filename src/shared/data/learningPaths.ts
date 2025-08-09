@@ -1,5 +1,5 @@
 // Dados mock para trilhas de aprendizado
-import type { LearningPath, Lesson, Module, Question, Quiz } from '@/shared/types/learning'
+import type { LearningPath, Lesson, Module } from '@/shared/types/learning'
 
 // 1. Dados de JavaScript
 export const javascriptPath: LearningPath = {
