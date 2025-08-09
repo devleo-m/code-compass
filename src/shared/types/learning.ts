@@ -136,7 +136,12 @@ export interface Badge {
 }
 
 export interface BadgeCriteria {
-  type: 'lessons_completed' | 'quizzes_passed' | 'streak' | 'perfect_score' | 'time_spent';
+  type:
+    | 'lessons_completed'
+    | 'quizzes_passed'
+    | 'streak'
+    | 'perfect_score'
+    | 'time_spent';
   value: number;
   condition: 'equals' | 'greater_than' | 'less_than';
 }
@@ -201,4 +206,4 @@ export interface LearningActions {
   updateNote: (noteId: string, content: string) => void;
   deleteNote: (noteId: string) => void;
   searchContent: (query: string, filters?: LearningFilters) => SearchResult[];
-} 
+}

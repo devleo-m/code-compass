@@ -1,5 +1,11 @@
 // Dados mock para trilhas de aprendizado
-import type { LearningPath, Module, Lesson, Quiz, Question } from '@/shared/types/learning';
+import type {
+  LearningPath,
+  Lesson,
+  Module,
+  Question,
+  Quiz,
+} from '@/shared/types/learning';
 
 // 1. Dados de JavaScript
 export const javascriptPath: LearningPath = {
@@ -182,10 +188,12 @@ a || b;   // true (OR)
           {
             id: 'q1',
             type: 'multiple-choice',
-            question: 'Qual é a forma mais moderna de declarar uma variável que pode ser alterada?',
+            question:
+              'Qual é a forma mais moderna de declarar uma variável que pode ser alterada?',
             options: ['var', 'let', 'const', 'variable'],
             correctAnswer: 'let',
-            explanation: 'let é a forma mais moderna e recomendada para variáveis que podem ser alteradas.',
+            explanation:
+              'let é a forma mais moderna e recomendada para variáveis que podem ser alteradas.',
             difficulty: 'easy',
             points: 10,
           },
@@ -433,14 +441,18 @@ export function getAllLearningPaths(): LearningPath[] {
 export function getModule(pathId: string, moduleId: string): Module | null {
   const path = getLearningPath(pathId);
   if (!path) return null;
-  
-  return path.modules.find(module => module.id === moduleId) || null;
+
+  return path.modules.find((module) => module.id === moduleId) || null;
 }
 
 // 8. Função para obter lição por ID
-export function getLesson(pathId: string, moduleId: string, lessonId: string): Lesson | null {
+export function getLesson(
+  pathId: string,
+  moduleId: string,
+  lessonId: string
+): Lesson | null {
   const module = getModule(pathId, moduleId);
   if (!module) return null;
-  
-  return module.lessons.find(lesson => lesson.id === lessonId) || null;
-} 
+
+  return module.lessons.find((lesson) => lesson.id === lessonId) || null;
+}

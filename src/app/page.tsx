@@ -18,9 +18,7 @@ export default function LandingPage() {
               </h1>
             </div>
             <Link href="/login">
-              <Button variant="primary">
-                Entrar
-              </Button>
+              <Button variant="primary">Entrar</Button>
             </Link>
           </div>
         </div>
@@ -33,8 +31,9 @@ export default function LandingPage() {
             Aprenda programação de forma interativa
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-fade-in-delay">
-            {APP_CONFIG.description}. Trilhas estruturadas, quizzes interativos e 
-            acompanhamento de progresso para dominar as tecnologias mais demandadas do mercado.
+            {APP_CONFIG.description}. Trilhas estruturadas, quizzes interativos
+            e acompanhamento de progresso para dominar as tecnologias mais
+            demandadas do mercado.
           </p>
           <Link href="/login">
             <Button size="lg" variant="primary" className="animate-bounce-in">
@@ -50,22 +49,22 @@ export default function LandingPage() {
           <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Escolha sua trilha de aprendizado
           </h3>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {Object.values(LEARNING_PATHS).map((path) => (
               <div
                 key={path.id}
                 className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer"
               >
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl`}>
+                <div
+                  className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl`}
+                >
                   {path.icon}
                 </div>
                 <h4 className="text-lg font-bold text-gray-900 mb-2">
                   {path.name}
                 </h4>
-                <p className="text-sm text-gray-600 mb-4">
-                  {path.description}
-                </p>
+                <p className="text-sm text-gray-600 mb-4">{path.description}</p>
                 <Link href={`/learning/${path.id}`}>
                   <Button variant="outline" size="sm" className="w-full">
                     Estudar {path.name}
@@ -83,7 +82,7 @@ export default function LandingPage() {
           <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Por que escolher o Code Compass?
           </h3>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -93,8 +92,8 @@ export default function LandingPage() {
                 Conteúdo Estruturado
               </h4>
               <p className="text-gray-600">
-                Trilhas de aprendizado organizadas do básico ao avançado, 
-                com progressão lógica e clara.
+                Trilhas de aprendizado organizadas do básico ao avançado, com
+                progressão lógica e clara.
               </p>
             </div>
 
@@ -106,8 +105,8 @@ export default function LandingPage() {
                 Quizzes Interativos
               </h4>
               <p className="text-gray-600">
-                Teste seus conhecimentos com quizzes dinâmicos e receba 
-                feedback imediato sobre seu progresso.
+                Teste seus conhecimentos com quizzes dinâmicos e receba feedback
+                imediato sobre seu progresso.
               </p>
             </div>
 
@@ -119,8 +118,8 @@ export default function LandingPage() {
                 Acompanhamento de Progresso
               </h4>
               <p className="text-gray-600">
-                Visualize seu progresso, conquiste badges e mantenha-se 
-                motivado com metas claras.
+                Visualize seu progresso, conquiste badges e mantenha-se motivado
+                com metas claras.
               </p>
             </div>
           </div>
@@ -130,14 +129,13 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <h4 className="text-2xl font-bold mb-4">
-            {APP_CONFIG.name}
-          </h4>
+          <h4 className="text-2xl font-bold mb-4">{APP_CONFIG.name}</h4>
           <p className="text-gray-300 mb-6">
             Plataforma educacional para desenvolvedores
           </p>
           <div className="text-sm text-gray-400">
-            © {new Date().getFullYear()} Code Compass. Todos os direitos reservados.
+            © {new Date().getFullYear()} Code Compass. Todos os direitos
+            reservados.
           </div>
         </div>
       </footer>

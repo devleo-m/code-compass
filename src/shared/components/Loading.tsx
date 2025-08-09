@@ -1,7 +1,7 @@
 'use client';
 
 // 1. Imports
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // 2. Tipos/Interfaces
 interface LoadingProps {
@@ -12,11 +12,11 @@ interface LoadingProps {
 }
 
 // 3. Componente
-export function Loading({ 
-  size = 'md', 
-  text = 'Carregando...', 
+export function Loading({
+  size = 'md',
+  text = 'Carregando...',
   fullScreen = false,
-  className = '' 
+  className = '',
 }: LoadingProps) {
   // 4. Estados
   const [dots, setDots] = useState('');
@@ -24,7 +24,7 @@ export function Loading({
   // 5. Efeitos
   useEffect(() => {
     const interval = setInterval(() => {
-      setDots(prev => prev.length >= 3 ? '' : prev + '.');
+      setDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
     }, 500);
 
     return () => clearInterval(interval);
@@ -34,20 +34,25 @@ export function Loading({
   const spinnerSizeClasses = {
     sm: 'w-4 h-4',
     md: 'w-8 h-8',
-    lg: 'w-12 h-12'
+    lg: 'w-12 h-12',
   };
 
   // 7. Render
   const spinner = (
-    <div className={`animate-spin rounded-full border-2 border-gray-300 border-t-blue-600 ${spinnerSizeClasses[size]}`} />
+    <div
+      className={`animate-spin rounded-full border-2 border-gray-300 border-t-blue-600 ${spinnerSizeClasses[size]}`}
+    />
   );
 
   const content = (
-    <div className={`flex flex-col items-center justify-center space-y-4 ${className}`}>
+    <div
+      className={`flex flex-col items-center justify-center space-y-4 ${className}`}
+    >
       {spinner}
       {text && (
         <p className="text-gray-600 text-sm font-medium">
-          {text}{dots}
+          {text}
+          {dots}
         </p>
       )}
     </div>
@@ -96,4 +101,4 @@ export function CardLoading() {
       </div>
     </div>
   );
-} 
+}

@@ -1,8 +1,8 @@
 'use client';
 
-// 1. Imports
-import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+// 1. Imports
+import { useEffect, useState } from 'react';
 import { STORAGE_KEYS } from '@/shared/utils/constants';
 
 // 2. Tipos/Interfaces
@@ -56,11 +56,14 @@ export function useNavigationHistory() {
 
   useEffect(() => {
     // Salvar histórico no localStorage sempre que mudar
-    localStorage.setItem(STORAGE_KEYS.navigationHistory, JSON.stringify(history));
+    localStorage.setItem(
+      STORAGE_KEYS.navigationHistory,
+      JSON.stringify(history)
+    );
   }, [history]);
 
   const addToHistory = (path: string, title: string) => {
-    setHistory(prev => {
+    setHistory((prev) => {
       const newItem: NavigationItem = {
         path,
         title,
@@ -70,10 +73,10 @@ export function useNavigationHistory() {
 
       // Se estamos no meio do histórico, remover itens futuros
       const items = prev.items.slice(0, prev.currentIndex + 1);
-      
+
       // Adicionar novo item
       const newItems = [...items, newItem];
-      
+
       return {
         items: newItems,
         currentIndex: newItems.length - 1,
@@ -87,8 +90,8 @@ export function useNavigationHistory() {
     if (history.canGoBack && history.currentIndex > 0) {
       const newIndex = history.currentIndex - 1;
       const targetPath = history.items[newIndex].path;
-      
-      setHistory(prev => ({
+
+      setHistory((prev) => ({
         ...prev,
         currentIndex: newIndex,
         canGoBack: newIndex > 0,
@@ -100,11 +103,14 @@ export function useNavigationHistory() {
   };
 
   const goForward = () => {
-    if (history.canGoForward && history.currentIndex < history.items.length - 1) {
+    if (
+      history.canGoForward &&
+      history.currentIndex < history.items.length - 1
+    ) {
       const newIndex = history.currentIndex + 1;
       const targetPath = history.items[newIndex].path;
-      
-      setHistory(prev => ({
+
+      setHistory((prev) => ({
         ...prev,
         currentIndex: newIndex,
         canGoBack: newIndex > 0,
@@ -129,11 +135,14 @@ export function useNavigationHistory() {
     return history.items
       .slice(-limit)
       .reverse()
-      .filter(item => item.path !== pathname);
+      .filter((item) => item.path !== pathname);
   };
 
   const getCurrentPage = (): NavigationItem | null => {
-    if (history.currentIndex >= 0 && history.currentIndex < history.items.length) {
+    if (
+      history.currentIndex >= 0 &&
+      history.currentIndex < history.items.length
+    ) {
       return history.items[history.currentIndex];
     }
     return null;
@@ -167,7 +176,7 @@ export function useNavigationWithBreadcrumbs() {
   const getBreadcrumbHistory = () => {
     const currentPage = navigation.getCurrentPage();
     const recentPages = navigation.getRecentPages(3);
-    
+
     return {
       current: currentPage,
       recent: recentPages,
@@ -181,4 +190,4 @@ export function useNavigationWithBreadcrumbs() {
     navigateWithHistory,
     getBreadcrumbHistory,
   };
-} 
+}

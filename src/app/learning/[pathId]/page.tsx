@@ -2,10 +2,10 @@
 
 // 1. Imports
 import { useEffect, useState } from 'react';
-import { Layout, Card, Button } from '@/shared/components';
-import { useAuth } from '@/shared/hooks/useAuth';
-import { getLearningPath } from '@/shared/data/learningPaths';
 import { ModuleList } from '@/features/learning/components/ModuleList';
+import { Button, Layout } from '@/shared/components';
+import { getLearningPath } from '@/shared/data/learningPaths';
+import { useAuth } from '@/shared/hooks/useAuth';
 import type { LearningPath } from '@/shared/types/learning';
 
 // 2. Tipos/Interfaces
@@ -22,15 +22,27 @@ export default function LearningPathPage({ params }: LearningPathPageProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   // 5. Hooks
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   // 6. Lógica
   useEffect(() => {
-    // Carregar trilha de aprendizado
-    const path = getLearningPath(params.pathId);
-    setLearningPath(path);
-    setIsLoading(false);
-  }, [params.pathId]);
+    // Extrair pathId dos parâmetros (que agora é uma Promise)
+    const extractParams = async () => {
+      try {
+        const resolvedParams = await params;
+
+        // Carregar trilha de aprendizado
+        const path = getLearningPath(resolvedParams.pathId);
+        setLearningPath(path);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao extrair parâmetros:', error);
+        setIsLoading(false);
+      }
+    };
+
+    extractParams();
+  }, [params]);
 
   // 7. Render
   if (!isAuthenticated) {
@@ -104,27 +116,61 @@ export default function LearningPathPage({ params }: LearningPathPageProps) {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 {learningPath.name}
               </h1>
-              <p className="text-gray-600 mb-4">
-                {learningPath.description}
-              </p>
+              <p className="text-gray-600 mb-4">{learningPath.description}</p>
 
               {/* Estatísticas */}
               <div className="flex items-center space-x-6 text-sm text-gray-500">
                 <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <title>Ícone de livro</title>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    />
                   </svg>
                   <span>{learningPath.totalLessons} lições</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <title>Ícone de verificação</title>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <span>{learningPath.totalQuizzes} quizzes</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <title>Ícone de relógio</title>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <span>{learningPath.estimatedTime} horas</span>
                 </div>
@@ -133,14 +179,23 @@ export default function LearningPathPage({ params }: LearningPathPageProps) {
 
             {/* Dificuldade */}
             <div className="text-right">
-              <span className={`
+              <span
+                className={`
                 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                ${learningPath.difficulty === 'beginner' ? 'bg-green-100 text-green-800' :
-                  learningPath.difficulty === 'intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'}
-              `}>
-                {learningPath.difficulty === 'beginner' ? 'Iniciante' :
-                 learningPath.difficulty === 'intermediate' ? 'Intermediário' : 'Avançado'}
+                ${
+                  learningPath.difficulty === 'beginner'
+                    ? 'bg-green-100 text-green-800'
+                    : learningPath.difficulty === 'intermediate'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-red-100 text-red-800'
+                }
+              `}
+              >
+                {learningPath.difficulty === 'beginner'
+                  ? 'Iniciante'
+                  : learningPath.difficulty === 'intermediate'
+                    ? 'Intermediário'
+                    : 'Avançado'}
               </span>
             </div>
           </div>
@@ -164,11 +219,8 @@ export default function LearningPathPage({ params }: LearningPathPageProps) {
         </div>
 
         {/* Lista de módulos */}
-        <ModuleList
-          modules={learningPath.modules}
-          pathId={learningPath.id}
-        />
+        <ModuleList modules={learningPath.modules} pathId={learningPath.id} />
       </div>
     </Layout>
   );
-} 
+}

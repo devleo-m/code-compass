@@ -28,22 +28,33 @@ export function BadgeCard({ badge, onClick, className = '' }: BadgeCardProps) {
       onClick={onClick}
     >
       {/* Badge */}
-      <div className={`
+      <div
+        className={`
         relative w-16 h-16 rounded-full flex items-center justify-center text-2xl
         transition-all duration-300 transform
-        ${badge.isEarned 
-          ? 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg' 
-          : 'bg-gray-200 text-gray-400'
+        ${
+          badge.isEarned
+            ? 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg'
+            : 'bg-gray-200 text-gray-400'
         }
         ${isHovered ? 'scale-110' : 'scale-100'}
-      `}>
+      `}
+      >
         <span className="text-2xl">{badge.icon}</span>
-        
+
         {/* Indicador de conquista */}
         {badge.isEarned && (
           <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-            <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            <svg
+              className="w-3 h-3 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
             </svg>
           </div>
         )}
@@ -68,16 +79,14 @@ export function BadgeCard({ badge, onClick, className = '' }: BadgeCardProps) {
 
 // 4. Componente principal do sistema
 export function BadgeSystem({ badges, className = '' }: BadgeSystemProps) {
-  const earnedBadges = badges.filter(badge => badge.isEarned);
-  const lockedBadges = badges.filter(badge => !badge.isEarned);
+  const earnedBadges = badges.filter((badge) => badge.isEarned);
+  const lockedBadges = badges.filter((badge) => !badge.isEarned);
 
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">
-          Conquistas
-        </h3>
+        <h3 className="text-lg font-semibold text-gray-900">Conquistas</h3>
         <div className="text-sm text-gray-600">
           {earnedBadges.length}/{badges.length} conquistadas
         </div>
@@ -115,10 +124,14 @@ export function BadgeSystem({ badges, className = '' }: BadgeSystemProps) {
 }
 
 // 5. Componente de progresso de badge
-export function BadgeProgress({ badge, currentValue, targetValue }: { 
-  badge: Badge; 
-  currentValue: number; 
-  targetValue: number; 
+export function BadgeProgress({
+  badge,
+  currentValue,
+  targetValue,
+}: {
+  badge: Badge;
+  currentValue: number;
+  targetValue: number;
 }) {
   const percentage = Math.min((currentValue / targetValue) * 100, 100);
   const isCompleted = currentValue >= targetValue;
@@ -155,8 +168,16 @@ export function BadgeProgress({ badge, currentValue, targetValue }: {
       <div className="flex items-center space-x-2">
         {isCompleted ? (
           <>
-            <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            <svg
+              className="w-4 h-4 text-green-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
             </svg>
             <span className="text-sm text-green-600 font-medium">
               Conquista desbloqueada!
@@ -164,8 +185,16 @@ export function BadgeProgress({ badge, currentValue, targetValue }: {
           </>
         ) : (
           <>
-            <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+            <svg
+              className="w-4 h-4 text-blue-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clipRule="evenodd"
+              />
             </svg>
             <span className="text-sm text-blue-600">
               Continue para desbloquear
@@ -178,9 +207,12 @@ export function BadgeProgress({ badge, currentValue, targetValue }: {
 }
 
 // 6. Componente de notificação de conquista
-export function BadgeNotification({ badge, onClose }: { 
-  badge: Badge; 
-  onClose: () => void; 
+export function BadgeNotification({
+  badge,
+  onClose,
+}: {
+  badge: Badge;
+  onClose: () => void;
 }) {
   return (
     <div className="fixed top-4 right-4 bg-white rounded-lg shadow-lg border border-green-200 p-4 max-w-sm z-50 animate-slide-in">
@@ -193,12 +225,19 @@ export function BadgeNotification({ badge, onClose }: {
           <p className="text-sm text-gray-600">{badge.name}</p>
           <p className="text-xs text-gray-500 mt-1">{badge.description}</p>
         </div>
-        <button
-          onClick={onClose}
-          className="text-gray-400 hover:text-gray-600"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>
@@ -217,9 +256,9 @@ export const defaultBadges: Badge[] = [
     criteria: {
       type: 'lessons_completed',
       value: 1,
-      condition: 'equals'
+      condition: 'equals',
     },
-    isEarned: false
+    isEarned: false,
   },
   {
     id: 'lesson-streak',
@@ -230,9 +269,9 @@ export const defaultBadges: Badge[] = [
     criteria: {
       type: 'streak',
       value: 5,
-      condition: 'equals'
+      condition: 'equals',
     },
-    isEarned: false
+    isEarned: false,
   },
   {
     id: 'perfect-quiz',
@@ -243,9 +282,9 @@ export const defaultBadges: Badge[] = [
     criteria: {
       type: 'perfect_score',
       value: 1,
-      condition: 'equals'
+      condition: 'equals',
     },
-    isEarned: false
+    isEarned: false,
   },
   {
     id: 'module-complete',
@@ -256,9 +295,9 @@ export const defaultBadges: Badge[] = [
     criteria: {
       type: 'lessons_completed',
       value: 10,
-      condition: 'greater_than'
+      condition: 'greater_than',
     },
-    isEarned: false
+    isEarned: false,
   },
   {
     id: 'time-dedicated',
@@ -269,8 +308,8 @@ export const defaultBadges: Badge[] = [
     criteria: {
       type: 'time_spent',
       value: 120,
-      condition: 'greater_than'
+      condition: 'greater_than',
     },
-    isEarned: false
-  }
-]; 
+    isEarned: false,
+  },
+];

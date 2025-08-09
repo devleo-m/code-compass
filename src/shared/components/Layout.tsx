@@ -1,12 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 // 1. Imports
 import { useState } from 'react';
-import Link from 'next/link';
 import { useAuth } from '@/shared/hooks/useAuth';
-import { ROUTES, LEARNING_PATHS } from '@/shared/utils/constants';
-import { Footer } from './Footer';
+import { LEARNING_PATHS, ROUTES } from '@/shared/utils/constants';
 import { Breadcrumbs } from './Breadcrumbs';
+import { Footer } from './Footer';
 
 // 2. Tipos/Interfaces
 interface LayoutProps {
@@ -191,7 +191,7 @@ export function Layout({ children }: LayoutProps) {
         <div className="mb-6">
           <Breadcrumbs />
         </div>
-        
+
         {children}
       </main>
 

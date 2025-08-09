@@ -27,20 +27,20 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
 
     const pathSegments = pathname.split('/').filter(Boolean);
     const breadcrumbs: BreadcrumbItem[] = [
-      { label: 'Início', href: '/', isActive: pathname === '/' }
+      { label: 'Início', href: '/', isActive: pathname === '/' },
     ];
 
     let currentPath = '';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
-      
+
       // Mapear segmentos para labels mais amigáveis
       const label = getSegmentLabel(segment);
-      
+
       breadcrumbs.push({
         label,
         href: currentPath,
-        isActive: index === pathSegments.length - 1
+        isActive: index === pathSegments.length - 1,
       });
     });
 
@@ -49,31 +49,33 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
 
   const getSegmentLabel = (segment: string): string => {
     const labelMap: Record<string, string> = {
-      'login': 'Login',
-      'dashboard': 'Dashboard',
-      'learning': 'Trilhas',
-      'progress': 'Progresso',
-      'profile': 'Perfil',
-      'admin': 'Administração',
-      'frontend': 'Frontend',
-      'backend': 'Backend',
-      'sql': 'SQL',
-      'react': 'React',
-      'javascript': 'JavaScript',
-      'typescript': 'TypeScript',
-      'node': 'Node.js',
-      'go': 'Go',
+      login: 'Login',
+      dashboard: 'Dashboard',
+      learning: 'Trilhas',
+      progress: 'Progresso',
+      profile: 'Perfil',
+      admin: 'Administração',
+      frontend: 'Frontend',
+      backend: 'Backend',
+      sql: 'SQL',
+      react: 'React',
+      javascript: 'JavaScript',
+      typescript: 'TypeScript',
+      node: 'Node.js',
+      go: 'Go',
       'react-native': 'React Native',
-      'aws': 'AWS',
-      'docker': 'Docker',
-      'linux': 'Linux',
-      'mongodb': 'MongoDB',
-      'postgres': 'PostgreSQL',
-      'redis': 'Redis',
-      'git': 'Git & GitHub'
+      aws: 'AWS',
+      docker: 'Docker',
+      linux: 'Linux',
+      mongodb: 'MongoDB',
+      postgres: 'PostgreSQL',
+      redis: 'Redis',
+      git: 'Git & GitHub',
     };
 
-    return labelMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+    return (
+      labelMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1)
+    );
   };
 
   const breadcrumbs = generateBreadcrumbs();
@@ -84,7 +86,10 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
   }
 
   return (
-    <nav className={`flex items-center space-x-2 text-sm ${className}`} aria-label="Breadcrumb">
+    <nav
+      className={`flex items-center space-x-2 text-sm ${className}`}
+      aria-label="Breadcrumb"
+    >
       {breadcrumbs.map((item, index) => (
         <div key={item.href} className="flex items-center">
           {index > 0 && (
@@ -101,7 +106,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
               />
             </svg>
           )}
-          
+
           {item.isActive ? (
             <span className="text-gray-900 font-medium" aria-current="page">
               {item.label}
@@ -123,23 +128,23 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
 // 7. Hook para usar breadcrumbs em componentes
 export function useBreadcrumbs() {
   const pathname = usePathname();
-  
+
   const getBreadcrumbs = () => {
     const pathSegments = pathname.split('/').filter(Boolean);
     const breadcrumbs: BreadcrumbItem[] = [
-      { label: 'Início', href: '/', isActive: pathname === '/' }
+      { label: 'Início', href: '/', isActive: pathname === '/' },
     ];
 
     let currentPath = '';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
-      
+
       const label = getSegmentLabel(segment);
-      
+
       breadcrumbs.push({
         label,
         href: currentPath,
-        isActive: index === pathSegments.length - 1
+        isActive: index === pathSegments.length - 1,
       });
     });
 
@@ -148,36 +153,38 @@ export function useBreadcrumbs() {
 
   const getSegmentLabel = (segment: string): string => {
     const labelMap: Record<string, string> = {
-      'login': 'Login',
-      'dashboard': 'Dashboard',
-      'learning': 'Trilhas',
-      'progress': 'Progresso',
-      'profile': 'Perfil',
-      'admin': 'Administração',
-      'frontend': 'Frontend',
-      'backend': 'Backend',
-      'sql': 'SQL',
-      'react': 'React',
-      'javascript': 'JavaScript',
-      'typescript': 'TypeScript',
-      'node': 'Node.js',
-      'go': 'Go',
+      login: 'Login',
+      dashboard: 'Dashboard',
+      learning: 'Trilhas',
+      progress: 'Progresso',
+      profile: 'Perfil',
+      admin: 'Administração',
+      frontend: 'Frontend',
+      backend: 'Backend',
+      sql: 'SQL',
+      react: 'React',
+      javascript: 'JavaScript',
+      typescript: 'TypeScript',
+      node: 'Node.js',
+      go: 'Go',
       'react-native': 'React Native',
-      'aws': 'AWS',
-      'docker': 'Docker',
-      'linux': 'Linux',
-      'mongodb': 'MongoDB',
-      'postgres': 'PostgreSQL',
-      'redis': 'Redis',
-      'git': 'Git & GitHub'
+      aws: 'AWS',
+      docker: 'Docker',
+      linux: 'Linux',
+      mongodb: 'MongoDB',
+      postgres: 'PostgreSQL',
+      redis: 'Redis',
+      git: 'Git & GitHub',
     };
 
-    return labelMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+    return (
+      labelMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1)
+    );
   };
 
   return {
     breadcrumbs: getBreadcrumbs(),
     currentPath: pathname,
-    getSegmentLabel
+    getSegmentLabel,
   };
-} 
+}

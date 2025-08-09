@@ -1,8 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 // 1. Imports
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/shared/hooks/useAuth';
 
 // 2. Tipos/Interfaces
@@ -12,7 +12,10 @@ interface ProtectedRouteProps {
 }
 
 // 3. Componente
-export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
+export function ProtectedRoute({
+  children,
+  requiredRole,
+}: ProtectedRouteProps) {
   // 4. Hooks
   const { isLoading, isAuthenticated, isAdmin, isStudent } = useAuth();
   const router = useRouter();
@@ -70,4 +73,4 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 
   // Renderiza o conteúdo protegido
   return <>{children}</>;
-} 
+}

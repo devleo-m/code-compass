@@ -25,9 +25,7 @@ export default function LoginPage() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {APP_CONFIG.name}
           </h1>
-          <p className="text-gray-600">
-            Faça login para acessar sua conta
-          </p>
+          <p className="text-gray-600">Faça login para acessar sua conta</p>
         </div>
       </div>
 
@@ -45,4 +43,4 @@ export default function LoginPage() {
       </div>
     </div>
   );
-} 
+}

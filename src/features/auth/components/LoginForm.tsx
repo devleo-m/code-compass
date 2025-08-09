@@ -1,8 +1,8 @@
 'use client';
 
-// 1. Imports
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+// 1. Imports
+import { useEffect, useState } from 'react';
 import { Button } from '@/shared/components';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { AUTH_CONFIG } from '@/shared/utils/constants';
@@ -43,7 +43,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const success = await login({ email, password });
     if (success) {
       // Chamar callback se existir
@@ -86,14 +86,19 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
                 onChange={() => handleUserTypeChange('admin')}
                 className="mr-2"
               />
-              <span className="text-sm font-medium text-gray-900">Administrador</span>
+              <span className="text-sm font-medium text-gray-900">
+                Administrador
+              </span>
             </label>
           </div>
         </fieldset>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-900"
+          >
             Email
           </label>
           <input
@@ -109,7 +114,10 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
         {/* Senha */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-900"
+          >
             Senha
           </label>
           <input
@@ -131,21 +139,25 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         )}
 
         {/* Botão de login */}
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="w-full"
-        >
+        <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? 'Entrando...' : 'Entrar'}
         </Button>
 
         {/* Credenciais de teste */}
         <div className="text-xs text-gray-600 bg-gray-50 p-3 rounded-md">
-          <p className="font-medium mb-1 text-gray-900">Credenciais de Teste:</p>
-          <p><strong>Admin:</strong> {AUTH_CONFIG.admin.email} / {AUTH_CONFIG.admin.password}</p>
-          <p><strong>Aluno:</strong> {AUTH_CONFIG.student.email} / {AUTH_CONFIG.student.password}</p>
+          <p className="font-medium mb-1 text-gray-900">
+            Credenciais de Teste:
+          </p>
+          <p>
+            <strong>Admin:</strong> {AUTH_CONFIG.admin.email} /{' '}
+            {AUTH_CONFIG.admin.password}
+          </p>
+          <p>
+            <strong>Aluno:</strong> {AUTH_CONFIG.student.email} /{' '}
+            {AUTH_CONFIG.student.password}
+          </p>
         </div>
       </form>
     </div>
   );
-} 
+}

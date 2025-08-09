@@ -1,9 +1,15 @@
 'use client';
 
 // 1. Imports
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '@/shared/components';
-import type { LearningFilters, SearchResult, LearningPath, Module, Lesson } from '@/shared/types/learning';
+import type {
+  LearningFilters,
+  LearningPath,
+  Lesson,
+  Module,
+  SearchResult,
+} from '@/shared/types/learning';
 
 // 2. Tipos/Interfaces
 interface SearchAndFiltersProps {
@@ -20,7 +26,12 @@ interface FilterOption {
 }
 
 // 3. Componente principal
-export function SearchAndFilters({ paths, onSearch, onFiltersChange, className = '' }: SearchAndFiltersProps) {
+export function SearchAndFilters({
+  paths,
+  onSearch,
+  onFiltersChange,
+  className = '',
+}: SearchAndFiltersProps) {
   // 4. Estados
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<LearningFilters>({});
@@ -33,46 +44,52 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
     const query = searchQuery.toLowerCase();
     const results: SearchResult[] = [];
 
-    paths.forEach(path => {
+    paths.forEach((path) => {
       // Buscar no nome e descrição da trilha
-      if (path.name.toLowerCase().includes(query) || 
-          path.description.toLowerCase().includes(query)) {
+      if (
+        path.name.toLowerCase().includes(query) ||
+        path.description.toLowerCase().includes(query)
+      ) {
         results.push({
           type: 'path',
           id: path.id,
           title: path.name,
           description: path.description,
           path: `/learning/${path.id}`,
-          relevance: 100
+          relevance: 100,
         });
       }
 
       // Buscar nos módulos
-      path.modules.forEach(module => {
-        if (module.title.toLowerCase().includes(query) || 
-            module.description.toLowerCase().includes(query)) {
+      path.modules.forEach((module) => {
+        if (
+          module.title.toLowerCase().includes(query) ||
+          module.description.toLowerCase().includes(query)
+        ) {
           results.push({
             type: 'module',
             id: module.id,
             title: module.title,
             description: module.description,
             path: `/learning/${path.id}/module/${module.id}`,
-            relevance: 80
+            relevance: 80,
           });
         }
 
         // Buscar nas lições
-        module.lessons.forEach(lesson => {
-          if (lesson.title.toLowerCase().includes(query) || 
-              lesson.description.toLowerCase().includes(query) ||
-              lesson.content.toLowerCase().includes(query)) {
+        module.lessons.forEach((lesson) => {
+          if (
+            lesson.title.toLowerCase().includes(query) ||
+            lesson.description.toLowerCase().includes(query) ||
+            lesson.content.toLowerCase().includes(query)
+          ) {
             results.push({
               type: 'lesson',
               id: lesson.id,
               title: lesson.title,
               description: lesson.description,
               path: `/learning/${path.id}/module/${module.id}/lesson/${lesson.id}`,
-              relevance: 60
+              relevance: 60,
             });
           }
         });
@@ -104,8 +121,18 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
       {/* Barra de busca */}
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
           </svg>
         </div>
         <input
@@ -143,7 +170,12 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </button>
 
@@ -158,18 +190,24 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                 {[
                   { value: 'beginner', label: 'Iniciante' },
                   { value: 'intermediate', label: 'Intermediário' },
-                  { value: 'advanced', label: 'Avançado' }
-                ].map(option => (
+                  { value: 'advanced', label: 'Avançado' },
+                ].map((option) => (
                   <label key={option.value} className="flex items-center">
                     <input
                       type="checkbox"
                       checked={filters.difficulty === option.value}
-                      onChange={(e) => handleFiltersChange({
-                        difficulty: e.target.checked ? option.value as any : undefined
-                      })}
+                      onChange={(e) =>
+                        handleFiltersChange({
+                          difficulty: e.target.checked
+                            ? (option.value as any)
+                            : undefined,
+                        })
+                      }
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="ml-2 text-sm text-gray-700">{option.label}</span>
+                    <span className="ml-2 text-sm text-gray-700">
+                      {option.label}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -184,18 +222,24 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                 {[
                   { value: 'short', label: 'Curta (< 10h)' },
                   { value: 'medium', label: 'Média (10-30h)' },
-                  { value: 'long', label: 'Longa (> 30h)' }
-                ].map(option => (
+                  { value: 'long', label: 'Longa (> 30h)' },
+                ].map((option) => (
                   <label key={option.value} className="flex items-center">
                     <input
                       type="checkbox"
                       checked={filters.duration === option.value}
-                      onChange={(e) => handleFiltersChange({
-                        duration: e.target.checked ? option.value as any : undefined
-                      })}
+                      onChange={(e) =>
+                        handleFiltersChange({
+                          duration: e.target.checked
+                            ? (option.value as any)
+                            : undefined,
+                        })
+                      }
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="ml-2 text-sm text-gray-700">{option.label}</span>
+                    <span className="ml-2 text-sm text-gray-700">
+                      {option.label}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -210,18 +254,24 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
                 {[
                   { value: 'not_started', label: 'Não iniciado' },
                   { value: 'in_progress', label: 'Em andamento' },
-                  { value: 'completed', label: 'Concluído' }
-                ].map(option => (
+                  { value: 'completed', label: 'Concluído' },
+                ].map((option) => (
                   <label key={option.value} className="flex items-center">
                     <input
                       type="checkbox"
                       checked={filters.status === option.value}
-                      onChange={(e) => handleFiltersChange({
-                        status: e.target.checked ? option.value as any : undefined
-                      })}
+                      onChange={(e) =>
+                        handleFiltersChange({
+                          status: e.target.checked
+                            ? (option.value as any)
+                            : undefined,
+                        })
+                      }
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="ml-2 text-sm text-gray-700">{option.label}</span>
+                    <span className="ml-2 text-sm text-gray-700">
+                      {option.label}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -229,11 +279,7 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
 
             {/* Botões de ação */}
             <div className="flex space-x-2 pt-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={clearFilters}
-              >
+              <Button variant="outline" size="sm" onClick={clearFilters}>
                 Limpar Filtros
               </Button>
               <Button
@@ -252,17 +298,32 @@ export function SearchAndFilters({ paths, onSearch, onFiltersChange, className =
 }
 
 // 7. Componente de resultados de busca
-export function SearchResults({ results, onResultClick }: {
+export function SearchResults({
+  results,
+  onResultClick,
+}: {
   results: SearchResult[];
   onResultClick: (result: SearchResult) => void;
 }) {
   if (results.length === 0) {
     return (
       <div className="text-center py-8">
-        <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <svg
+          className="mx-auto h-12 w-12 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
         </svg>
-        <h3 className="mt-2 text-sm font-medium text-gray-900">Nenhum resultado encontrado</h3>
+        <h3 className="mt-2 text-sm font-medium text-gray-900">
+          Nenhum resultado encontrado
+        </h3>
         <p className="mt-1 text-sm text-gray-500">
           Tente ajustar seus termos de busca ou filtros.
         </p>
@@ -275,7 +336,7 @@ export function SearchResults({ results, onResultClick }: {
       <h3 className="text-lg font-medium text-gray-900">
         Resultados ({results.length})
       </h3>
-      
+
       <div className="space-y-3">
         {results.map((result) => (
           <div
@@ -286,37 +347,58 @@ export function SearchResults({ results, onResultClick }: {
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
                 {result.type === 'path' && <span className="text-2xl">📚</span>}
-                {result.type === 'module' && <span className="text-2xl">📖</span>}
-                {result.type === 'lesson' && <span className="text-2xl">📝</span>}
+                {result.type === 'module' && (
+                  <span className="text-2xl">📖</span>
+                )}
+                {result.type === 'lesson' && (
+                  <span className="text-2xl">📝</span>
+                )}
               </div>
-              
+
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2 mb-1">
                   <h4 className="text-sm font-medium text-gray-900 truncate">
                     {result.title}
                   </h4>
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                    result.type === 'path' ? 'bg-blue-100 text-blue-800' :
-                    result.type === 'module' ? 'bg-green-100 text-green-800' :
-                    'bg-purple-100 text-purple-800'
-                  }`}>
-                    {result.type === 'path' ? 'Trilha' :
-                     result.type === 'module' ? 'Módulo' : 'Lição'}
+                  <span
+                    className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                      result.type === 'path'
+                        ? 'bg-blue-100 text-blue-800'
+                        : result.type === 'module'
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-purple-100 text-purple-800'
+                    }`}
+                  >
+                    {result.type === 'path'
+                      ? 'Trilha'
+                      : result.type === 'module'
+                        ? 'Módulo'
+                        : 'Lição'}
                   </span>
                 </div>
-                
+
                 <p className="text-sm text-gray-600 line-clamp-2">
                   {result.description}
                 </p>
-                
+
                 <div className="mt-2 flex items-center space-x-4 text-xs text-gray-500">
                   <span>Relevância: {result.relevance}%</span>
                 </div>
               </div>
-              
+
               <div className="flex-shrink-0">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </div>
@@ -325,4 +407,4 @@ export function SearchResults({ results, onResultClick }: {
       </div>
     </div>
   );
-} 
+}
