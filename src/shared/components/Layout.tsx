@@ -101,7 +101,23 @@ export function Layout({ children }: LayoutProps) {
 
                         {/* User Menu */}
                         <div className='flex items-center space-x-4'>
-                            <span className='text-sm text-gray-700'>Olá, {user?.name}</span>
+                            <div className='flex items-center space-x-2'>
+                                <div className='w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center'>
+                                    <span className='text-blue-600 font-semibold text-sm'>
+                                        {user?.name?.charAt(0).toUpperCase()}
+                                    </span>
+                                </div>
+                                <div className='flex flex-col'>
+                                    <span className='text-sm text-gray-700'>Olá, {user?.name}</span>
+                                    <span className={`text-xs px-2 py-1 rounded-full ${
+                                        user?.type === 'admin' 
+                                            ? 'bg-red-100 text-red-700' 
+                                            : 'bg-green-100 text-green-700'
+                                    }`}>
+                                        {user?.type === 'admin' ? '👨‍💼 Admin' : '👨‍🎓 Aluno'}
+                                    </span>
+                                </div>
+                            </div>
                             <button
                                 type='button'
                                 onClick={handleLogout}

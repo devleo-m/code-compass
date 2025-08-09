@@ -179,34 +179,39 @@ src/
 - [x] URLs semânticas
 
 ### **NOVA FASE**: Fase 2.5: Segurança e Autorização
-**Status**: ⏳ **Pendente - Alta Prioridade** | **Duração Estimada**: 2-3 dias
+**Status**: ✅ **Concluída - Implementação Completa** | **Duração Estimada**: 2-3 dias
 
 #### 2.5.1 Proteção de Rotas
-- [ ] Implementar middleware de proteção de rotas
-- [ ] Criar componente `ProtectedRoute` para páginas sensíveis
-- [ ] Verificar autenticação antes de renderizar conteúdo
-- [ ] Redirecionar usuários não autenticados para login
+- [x] Implementar middleware de proteção de rotas - **Implementado**
+- [x] Criar componente `ProtectedRoute` para páginas sensíveis - **Implementado**
+- [x] Verificar autenticação antes de renderizar conteúdo - **Implementado**
+- [x] Redirecionar usuários não autenticados para login - **Implementado**
 
 #### 2.5.2 Sistema de Logout e Redirecionamento
-- [ ] Implementar redirecionamento automático no logout
-- [ ] Usar `useRouter` do Next.js para navegação programática
-- [ ] Redirecionar para página inicial (`/`) após logout
-- [ ] Limpar estado da aplicação no logout
+- [x] Implementar redirecionamento automático no logout - **Implementado**
+- [x] Usar `useRouter` do Next.js para navegação programática - **Implementado**
+- [x] Redirecionar para página inicial (`/`) após logout - **Implementado**
+- [x] Limpar estado da aplicação no logout - **Implementado**
 
 #### 2.5.3 Separação de Funcionalidades por Tipo de Usuário
-- [ ] **Admin**: Dashboard focado em criação de conteúdo
-- [ ] **Aluno**: Dashboard focado em estudo e progresso
-- [ ] Componentes condicionais baseados no tipo de usuário
-- [ ] Rotas específicas para admin (ex: `/admin/content`)
+- [x] **Admin**: Dashboard focado em criação de conteúdo - **Implementado**
+- [x] **Aluno**: Dashboard focado em estudo e progresso - **Implementado**
+- [x] Componentes condicionais baseados no tipo de usuário - **Implementado**
+- [x] Rotas específicas para admin (ex: `/admin/content`) - **Implementado**
 
 #### 2.5.4 Validação de Autorização
-- [ ] Verificar permissões antes de renderizar funcionalidades
-- [ ] Bloquear acesso a funcionalidades não autorizadas
-- [ ] Feedback visual para ações não permitidas
-- [ ] Logs de tentativas de acesso não autorizado
+- [x] Verificar permissões antes de renderizar funcionalidades - **Implementado**
+- [x] Bloquear acesso a funcionalidades não autorizadas - **Implementado**
+- [x] Feedback visual para ações não permitidas - **Implementado**
+- [x] Logs de tentativas de acesso não autorizado - **Implementado**
+
+#### 2.5.5 Interface de Usuário Inteligente
+- [x] Menu de usuário com ícone personalizado - **Implementado**
+- [x] Indicador visual do tipo de usuário (Admin/Aluno) - **Implementado**
+- [x] Layout responsivo e acessível - **Implementado**
 
 ### Fase 3: Módulo de Trilha de Aprendizado
-**Status**: ✅ **Concluída - Requer Correções de Segurança** | **Duração Estimada**: 3-4 dias
+**Status**: ✅ **Concluída - Correções de Segurança Implementadas** | **Duração Estimada**: 3-4 dias
 
 #### 3.1 Estrutura de Dados
 - [x] Definir schema de dados para trilhas - **Implementado**
@@ -226,10 +231,10 @@ src/
 - [x] Progresso automático - **Implementado**
 
 #### 3.4 **CORREÇÃO NECESSÁRIA**: Dashboard Diferenciado
-- [ ] **Admin**: Ver botões de "Criar Trilha", "Editar Conteúdo", "Gerenciar Usuários"
-- [ ] **Aluno**: Ver botões de "Começar Trilha", "Ver Progresso", "Anotações"
-- [ ] Componentes condicionais baseados no tipo de usuário
-- [ ] Interface específica para cada perfil
+- [x] **Admin**: Ver botões de "Criar Trilha", "Editar Conteúdo", "Gerenciar Usuários" - **Implementado**
+- [x] **Aluno**: Ver botões de "Começar Trilha", "Ver Progresso", "Anotações" - **Implementado**
+- [x] Componentes condicionais baseados no tipo de usuário - **Implementado**
+- [x] Interface específica para cada perfil - **Implementado**
 
 ### Fase 4: Módulo de Quizzes
 **Status**: ⏳ Pendente | **Duração Estimada**: 4-5 dias

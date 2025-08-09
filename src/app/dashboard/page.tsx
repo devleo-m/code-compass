@@ -51,9 +51,14 @@ export default function DashboardPage() {
                         <div className='text-center py-12'>
                             <h2 className='text-2xl font-bold text-gray-900 mb-4'>Painel Administrativo</h2>
                             <p className='text-gray-600 mb-6'>Use o painel administrativo para gerenciar a plataforma</p>
-                            <Button variant='primary' onClick={() => router.push('/admin/dashboard')}>
-                                Acessar Painel Admin
-                            </Button>
+                            <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+                                <Button variant='primary' onClick={() => router.push('/admin/dashboard')}>
+                                    🏠 Acessar Painel Admin
+                                </Button>
+                                <Button variant='outline' onClick={() => router.push('/admin/content')}>
+                                    📚 Gerenciar Trilhas
+                                </Button>
+                            </div>
                         </div>
                     ) : (
                         <StudentDashboard learningPaths={learningPaths} isLoading={isLoading} />
