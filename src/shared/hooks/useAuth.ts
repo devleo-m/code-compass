@@ -2,6 +2,7 @@
 
 // 1. Imports
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import type { User } from '@/shared/types';
 import { AUTH_CONFIG, STORAGE_KEYS } from '@/shared/utils/constants';
 
@@ -26,7 +27,10 @@ export function useAuth() {
     error: null,
   });
 
-  // 5. Lógica
+  // 5. Hooks
+  const router = useRouter();
+
+  // 6. Lógica
   useEffect(() => {
     // Verificar se há usuário salvo no localStorage
     const savedUser = localStorage.getItem(STORAGE_KEYS.user);
@@ -102,8 +106,14 @@ export function useAuth() {
   };
 
   const logout = () => {
+    // Limpar localStorage
     localStorage.removeItem(STORAGE_KEYS.user);
+    
+    // Limpar estado
     setAuthState({ user: null, isLoading: false, error: null });
+    
+    // Redirecionar para página inicial
+    router.push('/');
   };
 
   const updateUser = (updates: Partial<User>) => {
@@ -114,7 +124,7 @@ export function useAuth() {
     }
   };
 
-  // 6. Retorno
+  // 7. Retorno
   return {
     user: authState.user,
     isLoading: authState.isLoading,

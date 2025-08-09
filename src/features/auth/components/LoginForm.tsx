@@ -2,6 +2,7 @@
 
 // 1. Imports
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/shared/components';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { AUTH_CONFIG } from '@/shared/utils/constants';
@@ -20,6 +21,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   // 5. Hooks
   const { login, isLoading, error } = useAuth();
+  const router = useRouter();
 
   // 6. Lógica
   const handleUserTypeChange = (type: 'admin' | 'student') => {
@@ -43,8 +45,14 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     e.preventDefault();
     
     const success = await login({ email, password });
-    if (success && onSuccess) {
-      onSuccess();
+    if (success) {
+      // Chamar callback se existir
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        // Redirecionar para dashboard após login bem-sucedido
+        router.push('/dashboard');
+      }
     }
   };
 

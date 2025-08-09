@@ -28,15 +28,15 @@ O **Code Compass** é uma plataforma educacional interativa para aprendizado de 
 ### Estrutura de Pastas (Domain-Driven):
 ```
 src/
-├── app/                    # App Router (Next.js 14)
-├── features/              # Domínios/Recursos
-│   ├── learning-path/     # Módulo de trilha de aprendizado
-│   ├── quizzes/          # Módulo de quizzes
-│   ├── progress/         # Módulo de progresso
-│   ├── auth/             # Módulo de autenticação simulada (admin/aluno)
-│   └── admin/            # Módulo de administração (CRUD de conteúdo)
-├── shared/               # Componentes e utilitários compartilhados
-│   ├── components/       # Componentes reutilizáveis
+├── app/                 # App Router (Next.js 14)
+├── features/            # Domínios/Recursos
+│   ├── learning-path/   # Módulo de trilha de aprendizado
+│   ├── quizzes/         # Módulo de quizzes
+│   ├── progress/        # Módulo de progresso
+│   ├── auth/            # Módulo de autenticação simulada (admin/aluno)
+│   └── admin/           # Módulo de administração (CRUD de conteúdo)
+├── shared/              # Componentes e utilitários compartilhados
+│   ├── components/      # Componentes reutilizáveis
 │   ├── hooks/           # Custom hooks
 │   ├── utils/           # Funções utilitárias
 │   └── types/           # Tipos TypeScript

@@ -24,7 +24,7 @@ export function Layout({ children }: LayoutProps) {
 
   // 6. Lógica
   const handleLogout = () => {
-    logout();
+    logout(); // Agora o logout já inclui redirecionamento automático
   };
 
   // 7. Render
