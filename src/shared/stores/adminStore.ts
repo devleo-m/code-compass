@@ -2,287 +2,221 @@
 // Seguindo SOLID e Clean Architecture
 
 import { create } from 'zustand'
-import type {
-    AdminStats,
-    ContentManagement,
-    EngagementMetrics,
-    TechnologyStats,
-    UserManagement,
-} from '@/shared/types/admin'
+import type { AdminStats, UserManagement, UserStats } from '@/shared/types/admin'
 
-// ===== INTERFACES (SOLID - Interface Segregation) =====
-
-interface AdminState {
+interface AdminStore {
     // Estado
     stats: AdminStats | null
     users: UserManagement[]
-    content: ContentManagement[]
-    technologyStats: TechnologyStats[]
-    engagementMetrics: EngagementMetrics | null
+    selectedUser: UserManagement | null
     isLoading: boolean
     error: string | null
-}
 
-interface AdminActions {
     // Ações
-    initializeAdminData: () => void
-    updateUserStatus: (userId: string, status: UserManagement['status']) => void
-    updateContentStatus: (contentId: string, status: ContentManagement['status']) => void
-    refreshStats: () => void
-    setLoading: (loading: boolean) => void
-    setError: (error: string | null) => void
+    loadStats: () => Promise<void>
+    loadUsers: () => Promise<void>
+    selectUser: (userId: string) => void
+    updateUserStatus: (userId: string, status: UserManagement['status']) => Promise<void>
+    getUserStats: (userId: string) => UserStats | null
+    blockUser: (userId: string) => Promise<void>
+    unblockUser: (userId: string) => Promise<void>
+    deleteUser: (userId: string) => Promise<void>
 }
 
-interface AdminSelectors {
-    // Seletores
-    getActiveUsers: () => UserManagement[]
-    getBlockedUsers: () => UserManagement[]
-    getPublishedContent: () => ContentManagement[]
-    getDraftContent: () => ContentManagement[]
-    getMostPopularTechnology: () => TechnologyStats | null
-    getTotalEngagement: () => number
-}
-
-// ===== TIPO COMBINADO =====
-
-type AdminStore = AdminState & AdminActions & AdminSelectors
-
-// ===== DADOS MOCK PARA DESENVOLVIMENTO =====
-
-const mockAdminStats: AdminStats = {
-    totalUsers: 1250,
-    activeUsers: 847,
-    totalLearningPaths: 12,
-    totalQuizzes: 45,
-    totalLessons: 156,
-    averageProgress: 67,
-    completionRate: 78,
-    mostPopularTechnology: 'javascript',
-    totalTimeSpent: 1250000, // ~347 horas
-    lastActivity: new Date(),
-}
-
+// Dados mock para desenvolvimento
 const mockUsers: UserManagement[] = [
     {
-        id: '1',
+        id: 'user1',
         name: 'João Silva',
         email: 'joao@example.com',
-        role: 'student',
+        type: 'student',
         status: 'active',
-        progress: 85,
-        lastLogin: new Date(Date.now() - 2 * 60 * 60 * 1000),
-        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-        totalTimeSpent: 45000,
-        quizzesCompleted: 12,
-        lessonsCompleted: 25,
+        registrationDate: new Date('2024-01-15'),
+        lastLogin: new Date('2024-12-01'),
+        progress: {
+            completedLessons: 12,
+            totalLessons: 25,
+            completedQuizzes: 8,
+            totalQuizzes: 15,
+            averageScore: 85
+        },
+        activity: {
+            lastActivity: new Date('2024-12-01'),
+            totalTimeSpent: 3600, // 1 hora
+            lessonsCompleted: 12,
+            quizzesTaken: 8
+        }
     },
     {
-        id: '2',
+        id: 'user2',
         name: 'Maria Santos',
         email: 'maria@example.com',
-        role: 'student',
+        type: 'student',
         status: 'active',
-        progress: 92,
-        lastLogin: new Date(Date.now() - 1 * 60 * 60 * 1000),
-        createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
-        totalTimeSpent: 32000,
-        quizzesCompleted: 8,
-        lessonsCompleted: 18,
+        registrationDate: new Date('2024-02-20'),
+        lastLogin: new Date('2024-11-30'),
+        progress: {
+            completedLessons: 8,
+            totalLessons: 25,
+            completedQuizzes: 5,
+            totalQuizzes: 15,
+            averageScore: 78
+        },
+        activity: {
+            lastActivity: new Date('2024-11-30'),
+            totalTimeSpent: 2400, // 40 minutos
+            lessonsCompleted: 8,
+            quizzesTaken: 5
+        }
     },
     {
-        id: '3',
+        id: 'user3',
         name: 'Pedro Costa',
         email: 'pedro@example.com',
-        role: 'admin',
-        status: 'active',
-        progress: 100,
-        lastLogin: new Date(),
-        createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000),
-        totalTimeSpent: 150000,
-        quizzesCompleted: 25,
-        lessonsCompleted: 50,
-    },
+        type: 'student',
+        status: 'inactive',
+        registrationDate: new Date('2024-03-10'),
+        lastLogin: new Date('2024-10-15'),
+        progress: {
+            completedLessons: 3,
+            totalLessons: 25,
+            completedQuizzes: 2,
+            totalQuizzes: 15,
+            averageScore: 65
+        },
+        activity: {
+            lastActivity: new Date('2024-10-15'),
+            totalTimeSpent: 1200, // 20 minutos
+            lessonsCompleted: 3,
+            quizzesTaken: 2
+        }
+    }
 ]
 
-const mockContent: ContentManagement[] = [
-    {
-        id: '1',
-        type: 'learning_path',
-        title: 'JavaScript Básico',
-        technology: 'javascript',
-        status: 'published',
-        views: 1250,
-        completions: 847,
-        averageRating: 4.8,
-        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-        createdBy: 'admin',
-    },
-    {
-        id: '2',
-        type: 'quiz',
-        title: 'Quiz JavaScript Básico',
-        technology: 'javascript',
-        status: 'published',
-        views: 980,
-        completions: 756,
-        averageRating: 4.5,
-        createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-        createdBy: 'admin',
-    },
-    {
-        id: '3',
-        type: 'learning_path',
-        title: 'React Avançado',
-        technology: 'react',
-        status: 'draft',
-        views: 0,
-        completions: 0,
-        averageRating: 0,
-        createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-        createdBy: 'admin',
-    },
-]
-
-const mockTechnologyStats: TechnologyStats[] = [
-    {
-        technology: 'javascript',
-        totalUsers: 850,
-        averageProgress: 72,
-        completionRate: 82,
-        totalTimeSpent: 450000,
-        popularity: 1,
-    },
-    {
-        technology: 'react',
-        totalUsers: 420,
-        averageProgress: 65,
-        completionRate: 75,
-        totalTimeSpent: 320000,
-        popularity: 2,
-    },
-    {
-        technology: 'typescript',
-        totalUsers: 280,
-        averageProgress: 58,
-        completionRate: 68,
-        totalTimeSpent: 180000,
-        popularity: 3,
-    },
-]
-
-const mockEngagementMetrics: EngagementMetrics = {
-    lessonsCompleted: 12500,
-    quizzesTaken: 8900,
-    achievementsEarned: 3400,
-    certificatesIssued: 1200,
-    averageTimePerSession: 1800, // 30 minutos
-    retentionRate: 85,
+const mockStats: AdminStats = {
+    totalUsers: 3,
+    activeUsers: 2,
+    totalContent: 25,
+    publishedContent: 20,
+    totalQuizzes: 15,
+    completedQuizzes: 15,
+    popularTechnologies: [
+        { name: 'JavaScript', count: 12 },
+        { name: 'TypeScript', count: 8 },
+        { name: 'React', count: 5 }
+    ],
+    recentActivity: [
+        {
+            type: 'quiz_completed',
+            description: 'João completou o quiz JavaScript Básico',
+            timestamp: new Date('2024-12-01')
+        },
+        {
+            type: 'content_created',
+            description: 'Novo conteúdo criado: Aula 2 de JavaScript',
+            timestamp: new Date('2024-11-30')
+        },
+        {
+            type: 'user_registered',
+            description: 'Novo usuário registrado: Maria Santos',
+            timestamp: new Date('2024-11-29')
+        }
+    ]
 }
 
-// ===== STORE IMPLEMENTAÇÃO =====
-
 export const useAdminStore = create<AdminStore>((set, get) => ({
-    // ===== ESTADO INICIAL =====
+    // Estado inicial
     stats: null,
     users: [],
-    content: [],
-    technologyStats: [],
-    engagementMetrics: null,
+    selectedUser: null,
     isLoading: false,
     error: null,
 
-    // ===== AÇÕES =====
-    initializeAdminData: () => {
+    // Ações
+    loadStats: async () => {
         set({ isLoading: true, error: null })
-
         try {
-            // Simular carregamento de dados
-            setTimeout(() => {
-                set({
-                    stats: mockAdminStats,
-                    users: mockUsers,
-                    content: mockContent,
-                    technologyStats: mockTechnologyStats,
-                    engagementMetrics: mockEngagementMetrics,
-                    isLoading: false,
-                })
-            }, 1000)
+            // Simular chamada API
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            set({ stats: mockStats, isLoading: false })
         } catch (_error) {
-            set({
-                error: 'Erro ao carregar dados administrativos',
-                isLoading: false,
-            })
+            set({ error: 'Erro ao carregar estatísticas', isLoading: false })
         }
     },
 
-    updateUserStatus: (userId: string, status: UserManagement['status']) => {
-        set((state) => {
-            const updatedUsers = state.users.map((user) => (user.id === userId ? { ...user, status } : user))
-
-            // Atualizar estatísticas
-            const activeUsers = updatedUsers.filter((u) => u.status === 'active').length
-            const updatedStats = state.stats ? { ...state.stats, activeUsers } : null
-
-            return {
-                users: updatedUsers,
-                stats: updatedStats,
-            }
-        })
+    loadUsers: async () => {
+        set({ isLoading: true, error: null })
+        try {
+            // Simular chamada API
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            set({ users: mockUsers, isLoading: false })
+        } catch (_error) {
+            set({ error: 'Erro ao carregar usuários', isLoading: false })
+        }
     },
 
-    updateContentStatus: (contentId: string, status: ContentManagement['status']) => {
-        set((state) => {
-            const updatedContent = state.content.map((item) =>
-                item.id === contentId ? { ...item, status, updatedAt: new Date() } : item
-            )
-
-            return { content: updatedContent }
-        })
+    selectUser: (userId: string) => {
+        const user = get().users.find(u => u.id === userId)
+        set({ selectedUser: user || null })
     },
 
-    refreshStats: () => {
-        const { initializeAdminData } = get()
-        initializeAdminData()
+    updateUserStatus: async (userId: string, status: UserManagement['status']) => {
+        set({ isLoading: true, error: null })
+        try {
+            // Simular chamada API
+            await new Promise(resolve => setTimeout(resolve, 500))
+            
+            set(state => ({
+                users: state.users.map(user => 
+                    user.id === userId ? { ...user, status } : user
+                ),
+                selectedUser: state.selectedUser?.id === userId 
+                    ? { ...state.selectedUser, status }
+                    : state.selectedUser,
+                isLoading: false
+            }))
+        } catch (_error) {
+            set({ error: 'Erro ao atualizar status do usuário', isLoading: false })
+        }
     },
 
-    setLoading: (loading: boolean) => set({ isLoading: loading }),
-    setError: (error: string | null) => set({ error }),
+    getUserStats: (userId: string) => {
+        const user = get().users.find(u => u.id === userId)
+        if (!user) return null
 
-    // ===== SELETORES =====
-    getActiveUsers: () => {
-        const { users } = get()
-        return users.filter((user) => user.status === 'active')
+        return {
+            userId: user.id,
+            totalTimeSpent: user.activity.totalTimeSpent,
+            lessonsCompleted: user.activity.lessonsCompleted,
+            quizzesTaken: user.activity.quizzesTaken,
+            averageScore: user.progress.averageScore,
+            streakDays: Math.floor(Math.random() * 30) + 1, // Mock
+            achievements: ['Primeira Lição', 'Quiz Completo', 'Estudante Dedicado'], // Mock
+            lastActivity: user.activity.lastActivity
+        }
     },
 
-    getBlockedUsers: () => {
-        const { users } = get()
-        return users.filter((user) => user.status === 'blocked')
+    blockUser: async (userId: string) => {
+        await get().updateUserStatus(userId, 'blocked')
     },
 
-    getPublishedContent: () => {
-        const { content } = get()
-        return content.filter((item) => item.status === 'published')
+    unblockUser: async (userId: string) => {
+        await get().updateUserStatus(userId, 'active')
     },
 
-    getDraftContent: () => {
-        const { content } = get()
-        return content.filter((item) => item.status === 'draft')
-    },
-
-    getMostPopularTechnology: () => {
-        const { technologyStats } = get()
-        return technologyStats.length > 0 ? technologyStats[0] : null
-    },
-
-    getTotalEngagement: () => {
-        const { engagementMetrics } = get()
-        if (!engagementMetrics) return 0
-
-        return (
-            engagementMetrics.lessonsCompleted + engagementMetrics.quizzesTaken + engagementMetrics.achievementsEarned
-        )
-    },
+    deleteUser: async (userId: string) => {
+        set({ isLoading: true, error: null })
+        try {
+            // Simular chamada API
+            await new Promise(resolve => setTimeout(resolve, 500))
+            
+            set(state => ({
+                users: state.users.filter(user => user.id !== userId),
+                selectedUser: state.selectedUser?.id === userId ? null : state.selectedUser,
+                isLoading: false
+            }))
+        } catch (_error) {
+            set({ error: 'Erro ao deletar usuário', isLoading: false })
+        }
+    }
 }))

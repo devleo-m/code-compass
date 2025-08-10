@@ -1,33 +1,54 @@
-// Tipos de domínio para o Sistema de Administração
-// Seguindo DDD (Domain-Driven Design) e SOLID
-
-// ===== ENTIDADES DE DOMÍNIO =====
-
+// Tipos para o sistema de administração
 export interface AdminStats {
     totalUsers: number
     activeUsers: number
-    totalLearningPaths: number
+    totalContent: number
+    publishedContent: number
     totalQuizzes: number
-    totalLessons: number
-    averageProgress: number
-    completionRate: number
-    mostPopularTechnology: string
-    totalTimeSpent: number // em segundos
-    lastActivity: Date
+    completedQuizzes: number
+    popularTechnologies: Array<{
+        name: string
+        count: number
+    }>
+    recentActivity: Array<{
+        type: 'content_created' | 'quiz_completed' | 'user_registered'
+        description: string
+        timestamp: Date
+    }>
 }
 
 export interface UserManagement {
     id: string
     name: string
     email: string
-    role: 'admin' | 'student'
+    type: 'admin' | 'student'
     status: 'active' | 'inactive' | 'blocked'
-    progress: number
+    registrationDate: Date
     lastLogin: Date
-    createdAt: Date
+    progress: {
+        completedLessons: number
+        totalLessons: number
+        completedQuizzes: number
+        totalQuizzes: number
+        averageScore: number
+    }
+    activity: {
+        lastActivity: Date
+        totalTimeSpent: number
+        lessonsCompleted: number
+        quizzesTaken: number
+    }
+}
+
+export interface UserStats {
+    userId: string
     totalTimeSpent: number
-    quizzesCompleted: number
     lessonsCompleted: number
+    quizzesTaken: number
+    averageScore: number
+    streakDays: number
+    achievements: string[]
+    lastActivity: Date
 }
 
 export interface ContentManagement {

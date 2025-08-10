@@ -26,39 +26,28 @@ export const STORAGE_KEYS = {
     navigationHistory: 'code-compass-navigation-history',
 } as const
 
+// Rotas da aplicação
 export const ROUTES = {
-    home: '/',
-    login: '/login',
-    dashboard: '/dashboard',
-    learning: {
-        frontend: '/learning/frontend',
-        backend: '/learning/backend',
-        sql: '/learning/sql',
-        react: '/learning/react',
-        javascript: '/learning/javascript',
-        typescript: '/learning/typescript',
-        node: '/learning/node',
-        go: '/learning/go',
-        reactNative: '/learning/react-native',
-        aws: '/learning/aws',
-        docker: '/learning/docker',
-        linux: '/learning/linux',
-        mongodb: '/learning/mongodb',
-        postgres: '/learning/postgres',
-        redis: '/learning/redis',
-        git: '/learning/git',
-    },
-    lesson: '/lesson',
-    quiz: '/quiz',
-    progress: '/progress',
-    profile: '/profile',
-    admin: {
-        dashboard: '/admin/dashboard',
-        content: '/admin/content',
-        users: '/admin/users',
-        analytics: '/admin/analytics',
-        settings: '/admin/settings',
-    },
+    // Páginas principais
+    HOME: '/',
+    LOGIN: '/login',
+    DASHBOARD: '/dashboard',
+    
+    // Área do aluno
+    LEARNING: '/learning',
+    PROGRESS: '/progress',
+    QUIZZES: '/quizzes',
+    QUIZ_HISTORY: '/quizzes/history',
+    
+    // Área do admin
+    ADMIN_DASHBOARD: '/admin/dashboard',
+    ADMIN_CONTENT: '/admin/content',
+    ADMIN_USERS: '/admin/users',
+    
+    // Páginas dinâmicas
+    LEARNING_PATH: (pathId: string) => `/learning/${pathId}`,
+    QUIZ: (quizId: string) => `/quizzes/${quizId}`,
+    QUIZ_RESULTS: (quizId: string) => `/quizzes/${quizId}/results`,
 } as const
 
 // Configuração das trilhas de aprendizado
