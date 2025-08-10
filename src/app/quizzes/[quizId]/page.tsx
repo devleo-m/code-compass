@@ -26,6 +26,8 @@ export default function QuizPage({ params }: QuizPageProps) {
     const [timeRemaining, setTimeRemaining] = useState<number | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [isTimerPaused, setIsTimerPaused] = useState(false)
+    const [showTimeWarning, setShowTimeWarning] = useState(false)
 
     // 5. Hooks
     const router = useRouter()
@@ -61,6 +63,26 @@ export default function QuizPage({ params }: QuizPageProps) {
         if (currentQuestionIndex > 0) {
             _setCurrentQuestionIndex(prev => prev - 1)
         }
+    }
+
+    const toggleTimerPause = () => {
+        setIsTimerPaused(prev => !prev)
+    }
+
+    const getTimerColor = () => {
+        if (!timeRemaining) return 'text-gray-900'
+        if (timeRemaining < 30) return 'text-red-600 animate-pulse'
+        if (timeRemaining < 60) return 'text-orange-600'
+        if (timeRemaining < 120) return 'text-yellow-600'
+        return 'text-green-600'
+    }
+
+    const getTimerIcon = () => {
+        if (!timeRemaining) return '⏱️'
+        if (timeRemaining < 30) return '🚨'
+        if (timeRemaining < 60) return '⚠️'
+        if (timeRemaining < 120) return '⏰'
+        return '⏱️'
     }
 
     const handleCompleteQuiz = useCallback(() => {
@@ -170,7 +192,7 @@ export default function QuizPage({ params }: QuizPageProps) {
 
     // Timer countdown
     useEffect(() => {
-        if (timeRemaining === null || timeRemaining <= 0 || isCompleted) return
+        if (timeRemaining === null || timeRemaining <= 0 || isCompleted || isTimerPaused) return
 
         const interval = setInterval(() => {
             setTimeRemaining((prev) => {
@@ -184,7 +206,16 @@ export default function QuizPage({ params }: QuizPageProps) {
         }, 1000)
 
         return () => clearInterval(interval)
-    }, [timeRemaining, isCompleted, handleCompleteQuiz])
+    }, [timeRemaining, isCompleted, handleCompleteQuiz, isTimerPaused])
+
+    // Alertas de tempo
+    useEffect(() => {
+        if (timeRemaining !== null && timeRemaining <= 60 && timeRemaining > 0) {
+            setShowTimeWarning(true)
+            const timeout = setTimeout(() => setShowTimeWarning(false), 3000)
+            return () => clearTimeout(timeout)
+        }
+    }, [timeRemaining])
 
     // 8. Render
     if (isLoading) {
@@ -259,12 +290,48 @@ export default function QuizPage({ params }: QuizPageProps) {
 
                         {/* Timer */}
                         {timeRemaining !== null && (
-                            <div className='flex items-center justify-between'>
-                                <div className='text-sm text-gray-600'>
-                                    Questões respondidas: {getAnsweredQuestionsCount()}/{quiz.questions.length}
+                            <div className='space-y-3'>
+                                {/* Alerta de tempo */}
+                                {showTimeWarning && (
+                                    <div className='bg-red-50 border border-red-200 rounded-lg p-3 animate-pulse'>
+                                        <div className='flex items-center justify-center text-red-700'>
+                                            <span className='text-lg mr-2'>⚠️</span>
+                                            <span className='font-medium'>Tempo acabando! Apresse-se!</span>
+                                        </div>
+                                    </div>
+                                )}
+                                
+                                <div className='flex items-center justify-between'>
+                                    <div className='text-sm text-gray-600'>
+                                        Questões respondidas: {getAnsweredQuestionsCount()}/{quiz.questions.length}
+                                    </div>
+                                    <div className='flex items-center gap-3'>
+                                        <div className={`text-lg font-mono ${getTimerColor()}`}>
+                                            {getTimerIcon()} {formatTime(timeRemaining)}
+                                        </div>
+                                        <Button
+                                            variant='outline'
+                                            size='sm'
+                                            onClick={toggleTimerPause}
+                                            className='px-3 py-1 text-sm'
+                                        >
+                                            {isTimerPaused ? '▶️ Retomar' : '⏸️ Pausar'}
+                                        </Button>
+                                    </div>
                                 </div>
-                                <div className={`text-lg font-mono ${timeRemaining < 60 ? 'text-red-600' : 'text-gray-900'}`}>
-                                    ⏱️ {formatTime(timeRemaining)}
+                                
+                                {/* Barra de progresso do tempo */}
+                                <div className='w-full bg-gray-200 rounded-full h-1'>
+                                    <div
+                                        className={`h-1 rounded-full transition-all duration-300 ${
+                                            timeRemaining < 30 ? 'bg-red-500' :
+                                            timeRemaining < 60 ? 'bg-orange-500' :
+                                            timeRemaining < 120 ? 'bg-yellow-500' : 'bg-green-500'
+                                        }`}
+                                        style={{ 
+                                            width: `${quiz.timeLimit ? ((timeRemaining / (quiz.timeLimit * 60)) * 100) : 0}%` 
+                                        }}
+                                    />
                                 </div>
                             </div>
                         )}

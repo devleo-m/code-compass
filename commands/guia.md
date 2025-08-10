@@ -243,9 +243,9 @@ src/
 
 #### 4.2 Interface do Quiz
 - [x] Componente de pergunta - **Implementado**
-- [ ] Timer (opcional)
-- [ ] Barra de progresso
-- [ ] Feedback imediato
+- [x] Timer (opcional) - **Implementado**
+- [x] Barra de progresso - **Implementado**
+- [x] Feedback imediato - **Implementado**
 
 #### 4.3 Páginas de Quiz
 - [x] Página de lista de quizzes - **Implementado**
