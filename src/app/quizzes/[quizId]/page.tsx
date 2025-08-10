@@ -103,6 +103,39 @@ export default function QuizPage({ params }: QuizPageProps) {
         
         // Salvar resultados no localStorage para a página de resultados
         localStorage.setItem(`quiz_results_${quiz.id}`, JSON.stringify(results))
+        
+        // Salvar no histórico de tentativas
+        const attemptId = `attempt_${Date.now()}`
+        const attempt = {
+            id: attemptId,
+            quizId: quiz.id,
+            quizTitle: quiz.title,
+            score,
+            totalPoints,
+            percentage: score,
+            correctAnswers,
+            totalQuestions: quiz.questions.length,
+            passed,
+            timeSpent: quiz.timeLimit ? (quiz.timeLimit * 60) - (timeRemaining || 0) : 0,
+            startedAt: new Date().toISOString(),
+            completedAt: new Date().toISOString()
+        }
+        
+        // Carregar histórico existente
+        const existingHistory = localStorage.getItem('quiz_attempts_history')
+        const history = existingHistory ? JSON.parse(existingHistory) : []
+        
+        // Adicionar nova tentativa
+        history.push(attempt)
+        
+        // Manter apenas as últimas 50 tentativas
+        if (history.length > 50) {
+            history.splice(0, history.length - 50)
+        }
+        
+        // Salvar histórico atualizado
+        localStorage.setItem('quiz_attempts_history', JSON.stringify(history))
+        
         router.push(`/quizzes/${quiz.id}/results`)
     }, [quiz, answers, timeRemaining, router])
 

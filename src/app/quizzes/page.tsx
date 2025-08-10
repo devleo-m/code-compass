@@ -3,6 +3,7 @@
 import Link from 'next/link'
 // 1. Imports
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button, Card, Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
 import { mockQuizzes } from '@/shared/data/quizzes'
@@ -16,6 +17,9 @@ export default function QuizzesPage() {
     const [selectedTechnology, setSelectedTechnology] = useState<string>('all')
     const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all')
     const [isLoading, setIsLoading] = useState(true)
+
+    // 4. Hooks
+    const router = useRouter()
 
     // 4. Efeitos
     useEffect(() => {
@@ -148,6 +152,12 @@ export default function QuizzesPage() {
                                 {filteredQuizzes.length} quiz{filteredQuizzes.length !== 1 ? 'zes' : ''} encontrado
                                 {filteredQuizzes.length !== 1 ? 's' : ''}
                             </h2>
+                            <Button
+                                variant='outline'
+                                onClick={() => router.push('/quizzes/history')}
+                            >
+                                📊 Ver Histórico
+                            </Button>
                         </div>
 
                         {isLoading ? (
