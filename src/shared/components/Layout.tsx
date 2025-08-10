@@ -34,7 +34,7 @@ export function Layout({ children }: LayoutProps) {
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <div className='flex justify-between items-center py-4'>
                         {/* Logo */}
-                        <Link href={ROUTES.dashboard} className='text-xl font-bold text-blue-600'>
+                        <Link href={ROUTES.DASHBOARD} className='text-xl font-bold text-blue-600'>
                             Code Compass
                         </Link>
 
@@ -109,7 +109,7 @@ export function Layout({ children }: LayoutProps) {
                     {isMenuOpen && (
                         <div className='md:hidden py-4 border-t border-gray-200'>
                             <nav className='space-y-2'>
-                                <Link href={ROUTES.dashboard} className='block text-gray-700 hover:text-blue-600'>
+                                <Link href={ROUTES.DASHBOARD} className='block text-gray-700 hover:text-blue-600'>
                                     Dashboard
                                 </Link>
                                 <div className='space-y-1'>
@@ -127,7 +127,7 @@ export function Layout({ children }: LayoutProps) {
                                         ))}
                                     </div>
                                 </div>
-                                <Link href={ROUTES.progress} className='block text-gray-700 hover:text-blue-600'>
+                                <Link href={ROUTES.PROGRESS} className='block text-gray-700 hover:text-blue-600'>
                                     Progresso
                                 </Link>
                             </nav>
