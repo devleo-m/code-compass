@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button, Card, Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
-import { mockQuizzes } from '@/shared/data/quizzes'
+import { getAllQuizzes } from '@/shared/data/quizzes'
 import type { QuizItem } from '@/shared/types/quiz'
 
 // 2. Componente
@@ -25,8 +25,8 @@ export default function QuizzesPage() {
     useEffect(() => {
         // Simular carregamento
         setTimeout(() => {
-            setQuizzes(mockQuizzes)
-            setFilteredQuizzes(mockQuizzes)
+            setQuizzes(getAllQuizzes())
+            setFilteredQuizzes(getAllQuizzes())
             setIsLoading(false)
         }, 1000)
     }, [])
