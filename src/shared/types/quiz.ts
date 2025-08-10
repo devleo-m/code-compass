@@ -85,4 +85,4 @@ export interface QuizSettings {
     shuffleOptions: boolean
     showExplanation: boolean
     showScore: boolean
-} 
+}

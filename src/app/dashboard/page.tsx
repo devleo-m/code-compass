@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 // 1. Imports
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button, Card, Layout, ProtectedRoute } from '@/shared/components'
 import { getAllLearningPaths } from '@/shared/data/learningPaths'
 import { useAuth } from '@/shared/hooks/useAuth'
@@ -50,7 +50,9 @@ export default function DashboardPage() {
                     {user?.type === 'admin' ? (
                         <div className='text-center py-12'>
                             <h2 className='text-2xl font-bold text-gray-900 mb-4'>Painel Administrativo</h2>
-                            <p className='text-gray-600 mb-6'>Use o painel administrativo para gerenciar a plataforma</p>
+                            <p className='text-gray-600 mb-6'>
+                                Use o painel administrativo para gerenciar a plataforma
+                            </p>
                             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
                                 <Button variant='primary' onClick={() => router.push('/admin/dashboard')}>
                                     🏠 Acessar Painel Admin

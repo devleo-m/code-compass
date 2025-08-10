@@ -16,25 +16,25 @@ export function ProgressChart() {
         { month: 'Mar', progress: 45 },
         { month: 'Abr', progress: 60 },
         { month: 'Mai', progress: 75 },
-        { month: 'Jun', progress: 85 }
+        { month: 'Jun', progress: 85 },
     ]
 
-    const maxProgress = Math.max(...chartData.map(d => d.progress))
+    const maxProgress = Math.max(...chartData.map((d) => d.progress))
 
     return (
         <Card className='p-6'>
             <h2 className='text-xl font-semibold text-gray-900 mb-4'>Progresso ao Longo do Tempo</h2>
-            
+
             <div className='space-y-4'>
                 {/* Gráfico de Barras Simples */}
                 <div className='flex items-end justify-between h-32 space-x-2'>
                     {chartData.map((data) => (
                         <div key={data.month} className='flex-1 flex flex-col items-center'>
-                            <div 
+                            <div
                                 className='w-full bg-blue-500 rounded-t transition-all duration-500 hover:bg-blue-600'
-                                style={{ 
+                                style={{
                                     height: `${(data.progress / maxProgress) * 100}%`,
-                                    minHeight: '8px'
+                                    minHeight: '8px',
                                 }}
                             />
                             <div className='text-xs text-gray-600 mt-2'>{data.month}</div>
@@ -46,15 +46,11 @@ export function ProgressChart() {
                 {/* Resumo */}
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t'>
                     <div className='text-center'>
-                        <div className='text-lg font-semibold text-blue-600'>
-                            {Object.keys(pathProgress).length}
-                        </div>
+                        <div className='text-lg font-semibold text-blue-600'>{Object.keys(pathProgress).length}</div>
                         <div className='text-sm text-gray-600'>Trilhas Iniciadas</div>
                     </div>
                     <div className='text-center'>
-                        <div className='text-lg font-semibold text-green-600'>
-                            {Object.keys(quizProgress).length}
-                        </div>
+                        <div className='text-lg font-semibold text-green-600'>{Object.keys(quizProgress).length}</div>
                         <div className='text-sm text-gray-600'>Quizzes Realizados</div>
                     </div>
                     <div className='text-center'>
@@ -67,4 +63,4 @@ export function ProgressChart() {
             </div>
         </Card>
     )
-} 
+}

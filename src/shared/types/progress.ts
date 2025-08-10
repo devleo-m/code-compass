@@ -141,12 +141,12 @@ export enum ProgressCategory {
     LEARNING = 'learning',
     QUIZ = 'quiz',
     ACHIEVEMENT = 'achievement',
-    GOAL = 'goal'
+    GOAL = 'goal',
 }
 
 export enum ProgressStatus {
     NOT_STARTED = 'not_started',
     IN_PROGRESS = 'in_progress',
     COMPLETED = 'completed',
-    PAUSED = 'paused'
-} 
+    PAUSED = 'paused',
+}

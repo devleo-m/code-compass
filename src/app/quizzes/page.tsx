@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 // 1. Imports
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button, Card, Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
 import { mockQuizzes } from '@/shared/data/quizzes'
@@ -152,10 +152,7 @@ export default function QuizzesPage() {
                                 {filteredQuizzes.length} quiz{filteredQuizzes.length !== 1 ? 'zes' : ''} encontrado
                                 {filteredQuizzes.length !== 1 ? 's' : ''}
                             </h2>
-                            <Button
-                                variant='outline'
-                                onClick={() => router.push('/quizzes/history')}
-                            >
+                            <Button variant='outline' onClick={() => router.push('/quizzes/history')}>
                                 📊 Ver Histórico
                             </Button>
                         </div>

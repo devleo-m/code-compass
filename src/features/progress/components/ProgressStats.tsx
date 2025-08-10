@@ -20,7 +20,7 @@ export function ProgressStats({ stats }: ProgressStatsProps) {
     return (
         <Card className='p-6'>
             <h2 className='text-xl font-semibold text-gray-900 mb-4'>Estatísticas Detalhadas</h2>
-            
+
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {/* Usuários Ativos */}
                 <div className='text-center p-4 bg-blue-50 rounded-lg'>
@@ -36,17 +36,13 @@ export function ProgressStats({ stats }: ProgressStatsProps) {
 
                 {/* Tempo Total */}
                 <div className='text-center p-4 bg-purple-50 rounded-lg'>
-                    <div className='text-3xl font-bold text-purple-600'>
-                        {formatTime(stats.totalTimeSpent)}
-                    </div>
+                    <div className='text-3xl font-bold text-purple-600'>{formatTime(stats.totalTimeSpent)}</div>
                     <div className='text-sm text-gray-600'>Tempo Total</div>
                 </div>
 
                 {/* Tecnologia Mais Popular */}
                 <div className='text-center p-4 bg-orange-50 rounded-lg'>
-                    <div className='text-3xl font-bold text-orange-600 capitalize'>
-                        {stats.mostPopularTechnology}
-                    </div>
+                    <div className='text-3xl font-bold text-orange-600 capitalize'>{stats.mostPopularTechnology}</div>
                     <div className='text-sm text-gray-600'>Tecnologia Popular</div>
                 </div>
 
@@ -64,4 +60,4 @@ export function ProgressStats({ stats }: ProgressStatsProps) {
             </div>
         </Card>
     )
-} 
+}

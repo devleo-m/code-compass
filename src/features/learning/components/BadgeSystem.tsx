@@ -33,7 +33,7 @@ export function BadgeCard({ badge, onClick, className = '' }: BadgeCardProps) {
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl ${badge.color}`}>
                     {badge.icon}
                 </div>
-                
+
                 {/* Indicador de conquista */}
                 {badge.isEarned && (
                     <div className='absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center'>
@@ -152,7 +152,12 @@ export function BadgeProgress({
             <div className='flex items-center space-x-2'>
                 {isCompleted ? (
                     <>
-                        <svg className='w-4 h-4 text-green-600' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
+                        <svg
+                            className='w-4 h-4 text-green-600'
+                            fill='currentColor'
+                            viewBox='0 0 20 20'
+                            aria-hidden='true'
+                        >
                             <path
                                 fillRule='evenodd'
                                 d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
@@ -163,7 +168,12 @@ export function BadgeProgress({
                     </>
                 ) : (
                     <>
-                        <svg className='w-4 h-4 text-blue-600' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
+                        <svg
+                            className='w-4 h-4 text-blue-600'
+                            fill='currentColor'
+                            viewBox='0 0 20 20'
+                            aria-hidden='true'
+                        >
                             <path
                                 fillRule='evenodd'
                                 d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'

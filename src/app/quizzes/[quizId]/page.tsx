@@ -1,11 +1,11 @@
 'use client'
 
-// 1. Imports
-import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Layout, Button, Card } from '@/shared/components'
-import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
+// 1. Imports
+import { useCallback, useEffect, useState } from 'react'
 import { QuizQuestion } from '@/features/quiz/components/QuizQuestion'
+import { Button, Card, Layout } from '@/shared/components'
+import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
 import { getQuizById } from '@/shared/data/quizzes'
 import type { QuizItem } from '@/shared/types/quiz'
 
@@ -49,24 +49,24 @@ export default function QuizPage({ params }: QuizPageProps) {
     }
 
     const handleAnswer = (questionId: string, selectedAnswers: string[]) => {
-        _setAnswers(prev => ({ ...prev, [questionId]: selectedAnswers }))
+        _setAnswers((prev) => ({ ...prev, [questionId]: selectedAnswers }))
     }
 
     const handleNextQuestion = () => {
         if (!quiz) return
         if (currentQuestionIndex < quiz.questions.length - 1) {
-            _setCurrentQuestionIndex(prev => prev + 1)
+            _setCurrentQuestionIndex((prev) => prev + 1)
         }
     }
 
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
-            _setCurrentQuestionIndex(prev => prev - 1)
+            _setCurrentQuestionIndex((prev) => prev - 1)
         }
     }
 
     const toggleTimerPause = () => {
-        setIsTimerPaused(prev => !prev)
+        setIsTimerPaused((prev) => !prev)
     }
 
     const getTimerColor = () => {
@@ -87,31 +87,31 @@ export default function QuizPage({ params }: QuizPageProps) {
 
     const handleCompleteQuiz = useCallback(() => {
         if (!quiz) return
-        
+
         let correctAnswers = 0
         let totalPoints = 0
-        
-        quiz.questions.forEach(question => {
+
+        quiz.questions.forEach((question) => {
             const userAnswer = answers[question.id]
             if (userAnswer) {
-                const correctAnswer = Array.isArray(question.correctAnswer) 
-                    ? question.correctAnswer 
+                const correctAnswer = Array.isArray(question.correctAnswer)
+                    ? question.correctAnswer
                     : [question.correctAnswer]
-                
-                const isCorrect = correctAnswer.every((answer: string) => 
-                    userAnswer.includes(answer)
-                ) && userAnswer.length === correctAnswer.length
-                
+
+                const isCorrect =
+                    correctAnswer.every((answer: string) => userAnswer.includes(answer)) &&
+                    userAnswer.length === correctAnswer.length
+
                 if (isCorrect) {
                     correctAnswers++
                 }
                 totalPoints += question.points || 1
             }
         })
-        
+
         const score = Math.round((correctAnswers / quiz.questions.length) * 100)
         const passed = score >= (quiz.passingScore || 70)
-        
+
         const results = {
             score,
             totalPoints,
@@ -119,13 +119,13 @@ export default function QuizPage({ params }: QuizPageProps) {
             correctAnswers,
             totalQuestions: quiz.questions.length,
             passed,
-            timeSpent: quiz.timeLimit ? (quiz.timeLimit * 60) - (timeRemaining || 0) : 0,
-            answers
+            timeSpent: quiz.timeLimit ? quiz.timeLimit * 60 - (timeRemaining || 0) : 0,
+            answers,
         }
-        
+
         // Salvar resultados no localStorage para a página de resultados
         localStorage.setItem(`quiz_results_${quiz.id}`, JSON.stringify(results))
-        
+
         // Salvar no histórico de tentativas
         const attemptId = `attempt_${Date.now()}`
         const attempt = {
@@ -138,26 +138,26 @@ export default function QuizPage({ params }: QuizPageProps) {
             correctAnswers,
             totalQuestions: quiz.questions.length,
             passed,
-            timeSpent: quiz.timeLimit ? (quiz.timeLimit * 60) - (timeRemaining || 0) : 0,
+            timeSpent: quiz.timeLimit ? quiz.timeLimit * 60 - (timeRemaining || 0) : 0,
             startedAt: new Date().toISOString(),
-            completedAt: new Date().toISOString()
+            completedAt: new Date().toISOString(),
         }
-        
+
         // Carregar histórico existente
         const existingHistory = localStorage.getItem('quiz_attempts_history')
         const history = existingHistory ? JSON.parse(existingHistory) : []
-        
+
         // Adicionar nova tentativa
         history.push(attempt)
-        
+
         // Manter apenas as últimas 50 tentativas
         if (history.length > 50) {
             history.splice(0, history.length - 50)
         }
-        
+
         // Salvar histórico atualizado
         localStorage.setItem('quiz_attempts_history', JSON.stringify(history))
-        
+
         router.push(`/quizzes/${quiz.id}/results`)
     }, [quiz, answers, timeRemaining, router])
 
@@ -167,19 +167,19 @@ export default function QuizPage({ params }: QuizPageProps) {
             try {
                 const { quizId } = await params
                 const quizData = getQuizById(quizId)
-                
+
                 if (!quizData) {
                     setError('Quiz não encontrado')
                     return
                 }
 
                 setQuiz(quizData)
-                
+
                 // Inicializar timer se o quiz tiver limite de tempo
                 if (quizData.timeLimit) {
                     setTimeRemaining(quizData.timeLimit * 60) // Converter para segundos
                 }
-                
+
                 setIsLoading(false)
             } catch (_err) {
                 setError('Erro ao carregar o quiz')
@@ -300,7 +300,7 @@ export default function QuizPage({ params }: QuizPageProps) {
                                         </div>
                                     </div>
                                 )}
-                                
+
                                 <div className='flex items-center justify-between'>
                                     <div className='text-sm text-gray-600'>
                                         Questões respondidas: {getAnsweredQuestionsCount()}/{quiz.questions.length}
@@ -319,17 +319,21 @@ export default function QuizPage({ params }: QuizPageProps) {
                                         </Button>
                                     </div>
                                 </div>
-                                
+
                                 {/* Barra de progresso do tempo */}
                                 <div className='w-full bg-gray-200 rounded-full h-1'>
                                     <div
                                         className={`h-1 rounded-full transition-all duration-300 ${
-                                            timeRemaining < 30 ? 'bg-red-500' :
-                                            timeRemaining < 60 ? 'bg-orange-500' :
-                                            timeRemaining < 120 ? 'bg-yellow-500' : 'bg-green-500'
+                                            timeRemaining < 30
+                                                ? 'bg-red-500'
+                                                : timeRemaining < 60
+                                                  ? 'bg-orange-500'
+                                                  : timeRemaining < 120
+                                                    ? 'bg-yellow-500'
+                                                    : 'bg-green-500'
                                         }`}
-                                        style={{ 
-                                            width: `${quiz.timeLimit ? ((timeRemaining / (quiz.timeLimit * 60)) * 100) : 0}%` 
+                                        style={{
+                                            width: `${quiz.timeLimit ? (timeRemaining / (quiz.timeLimit * 60)) * 100 : 0}%`,
                                         }}
                                     />
                                 </div>
@@ -358,13 +362,10 @@ export default function QuizPage({ params }: QuizPageProps) {
                         </Button>
 
                         <div className='flex space-x-4'>
-                            <Button
-                                variant='outline'
-                                onClick={() => router.push('/quizzes')}
-                            >
+                            <Button variant='outline' onClick={() => router.push('/quizzes')}>
                                 Sair do Quiz
                             </Button>
-                            
+
                             <Button
                                 variant='primary'
                                 onClick={isLastQuestion ? handleCompleteQuiz : handleNextQuestion}
@@ -378,4 +379,4 @@ export default function QuizPage({ params }: QuizPageProps) {
             </Layout>
         </ProtectedRoute>
     )
-} 
+}

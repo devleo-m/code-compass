@@ -42,7 +42,13 @@ export function SearchAndFilters({ onSearch, onFilterChange, className = '' }: S
             {/* Barra de busca */}
             <div className='relative'>
                 <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-                    <svg className='h-5 w-5 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+                    <svg
+                        className='h-5 w-5 text-gray-400'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                        aria-hidden='true'
+                    >
                         <path
                             strokeLinecap='round'
                             strokeLinejoin='round'
@@ -186,17 +192,17 @@ export function SearchAndFilters({ onSearch, onFilterChange, className = '' }: S
 }
 
 // 7. Componente de resultados de busca
-export function SearchResults({
-    results,
-    onResultClick,
-}: {
-    results: any[]
-    onResultClick: (result: any) => void
-}) {
+export function SearchResults({ results, onResultClick }: { results: any[]; onResultClick: (result: any) => void }) {
     if (results.length === 0) {
         return (
             <div className='text-center py-8'>
-                <svg className='mx-auto h-12 w-12 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+                <svg
+                    className='mx-auto h-12 w-12 text-gray-400'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                    aria-hidden='true'
+                >
                     <path
                         strokeLinecap='round'
                         strokeLinejoin='round'

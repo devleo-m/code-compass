@@ -1,9 +1,9 @@
 'use client'
 
-// 1. Imports
-import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Layout, Button, Card } from '@/shared/components'
+// 1. Imports
+import { useEffect, useState } from 'react'
+import { Button, Card, Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
 
 // 2. Tipos/Interfaces
@@ -63,7 +63,7 @@ export default function QuizHistoryPage() {
             month: '2-digit',
             year: 'numeric',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
         })
     }
 
@@ -83,7 +83,7 @@ export default function QuizHistoryPage() {
         return '📚'
     }
 
-    const filteredAttempts = attempts.filter(attempt => {
+    const filteredAttempts = attempts.filter((attempt) => {
         if (filter === 'passed') return attempt.passed
         if (filter === 'failed') return !attempt.passed
         return true
@@ -93,7 +93,7 @@ export default function QuizHistoryPage() {
         if (attempts.length === 0) return null
 
         const totalAttempts = attempts.length
-        const passedAttempts = attempts.filter(a => a.passed).length
+        const passedAttempts = attempts.filter((a) => a.passed).length
         const averageScore = Math.round(attempts.reduce((sum, a) => sum + a.percentage, 0) / totalAttempts)
         const totalTime = attempts.reduce((sum, a) => sum + a.timeSpent, 0)
 
@@ -103,7 +103,7 @@ export default function QuizHistoryPage() {
             failedAttempts: totalAttempts - passedAttempts,
             passRate: Math.round((passedAttempts / totalAttempts) * 100),
             averageScore,
-            totalTime
+            totalTime,
         }
     }
 
@@ -161,7 +161,9 @@ export default function QuizHistoryPage() {
                                     <div className='text-sm text-gray-500'>Média Geral</div>
                                 </div>
                                 <div className='text-center'>
-                                    <div className='text-2xl font-bold text-indigo-600'>{formatTime(stats.totalTime)}</div>
+                                    <div className='text-2xl font-bold text-indigo-600'>
+                                        {formatTime(stats.totalTime)}
+                                    </div>
                                     <div className='text-sm text-gray-500'>Tempo Total</div>
                                 </div>
                             </div>
@@ -170,23 +172,20 @@ export default function QuizHistoryPage() {
 
                     {/* Filtros */}
                     <div className='flex flex-wrap gap-2'>
-                        <Button
-                            variant={filter === 'all' ? 'primary' : 'outline'}
-                            onClick={() => setFilter('all')}
-                        >
+                        <Button variant={filter === 'all' ? 'primary' : 'outline'} onClick={() => setFilter('all')}>
                             Todas ({attempts.length})
                         </Button>
                         <Button
                             variant={filter === 'passed' ? 'primary' : 'outline'}
                             onClick={() => setFilter('passed')}
                         >
-                            Aprovadas ({attempts.filter(a => a.passed).length})
+                            Aprovadas ({attempts.filter((a) => a.passed).length})
                         </Button>
                         <Button
                             variant={filter === 'failed' ? 'primary' : 'outline'}
                             onClick={() => setFilter('failed')}
                         >
-                            Reprovadas ({attempts.filter(a => !a.passed).length})
+                            Reprovadas ({attempts.filter((a) => !a.passed).length})
                         </Button>
                     </div>
 
@@ -194,14 +193,11 @@ export default function QuizHistoryPage() {
                     {filteredAttempts.length === 0 ? (
                         <Card className='p-8 text-center'>
                             <div className='text-6xl mb-4'>📚</div>
-                            <h3 className='text-xl font-semibold text-gray-900 mb-2'>
-                                Nenhuma tentativa encontrada
-                            </h3>
+                            <h3 className='text-xl font-semibold text-gray-900 mb-2'>Nenhuma tentativa encontrada</h3>
                             <p className='text-gray-600 mb-6'>
-                                {filter === 'all' 
+                                {filter === 'all'
                                     ? 'Você ainda não fez nenhum quiz. Comece agora!'
-                                    : `Nenhuma tentativa ${filter === 'passed' ? 'aprovada' : 'reprovada'} encontrada.`
-                                }
+                                    : `Nenhuma tentativa ${filter === 'passed' ? 'aprovada' : 'reprovada'} encontrada.`}
                             </p>
                             <Button variant='primary' onClick={() => router.push('/quizzes')}>
                                 Ver Quizzes Disponíveis
@@ -214,23 +210,29 @@ export default function QuizHistoryPage() {
                                     <div className='flex items-center justify-between'>
                                         <div className='flex-1'>
                                             <div className='flex items-center gap-3 mb-2'>
-                                                <span className='text-2xl'>{getPerformanceIcon(attempt.percentage)}</span>
+                                                <span className='text-2xl'>
+                                                    {getPerformanceIcon(attempt.percentage)}
+                                                </span>
                                                 <h3 className='text-lg font-semibold text-gray-900'>
                                                     {attempt.quizTitle}
                                                 </h3>
-                                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                                    attempt.passed 
-                                                        ? 'bg-green-100 text-green-800' 
-                                                        : 'bg-red-100 text-red-800'
-                                                }`}>
+                                                <span
+                                                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                                        attempt.passed
+                                                            ? 'bg-green-100 text-green-800'
+                                                            : 'bg-red-100 text-red-800'
+                                                    }`}
+                                                >
                                                     {attempt.passed ? 'Aprovado' : 'Reprovado'}
                                                 </span>
                                             </div>
-                                            
+
                                             <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-sm'>
                                                 <div>
                                                     <span className='text-gray-600'>Pontuação:</span>
-                                                    <span className={`ml-1 font-medium ${getPerformanceColor(attempt.percentage)}`}>
+                                                    <span
+                                                        className={`ml-1 font-medium ${getPerformanceColor(attempt.percentage)}`}
+                                                    >
                                                         {attempt.percentage}%
                                                     </span>
                                                 </div>
@@ -254,7 +256,7 @@ export default function QuizHistoryPage() {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div className='flex gap-2'>
                                             <Button
                                                 variant='outline'
@@ -279,10 +281,7 @@ export default function QuizHistoryPage() {
 
                     {/* Ações */}
                     <div className='flex justify-center'>
-                        <Button
-                            variant='primary'
-                            onClick={() => router.push('/quizzes')}
-                        >
+                        <Button variant='primary' onClick={() => router.push('/quizzes')}>
                             📚 Ver Todos os Quizzes
                         </Button>
                     </div>
@@ -290,4 +289,4 @@ export default function QuizHistoryPage() {
             </Layout>
         </ProtectedRoute>
     )
-} 
+}

@@ -11,7 +11,7 @@ export default function AdminDashboardPage() {
 
     // 4. Render
     return (
-        <ProtectedRoute requiredRole="admin">
+        <ProtectedRoute requiredRole='admin'>
             <Layout>
                 <div className='space-y-8'>
                     {/* Header */}
@@ -19,7 +19,9 @@ export default function AdminDashboardPage() {
                         <div className='flex items-center justify-between'>
                             <div>
                                 <h1 className='text-3xl font-bold text-gray-900'>Painel Administrativo 👨‍💼</h1>
-                                <p className='text-gray-600 mt-2'>Bem-vindo, {user?.name}! Gerencie a plataforma Code Compass</p>
+                                <p className='text-gray-600 mt-2'>
+                                    Bem-vindo, {user?.name}! Gerencie a plataforma Code Compass
+                                </p>
                             </div>
                             <div className='text-right'>
                                 <p className='text-sm text-gray-500'>Tipo de conta</p>
@@ -74,7 +76,9 @@ export default function AdminDashboardPage() {
                                         </svg>
                                     </div>
                                     <h3 className='text-xl font-bold text-gray-900 mb-2'>Criar Nova Trilha</h3>
-                                    <p className='text-gray-600 mb-4'>Crie uma nova trilha de aprendizado para os usuários</p>
+                                    <p className='text-gray-600 mb-4'>
+                                        Crie uma nova trilha de aprendizado para os usuários
+                                    </p>
                                     <Button variant='primary' className='w-full'>
                                         Criar Trilha
                                     </Button>
@@ -130,7 +134,9 @@ export default function AdminDashboardPage() {
                                         </svg>
                                     </div>
                                     <h3 className='text-xl font-bold text-gray-900 mb-2'>Gerenciar Usuários</h3>
-                                    <p className='text-gray-600 mb-4'>Visualize estatísticas e gerencie contas de usuários</p>
+                                    <p className='text-gray-600 mb-4'>
+                                        Visualize estatísticas e gerencie contas de usuários
+                                    </p>
                                     <Button variant='outline' className='w-full'>
                                         Ver Usuários
                                     </Button>
@@ -158,7 +164,9 @@ export default function AdminDashboardPage() {
                                         </svg>
                                     </div>
                                     <h3 className='text-xl font-bold text-gray-900 mb-2'>Criar Quiz</h3>
-                                    <p className='text-gray-600 mb-4'>Crie quizzes para testar o conhecimento dos usuários</p>
+                                    <p className='text-gray-600 mb-4'>
+                                        Crie quizzes para testar o conhecimento dos usuários
+                                    </p>
                                     <Button variant='outline' className='w-full'>
                                         Criar Quiz
                                     </Button>
@@ -232,4 +240,4 @@ export default function AdminDashboardPage() {
             </Layout>
         </ProtectedRoute>
     )
-} 
+}

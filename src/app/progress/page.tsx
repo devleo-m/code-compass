@@ -3,14 +3,14 @@
 // Página Principal do Sistema de Progresso
 // Seguindo DDD e Clean Architecture
 
+import { ProgressOverview } from '@/features/progress/components/ProgressOverview'
 import { Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
-import { ProgressOverview } from '@/features/progress/components/ProgressOverview'
 import { useAuth } from '@/shared/hooks/useAuth'
 
 export default function ProgressPage() {
     const { user } = useAuth()
-    
+
     if (!user) {
         return (
             <ProtectedRoute>
@@ -35,4 +35,4 @@ export default function ProgressPage() {
             </Layout>
         </ProtectedRoute>
     )
-} 
+}

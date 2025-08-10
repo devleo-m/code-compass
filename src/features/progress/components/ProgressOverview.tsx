@@ -6,24 +6,24 @@
 import { useEffect } from 'react'
 import { Card } from '@/shared/components'
 import { useProgressStore } from '@/shared/stores/progressStore'
-import { ProgressStats } from './ProgressStats'
-import { ProgressChart } from './ProgressChart'
-import { RecentActivity } from './RecentActivity'
 import { AchievementsList } from './AchievementsList'
+import { ProgressChart } from './ProgressChart'
+import { ProgressStats } from './ProgressStats'
+import { RecentActivity } from './RecentActivity'
 
 interface ProgressOverviewProps {
     userId: string
 }
 
 export function ProgressOverview({ userId }: ProgressOverviewProps) {
-    const { 
-        initializeProgress, 
-        isLoading, 
+    const {
+        initializeProgress,
+        isLoading,
         error,
         getOverallProgress,
         getProgressStats,
         getCurrentStreak,
-        getTotalTimeSpent
+        getTotalTimeSpent,
     } = useProgressStore()
 
     // Inicializar progresso quando o componente montar
@@ -42,7 +42,7 @@ export function ProgressOverview({ userId }: ProgressOverviewProps) {
                 <div className='animate-pulse'>
                     <div className='h-8 bg-gray-200 rounded mb-4'></div>
                     <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-                        {[1, 2, 3].map(i => (
+                        {[1, 2, 3].map((i) => (
                             <div key={i} className='h-24 bg-gray-200 rounded'></div>
                         ))}
                     </div>
@@ -75,7 +75,7 @@ export function ProgressOverview({ userId }: ProgressOverviewProps) {
                     <h2 className='text-xl font-semibold text-gray-900'>Progresso Geral</h2>
                     <div className='text-2xl font-bold text-blue-600'>{overallProgress}%</div>
                 </div>
-                
+
                 {/* Barra de Progresso */}
                 <div className='w-full bg-gray-200 rounded-full h-3 mb-4'>
                     <div
@@ -91,15 +91,11 @@ export function ProgressOverview({ userId }: ProgressOverviewProps) {
                         <div className='text-sm text-gray-600'>Dias Consecutivos</div>
                     </div>
                     <div className='text-center p-4 bg-green-50 rounded-lg'>
-                        <div className='text-2xl font-bold text-green-600'>
-                            {Math.round(totalTimeSpent / 3600)}h
-                        </div>
+                        <div className='text-2xl font-bold text-green-600'>{Math.round(totalTimeSpent / 3600)}h</div>
                         <div className='text-sm text-gray-600'>Tempo Total</div>
                     </div>
                     <div className='text-center p-4 bg-purple-50 rounded-lg'>
-                        <div className='text-2xl font-bold text-purple-600'>
-                            {stats.completionRate}%
-                        </div>
+                        <div className='text-2xl font-bold text-purple-600'>{stats.completionRate}%</div>
                         <div className='text-sm text-gray-600'>Taxa de Conclusão</div>
                     </div>
                 </div>
@@ -118,4 +114,4 @@ export function ProgressOverview({ userId }: ProgressOverviewProps) {
             <AchievementsList />
         </div>
     )
-} 
+}

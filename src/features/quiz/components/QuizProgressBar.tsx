@@ -1,7 +1,7 @@
 'use client'
 
 // 1. Imports
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // 2. Tipos/Interfaces
 interface QuizProgressBarProps {
@@ -18,7 +18,7 @@ export function QuizProgressBar({
     totalQuestions,
     answeredQuestions,
     timeRemaining,
-    className = ''
+    className = '',
 }: QuizProgressBarProps) {
     // 4. Estados
     const [timeDisplay, setTimeDisplay] = useState<string>('')
@@ -66,9 +66,7 @@ export function QuizProgressBar({
                 {/* Timer */}
                 {timeRemaining !== null && (
                     <div className='text-center'>
-                        <div className={`text-2xl font-mono font-bold ${getTimeColor()}`}>
-                            ⏱️ {timeDisplay}
-                        </div>
+                        <div className={`text-2xl font-mono font-bold ${getTimeColor()}`}>⏱️ {timeDisplay}</div>
                         <div className='text-xs text-gray-500'>Tempo Restante</div>
                     </div>
                 )}
@@ -92,7 +90,7 @@ export function QuizProgressBar({
                         style={{ width: `${answeredPercentage}%` }}
                     />
                 </div>
-                
+
                 {/* Legendas */}
                 <div className='flex items-center justify-between text-xs text-gray-500'>
                     <div className='flex items-center space-x-2'>
@@ -107,4 +105,4 @@ export function QuizProgressBar({
             </div>
         </div>
     )
-} 
+}

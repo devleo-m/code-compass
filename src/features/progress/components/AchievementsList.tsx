@@ -19,7 +19,7 @@ export function AchievementsList() {
             icon: '🎯',
             category: 'learning' as const,
             isEarned: true,
-            earnedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+            earnedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
         },
         {
             id: 'first_quiz',
@@ -28,7 +28,7 @@ export function AchievementsList() {
             icon: '✅',
             category: 'quiz' as const,
             isEarned: true,
-            earnedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+            earnedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
         },
         {
             id: 'streak_3',
@@ -37,7 +37,7 @@ export function AchievementsList() {
             icon: '🔥',
             category: 'streak' as const,
             isEarned: false,
-            earnedAt: new Date()
+            earnedAt: new Date(),
         },
         {
             id: 'perfect_score',
@@ -46,38 +46,34 @@ export function AchievementsList() {
             icon: '🏆',
             category: 'quiz' as const,
             isEarned: false,
-            earnedAt: new Date()
-        }
+            earnedAt: new Date(),
+        },
     ]
 
     const displayAchievements = achievements.length > 0 ? achievements : defaultAchievements
 
     const getAchievementColor = (isEarned: boolean) => {
-        return isEarned 
-            ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white' 
-            : 'bg-gray-100 text-gray-400'
+        return isEarned ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white' : 'bg-gray-100 text-gray-400'
     }
 
     const formatDate = (date: Date) => {
         return date.toLocaleDateString('pt-BR', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric'
+            year: 'numeric',
         })
     }
 
     return (
         <Card className='p-6'>
             <h2 className='text-xl font-semibold text-gray-900 mb-4'>Conquistas</h2>
-            
+
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                 {displayAchievements.map((achievement) => (
-                    <div 
-                        key={achievement.id} 
+                    <div
+                        key={achievement.id}
                         className={`p-4 rounded-lg border-2 transition-all duration-300 ${
-                            achievement.isEarned 
-                                ? 'border-yellow-400 shadow-lg' 
-                                : 'border-gray-200'
+                            achievement.isEarned ? 'border-yellow-400 shadow-lg' : 'border-gray-200'
                         }`}
                     >
                         <div className='flex items-start space-x-3'>
@@ -85,14 +81,14 @@ export function AchievementsList() {
                                 {achievement.icon}
                             </div>
                             <div className='flex-1'>
-                                <h3 className={`font-semibold ${
-                                    achievement.isEarned ? 'text-gray-900' : 'text-gray-500'
-                                }`}>
+                                <h3
+                                    className={`font-semibold ${
+                                        achievement.isEarned ? 'text-gray-900' : 'text-gray-500'
+                                    }`}
+                                >
                                     {achievement.title}
                                 </h3>
-                                <p className={`text-sm ${
-                                    achievement.isEarned ? 'text-gray-600' : 'text-gray-400'
-                                }`}>
+                                <p className={`text-sm ${achievement.isEarned ? 'text-gray-600' : 'text-gray-400'}`}>
                                     {achievement.description}
                                 </p>
                                 {achievement.isEarned && (
@@ -101,9 +97,7 @@ export function AchievementsList() {
                                     </p>
                                 )}
                             </div>
-                            {achievement.isEarned && (
-                                <div className='text-yellow-500 text-xl'>✨</div>
-                            )}
+                            {achievement.isEarned && <div className='text-yellow-500 text-xl'>✨</div>}
                         </div>
                     </div>
                 ))}
@@ -117,4 +111,4 @@ export function AchievementsList() {
             )}
         </Card>
     )
-} 
+}

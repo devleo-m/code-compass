@@ -84,7 +84,13 @@ export function ProgressIndicator({ progress, className = '' }: ProgressIndicato
                     total={progress.totalLessons}
                     label='Lições Concluídas'
                     icon={
-                        <svg className='w-5 h-5 text-blue-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+                        <svg
+                            className='w-5 h-5 text-blue-600'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                            aria-hidden='true'
+                        >
                             <path
                                 strokeLinecap='round'
                                 strokeLinejoin='round'
@@ -100,7 +106,13 @@ export function ProgressIndicator({ progress, className = '' }: ProgressIndicato
                     total={progress.totalQuizzes}
                     label='Quizzes Concluídos'
                     icon={
-                        <svg className='w-5 h-5 text-blue-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+                        <svg
+                            className='w-5 h-5 text-blue-600'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                            aria-hidden='true'
+                        >
                             <path
                                 strokeLinecap='round'
                                 strokeLinejoin='round'

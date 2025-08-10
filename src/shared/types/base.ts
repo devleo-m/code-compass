@@ -11,4 +11,4 @@ export interface User {
         theme: 'light' | 'dark'
         notifications: boolean
     }
-} 
+}

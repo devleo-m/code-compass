@@ -1,9 +1,9 @@
 'use client'
 
-// 1. Imports
-import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Layout, Button, Card } from '@/shared/components'
+// 1. Imports
+import { useEffect, useState } from 'react'
+import { Button, Card, Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
 import { getQuizById } from '@/shared/data/quizzes'
 import type { QuizItem } from '@/shared/types/quiz'
@@ -44,7 +44,7 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
             try {
                 const { quizId } = await params
                 const quizData = getQuizById(quizId)
-                
+
                 if (!quizData) {
                     setError('Quiz não encontrado')
                     return
@@ -54,7 +54,7 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
 
                 // Carregar resultados reais do localStorage
                 const savedResults = localStorage.getItem(`quiz_results_${quizId}`)
-                
+
                 if (!savedResults) {
                     setError('Resultados não encontrados. Complete o quiz primeiro.')
                     return
@@ -153,9 +153,7 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
                         <h2 className='text-2xl font-bold text-gray-900 mb-2'>
                             {results.passed ? 'Parabéns! Você passou!' : 'Continue estudando!'}
                         </h2>
-                        <p className='text-lg text-gray-600 mb-6'>
-                            {getPerformanceMessage(results.percentage)}
-                        </p>
+                        <p className='text-lg text-gray-600 mb-6'>{getPerformanceMessage(results.percentage)}</p>
 
                         {/* Pontuação */}
                         <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
@@ -172,9 +170,7 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
                                 <div className='text-sm text-gray-500'>Questões Corretas</div>
                             </div>
                             <div className='text-center'>
-                                <div className='text-4xl font-bold text-green-600'>
-                                    {formatTime(results.timeSpent)}
-                                </div>
+                                <div className='text-4xl font-bold text-green-600'>{formatTime(results.timeSpent)}</div>
                                 <div className='text-sm text-gray-500'>Tempo Gasto</div>
                             </div>
                         </div>
@@ -183,7 +179,9 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
                         <div className='mb-8'>
                             <div className='flex justify-between text-sm text-gray-600 mb-2'>
                                 <span>Sua pontuação</span>
-                                <span>{results.score}/{results.totalPoints} pontos</span>
+                                <span>
+                                    {results.score}/{results.totalPoints} pontos
+                                </span>
                             </div>
                             <div className='w-full bg-gray-200 rounded-full h-3'>
                                 <div
@@ -254,22 +252,13 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
 
                     {/* Ações */}
                     <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                        <Button
-                            variant='outline'
-                            onClick={() => router.push(`/quizzes/${quiz.id}`)}
-                        >
+                        <Button variant='outline' onClick={() => router.push(`/quizzes/${quiz.id}`)}>
                             🔄 Tentar Novamente
                         </Button>
-                        <Button
-                            variant='primary'
-                            onClick={() => router.push('/quizzes')}
-                        >
+                        <Button variant='primary' onClick={() => router.push('/quizzes')}>
                             📚 Ver Outros Quizzes
                         </Button>
-                        <Button
-                            variant='outline'
-                            onClick={() => router.push('/dashboard')}
-                        >
+                        <Button variant='outline' onClick={() => router.push('/dashboard')}>
                             🏠 Voltar ao Dashboard
                         </Button>
                     </div>
@@ -277,4 +266,4 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
             </Layout>
         </ProtectedRoute>
     )
-} 
+}
