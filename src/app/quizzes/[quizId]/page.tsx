@@ -93,14 +93,27 @@ export default function QuizPage({ params }: QuizPageProps) {
 
         quiz.questions.forEach((question) => {
             const userAnswer = answers[question.id]
-            if (userAnswer) {
-                const correctAnswer = Array.isArray(question.correctAnswer)
-                    ? question.correctAnswer
-                    : [question.correctAnswer]
+            if (userAnswer && userAnswer.length > 0) {
+                // Debug: Log das respostas
+                console.log(`Questão ${question.id}:`, {
+                    userAnswer,
+                    correctAnswer: question.correctAnswer,
+                    question: question.question
+                })
+                
+                // Verificar se a resposta está correta
+                let isCorrect = false
+                
+                if (Array.isArray(question.correctAnswer)) {
+                    // Múltiplas respostas corretas
+                    isCorrect = question.correctAnswer.length === userAnswer.length &&
+                               question.correctAnswer.every(answer => userAnswer.includes(answer))
+                } else {
+                    // Resposta única
+                    isCorrect = userAnswer.length === 1 && userAnswer[0] === question.correctAnswer
+                }
 
-                const isCorrect =
-                    correctAnswer.every((answer: string) => userAnswer.includes(answer)) &&
-                    userAnswer.length === correctAnswer.length
+                console.log(`Resultado: ${isCorrect ? 'CORRETO' : 'INCORRETO'}`)
 
                 if (isCorrect) {
                     correctAnswers++
@@ -113,9 +126,9 @@ export default function QuizPage({ params }: QuizPageProps) {
         const passed = score >= (quiz.passingScore || 70)
 
         const results = {
-            score,
-            totalPoints,
-            percentage: score,
+            score: correctAnswers, // Número de respostas corretas
+            totalPoints, // Total de pontos possíveis
+            percentage: score, // Porcentagem
             correctAnswers,
             totalQuestions: quiz.questions.length,
             passed,
@@ -132,7 +145,7 @@ export default function QuizPage({ params }: QuizPageProps) {
             id: attemptId,
             quizId: quiz.id,
             quizTitle: quiz.title,
-            score,
+            score: correctAnswers,
             totalPoints,
             percentage: score,
             correctAnswers,

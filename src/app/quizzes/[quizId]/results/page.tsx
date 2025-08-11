@@ -84,6 +84,12 @@ export default function QuizResultsPage({ params }: QuizResultsPageProps) {
         if (percentage >= 80) return 'Muito bom! Você tem um bom conhecimento!'
         if (percentage >= 70) return 'Bom trabalho! Continue praticando!'
         if (percentage >= 60) return 'Passou! Mas pode melhorar mais.'
+        if (percentage >= 50) return 'Você é ruim, vá estudar!'
+        if (percentage >= 40) return 'Você é podre, seu lixo!'
+        if (percentage >= 30) return 'Você é pior que uma merda, vai tomar no cu!'
+        if (percentage >= 20) return 'LIXO! some daqui, você não merece ser humano!'
+        if (percentage >= 10) return 'Desiste de ser programador, você não é capaz!'
+        if (percentage < 10) return 'DESISTA DE SER PROGRAMADOR, VOCÊ É UM LIXO!'
         return 'Continue estudando! Você vai conseguir!'
     }
 
