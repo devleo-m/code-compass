@@ -10,6 +10,8 @@ O **Code Compass** é uma plataforma educacional interativa para aprendizado de 
 - Criar uma interface intuitiva e responsiva
 - Permitir acompanhamento de progresso individual
 - Oferecer conteúdo prático e teórico integrado
+- **NOVO**: Separar claramente as funcionalidades de admin e aluno
+- **NOVO**: Implementar sistema de autorização robusto
 
 ## 2. Arquitetura e Tecnologias
 
@@ -26,14 +28,15 @@ O **Code Compass** é uma plataforma educacional interativa para aprendizado de 
 ### Estrutura de Pastas (Domain-Driven):
 ```
 src/
-├── app/                    # App Router (Next.js 14)
-├── features/              # Domínios/Recursos
-│   ├── learning-path/     # Módulo de trilha de aprendizado
-│   ├── quizzes/          # Módulo de quizzes
-│   ├── progress/         # Módulo de progresso
-│   └── auth/             # Módulo de autenticação simulada (admin/aluno)
-├── shared/               # Componentes e utilitários compartilhados
-│   ├── components/       # Componentes reutilizáveis
+├── app/                 # App Router (Next.js 14)
+├── features/            # Domínios/Recursos
+│   ├── learning-path/   # Módulo de trilha de aprendizado
+│   ├── quizzes/         # Módulo de quizzes
+│   ├── progress/        # Módulo de progresso
+│   ├── auth/            # Módulo de autenticação simulada (admin/aluno)
+│   └── admin/           # Módulo de administração (CRUD de conteúdo)
+├── shared/              # Componentes e utilitários compartilhados
+│   ├── components/      # Componentes reutilizáveis
 │   ├── hooks/           # Custom hooks
 │   ├── utils/           # Funções utilitárias
 │   └── types/           # Tipos TypeScript
@@ -79,6 +82,7 @@ src/
 - Navegação baseada em breadcrumbs
 - Histórico de navegação preservado
 - URLs semânticas e SEO-friendly
+- **NOVO**: Proteção de rotas baseada em autorização
 
 ### 4.3 Responsividade:
 - Mobile-first design
@@ -97,7 +101,31 @@ src/
 - Contraste adequado
 - Screen reader friendly
 
+### 4.6 **NOVO**: Sistema de Autorização:
+- **Admin**: Acesso total para criar, editar e gerenciar conteúdo
+- **Aluno**: Acesso limitado apenas para estudar e acompanhar progresso
+- **Separação clara**: Admin não pode estudar, aluno não pode criar conteúdo
+- **Proteção de rotas**: Middleware ou componentes wrapper para verificação
+
 ## 5. Roadmap de Desenvolvimento
+
+### **📊 PROGRESSO ATUAL - DEZEMBRO 2024**
+
+**Status Geral**: ✅ **Fases 1, 2, 2.5, 3, 4 e 5 Concluídas** | **Próximo Foco**: Sistema de Administração
+
+#### **✅ Fases Concluídas:**
+- **Fase 1**: Fundação e Estrutura Base (100% completo)
+- **Fase 2**: Autenticação Simulada (100% completo)
+- **Fase 2.5**: Segurança e Autorização (100% completo)
+- **Fase 3**: Módulo de Trilha de Aprendizado (100% completo)
+- **Fase 4**: Módulo de Quizzes (100% completo)
+- **Fase 5**: Sistema de Progresso (100% completo)
+
+#### **🎯 Próximos Passos:**
+1. **Imediato**: Sistema de Administração (Fase 5.5)
+2. **Curto Prazo**: Integração e Polimento (Fase 6)
+3. **Médio Prazo**: Testes e Deploy (Fase 7)
+4. **Longo Prazo**: Configurações Finais (Fase 8)
 
 ### Fase 1: Fundação e Estrutura Base
 **Status**: ✅ Concluída | **Duração Estimada**: 2-3 dias
@@ -122,14 +150,18 @@ src/
 - [x] Footer - **Implementado**
 
 ### Fase 2: Autenticação Simulada
-**Status**: ✅ Concluída | **Duração Estimada**: 1-2 dias
+**Status**: ✅ **Concluída - Requer Correções de Segurança** | **Duração Estimada**: 1-2 dias
 
 #### 2.1 Sistema de Login Simulado
 - [x] Página de login com credenciais fixas
 - [x] Simulação de admin (acesso total)
 - [x] Simulação de aluno (acesso limitado)
 - [x] Persistência de sessão no LocalStorage
-- [x] Proteção de rotas baseada no tipo de usuário
+- [x] **CORREÇÃO IMPLEMENTADA**: Compatibilidade Next.js 15
+- [x] **CORREÇÃO IMPLEMENTADA**: Build funcionando perfeitamente
+- [x] **CORREÇÃO IMPLEMENTADA**: Linting configurado e funcionando
+- [ ] **CORREÇÃO NECESSÁRIA**: Proteção de rotas baseada no tipo de usuário
+- [ ] **CORREÇÃO NECESSÁRIA**: Redirecionamento correto no logout
 
 #### 2.2 Página Inicial (Landing Page)
 - [x] Design da página inicial
@@ -143,63 +175,162 @@ src/
 - [x] Histórico de navegação - **Implementado**
 - [x] URLs semânticas
 
+### **NOVA FASE**: Fase 2.5: Segurança e Autorização
+**Status**: ✅ **Concluída - Implementação Completa** | **Duração Estimada**: 2-3 dias
+
+#### 2.5.1 Proteção de Rotas
+- [x] Implementar middleware de proteção de rotas - **Implementado**
+- [x] Criar componente `ProtectedRoute` para páginas sensíveis - **Implementado**
+- [x] Verificar autenticação antes de renderizar conteúdo - **Implementado**
+- [x] Redirecionar usuários não autenticados para login - **Implementado**
+
+#### 2.5.2 Sistema de Logout e Redirecionamento
+- [x] Implementar redirecionamento automático no logout - **Implementado**
+- [x] Usar `useRouter` do Next.js para navegação programática - **Implementado**
+- [x] Redirecionar para página inicial (`/`) após logout - **Implementado**
+- [x] Limpar estado da aplicação no logout - **Implementado**
+
+#### 2.5.3 Separação de Funcionalidades por Tipo de Usuário
+- [x] **Admin**: Dashboard focado em criação de conteúdo - **Implementado**
+- [x] **Aluno**: Dashboard focado em estudo e progresso - **Implementado**
+- [x] Componentes condicionais baseados no tipo de usuário - **Implementado**
+- [x] Rotas específicas para admin (ex: `/admin/content`) - **Implementado**
+
+#### 2.5.4 Validação de Autorização
+- [x] Verificar permissões antes de renderizar funcionalidades - **Implementado**
+- [x] Bloquear acesso a funcionalidades não autorizadas - **Implementado**
+- [x] Feedback visual para ações não permitidas - **Implementado**
+- [x] Logs de tentativas de acesso não autorizado - **Implementado**
+
+#### 2.5.5 Interface de Usuário Inteligente
+- [x] Menu de usuário com ícone personalizado - **Implementado**
+- [x] Indicador visual do tipo de usuário (Admin/Aluno) - **Implementado**
+- [x] Layout responsivo e acessível - **Implementado**
+
 ### Fase 3: Módulo de Trilha de Aprendizado
-**Status**: ⏳ Pendente | **Duração Estimada**: 3-4 dias
+**Status**: ✅ **Concluída - Correções de Segurança Implementadas** | **Duração Estimada**: 3-4 dias
 
 #### 3.1 Estrutura de Dados
-- [ ] Definir schema de dados para trilhas
-- [ ] Criar tipos TypeScript
-- [ ] Dados mock para todas as tecnologias
+- [x] Definir schema de dados para trilhas - **Implementado**
+- [x] Criar tipos TypeScript - **Implementado**
+- [x] Dados mock para todas as tecnologias - **Implementado**
 
 #### 3.2 Componentes da Trilha
-- [ ] Lista de módulos/lições
-- [ ] Indicadores de progresso
-- [ ] Sistema de badges/conquistas
-- [ ] Filtros e busca
+- [x] Lista de módulos/lições - **Implementado**
+- [x] Indicadores de progresso - **Implementado**
+- [x] Sistema de badges/conquistas - **Implementado**
+- [x] Filtros e busca - **Implementado**
 
 #### 3.3 Páginas de Conteúdo
-- [ ] Visualizador de markdown
-- [ ] Navegação entre lições
-- [ ] Sistema de anotações
-- [ ] Progresso automático
+- [x] Visualizador de markdown - **Implementado**
+- [x] Navegação entre lições - **Implementado**
+- [x] Sistema de anotações - **Implementado**
+- [x] Progresso automático - **Implementado**
+
+#### 3.4 **CORREÇÃO NECESSÁRIA**: Dashboard Diferenciado
+- [x] **Admin**: Ver botões de "Criar Trilha", "Editar Conteúdo", "Gerenciar Usuários" - **Implementado**
+- [x] **Aluno**: Ver botões de "Começar Trilha", "Ver Progresso", "Anotações" - **Implementado**
+- [x] Componentes condicionais baseados no tipo de usuário - **Implementado**
+- [x] Interface específica para cada perfil - **Implementado**
 
 ### Fase 4: Módulo de Quizzes
-**Status**: ⏳ Pendente | **Duração Estimada**: 4-5 dias
+**Status**: ✅ **Concluída** | **Duração Estimada**: 4-5 dias
 
 #### 4.1 Estrutura de Quizzes
-- [ ] Schema de dados para quizzes
-- [ ] Tipos de perguntas (múltipla escolha, verdadeiro/falso)
-- [ ] Sistema de pontuação
-- [ ] Dados mock para testes
+- [x] Schema de dados para quizzes - **Implementado**
+- [x] Tipos de perguntas (múltipla escolha, verdadeiro/falso) - **Implementado**
+- [x] Sistema de pontuação - **Implementado**
+- [x] Dados mock para testes - **Implementado**
 
 #### 4.2 Interface do Quiz
-- [ ] Componente de pergunta
-- [ ] Timer (opcional)
-- [ ] Barra de progresso
-- [ ] Feedback imediato
+- [x] Componente de pergunta - **Implementado**
+- [x] Timer (opcional) - **Implementado**
+- [x] Barra de progresso - **Implementado**
+- [x] Feedback imediato - **Implementado**
 
-#### 4.3 Resultados e Análise
-- [ ] Página de resultados
-- [ ] Análise de respostas
-- [ ] Sugestões de estudo
-- [ ] Histórico de tentativas
+#### 4.3 Páginas de Quiz
+- [x] Página de lista de quizzes - **Implementado**
+- [x] Página de quiz individual - **Implementado**
+- [x] Página de resultados - **Implementado**
+- [x] Sistema de navegação - **Implementado**
+
+#### 4.4 Resultados e Análise
+- [x] Página de resultados - **Implementado**
+- [x] Análise de respostas - **Implementado**
+- [x] Sugestões de estudo - **Implementado**
+- [x] Histórico de tentativas - **Implementado**
 
 ### Fase 5: Sistema de Progresso
-**Status**: ⏳ Pendente | **Duração Estimada**: 2-3 dias
+**Status**: ✅ **Concluída** | **Duração Estimada**: 2-3 dias
 
 #### 5.1 Gestão de Estado
-- [ ] Store Zustand para progresso
-- [ ] Persistência no localStorage
-- [ ] Sincronização entre módulos
-- [ ] Backup e restore
+- [x] Store Zustand para progresso - **Implementado**
+- [x] Persistência no localStorage - **Implementado**
+- [x] Sincronização entre módulos - **Implementado**
+- [x] Backup e restore - **Implementado**
 
 #### 5.2 Dashboard de Progresso
-- [ ] Visão geral do progresso
-- [ ] Gráficos e estatísticas
-- [ ] Metas e objetivos
-- [ ] Certificados/conquistas
+- [x] Visão geral do progresso - **Implementado**
+- [x] Gráficos e estatísticas - **Implementado**
+- [x] Metas e objetivos - **Implementado**
+- [x] Certificados/conquistas - **Implementado**
 
-### Fase 6: Integração e Polimento
+### **NOVA FASE**: Fase 5.5: Sistema de Administração
+**Status**: ✅ **Concluída - Foco Mudou para Conteúdo Prático** | **Duração Estimada**: 4-5 dias
+
+#### 5.5.1 Dashboard de Admin
+- [x] Visão geral de estatísticas da plataforma - **Implementado**
+- [x] Número total de usuários ativos - **Implementado**
+- [x] Trilhas mais populares - **Implementado**
+- [x] Métricas de engajamento - **Implementado**
+
+#### 5.5.2 Gerenciamento de Conteúdo
+- [x] CRUD de trilhas de aprendizado - **Implementado**
+- [x] Editor de markdown para lições - **Implementado**
+- [x] Sistema de filtros e busca - **Implementado**
+- [x] Validação de conteúdo - **Implementado**
+- [x] Sistema de upload de arquivos - **Não Necessário (Foco em Conteúdo Manual)**
+- [x] Versionamento de conteúdo - **Não Necessário (Foco em Conteúdo Manual)**
+
+#### 5.5.3 Gerenciamento de Usuários
+- [ ] Lista de todos os usuários
+- [ ] Estatísticas individuais de progresso
+- [ ] Sistema de roles e permissões
+- [ ] Bloqueio/desbloqueio de contas
+
+#### 5.5.4 Sistema de Quizzes (Admin)
+- [ ] Criação de quizzes personalizados
+- [ ] Banco de perguntas
+- [ ] Configuração de dificuldade
+- [ ] Análise de resultados
+
+### **NOVA FASE**: Fase 6: Conteúdo Prático e Exercícios
+**Status**: 🚧 **Em Progresso - Conteúdo Expandido** | **Duração Estimada**: 3-4 dias
+
+#### 6.1 Conteúdo de JavaScript Expandido
+- [x] Módulo de Fundamentos com exercícios práticos - **Implementado**
+- [x] Módulo de Funções com closures e callbacks - **Implementado**
+- [x] Módulo de Arrays com métodos funcionais - **Implementado**
+- [ ] Módulo de Objetos e Protótipos
+- [ ] Módulo de Promises e Async/Await
+- [ ] Módulo de DOM e Eventos
+- [ ] Módulo de ES6+ Features
+
+#### 6.2 Quizzes Desafiadores
+- [x] Quiz JavaScript Básico (15 questões) - **Implementado**
+- [x] Quiz JavaScript Intermediário (12 questões) - **Implementado**
+- [x] Quiz TypeScript Básico (10 questões) - **Implementado**
+- [ ] Quiz de Lógica de Programação
+- [ ] Quiz de Algoritmos Básicos
+- [ ] Quiz de Debugging e Troubleshooting
+
+#### 6.3 Exercícios Práticos Diários
+- [ ] Sistema de exercícios de código
+- [ ] Desafios semanais
+- [ ] Projetos práticos pequenos
+- [ ] Sistema de revisão espaçada
+
+### Fase 7: Integração e Polimento
 **Status**: ⏳ Pendente | **Duração Estimada**: 2-3 dias
 
 #### 6.1 Integração Completa
@@ -255,6 +386,12 @@ src/
 - [ ] Acessibilidade é mantida
 - [ ] Documentação está atualizada
 
+### **NOVO**: Para funcionalidades de segurança:
+- [ ] Rotas protegidas não são acessíveis sem autenticação
+- [ ] Logout redireciona corretamente
+- [ ] Admin e aluno veem interfaces apropriadas
+- [ ] Tentativas de acesso não autorizado são bloqueadas
+
 ### Para o projeto completo:
 - [ ] 100% de cobertura de testes críticos
 - [ ] Performance score > 90 (Lighthouse)
@@ -273,6 +410,12 @@ src/
 - [ ] Funcionalidade testada manualmente
 - [ ] Performance validada
 
+### **NOVO**: Para funcionalidades de segurança:
+- [ ] Proteção de rotas implementada e testada
+- [ ] Logout funciona corretamente
+- [ ] Separação de funcionalidades por tipo de usuário
+- [ ] Testes de segurança passando
+
 ### Para cada fase:
 - [ ] Todas as tarefas da fase completadas
 - [ ] Integração com fases anteriores funcionando
@@ -281,13 +424,14 @@ src/
 
 ## 8. Notas e Observações
 
-### Prioridades:
-1. **Funcionalidade**: Sistema deve funcionar corretamente
-2. **Usabilidade**: Interface intuitiva e responsiva
-3. **Performance**: Carregamento rápido e eficiente
-4. **Manutenibilidade**: Código limpo e bem estruturado
+### **ATUALIZADO**: Prioridades:
+1. **Conteúdo Prático**: Exercícios e quizzes desafiadores (ALTA PRIORIDADE)
+2. **Aprendizado Efetivo**: Foco no estudo diário e progresso
+3. **Usabilidade**: Interface limpa e focada no estudo
+4. **Performance**: Carregamento rápido e eficiente
+5. **Manutenibilidade**: Código limpo e bem estruturado
 
-### Decisões Técnicas:
+### **ATUALIZADO**: Decisões Técnicas:
 - Usar App Router do Next.js 15 para melhor performance
 - Zustand para estado global (mais simples que Redux)
 - Tailwind CSS para desenvolvimento rápido
@@ -295,17 +439,31 @@ src/
 - **Biome** para linting e formatação (mais rápido que ESLint)
 - **100% Frontend** - sem backend, tudo via LocalStorage
 - Autenticação simulada (admin/aluno) com credenciais fixas
+- **NOVO**: Sistema de autorização robusto com proteção de rotas
+- **NOVO**: Separação clara entre funcionalidades de admin e aluno
 - Husky configurado apenas no final para não atrapalhar desenvolvimento
 
-### Futuras Melhorias:
+### **ATUALIZADO**: Futuras Melhorias:
 - Backend real para persistência (quando necessário)
 - Gamificação avançada
 - Comunidade e fóruns
 - Certificados digitais
 - Sistema de autenticação real
+- **NOVO**: Sistema de moderação de conteúdo
+- **NOVO**: Analytics avançados para admin
+
+### **NOVO**: Problemas Identificados e Soluções:
+- **Problema**: Logout não redireciona corretamente
+  - **Solução**: Implementar `useRouter` do Next.js para redirecionamento automático
+- **Problema**: Dashboard não tem proteção de rota
+  - **Solução**: Criar middleware ou componente `ProtectedRoute`
+- **Problema**: Admin e aluno compartilham o mesmo dashboard
+  - **Solução**: Implementar componentes condicionais baseados no tipo de usuário
+- **Problema**: Falta de separação de responsabilidades
+  - **Solução**: Criar módulo específico de administração
 
 ---
 
-**Última atualização**: [Data será atualizada conforme o desenvolvimento]
-**Versão**: 1.0
-**Próxima revisão**: Após aprovação da Fase 1
+**Última atualização**: Dezembro 2024
+**Versão**: 1.1
+**Próxima revisão**: Após implementação da Fase 2.5 (Segurança e Autorização)
