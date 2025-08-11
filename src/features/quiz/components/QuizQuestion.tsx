@@ -43,12 +43,13 @@ export function QuizQuestion({ question, onAnswer, isAnswered, userAnswer }: Qui
         return selectedAnswers.includes(optionId)
     }
 
-    const getOptionStyle = (optionId: string) => {
+    const getOptionStyle = (option: string) => {
         const baseStyle = 'p-4 rounded-lg border-2 cursor-pointer transition-all duration-200'
 
         if (isAnswered) {
-            const isCorrect = question.options.find((opt) => opt.id === optionId)?.isCorrect
-            const wasSelected = isOptionSelected(optionId)
+            const isCorrect = question.correctAnswer === option || 
+                             (Array.isArray(question.correctAnswer) && question.correctAnswer.includes(option))
+            const wasSelected = isOptionSelected(option)
 
             if (isCorrect) {
                 return `${baseStyle} border-green-500 bg-green-50 text-green-800`
@@ -58,7 +59,7 @@ export function QuizQuestion({ question, onAnswer, isAnswered, userAnswer }: Qui
                 return `${baseStyle} border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed`
             }
         } else {
-            return isOptionSelected(optionId)
+            return isOptionSelected(option)
                 ? `${baseStyle} border-blue-500 bg-blue-50 text-blue-800`
                 : `${baseStyle} border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50`
         }
@@ -101,14 +102,14 @@ export function QuizQuestion({ question, onAnswer, isAnswered, userAnswer }: Qui
 
             {/* Opções */}
             <div className='space-y-3'>
-                {question.options.map((option) => (
+                {question.options.map((option, index) => (
                     <button
-                        key={option.id}
+                        key={`${question.id}-option-${index}`}
                         type='button'
-                        className={`w-full text-left ${getOptionStyle(option.id)}`}
-                        onClick={() => handleOptionClick(option.id)}
+                        className={`w-full text-left ${getOptionStyle(option)}`}
+                        onClick={() => handleOptionClick(option)}
                         disabled={isAnswered}
-                        aria-label={`Opção ${option.id}: ${option.text}`}
+                        aria-label={`Opção ${index + 1}: ${option}`}
                     >
                         <div className='flex items-center space-x-3'>
                             {/* Checkbox/Radio */}
@@ -116,12 +117,12 @@ export function QuizQuestion({ question, onAnswer, isAnswered, userAnswer }: Qui
                                 {question.type === 'multiple_choice' ? (
                                     <div
                                         className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                                            isOptionSelected(option.id)
+                                            isOptionSelected(option)
                                                 ? 'border-blue-500 bg-blue-500'
                                                 : 'border-gray-300'
                                         }`}
                                     >
-                                        {isOptionSelected(option.id) && (
+                                        {isOptionSelected(option) && (
                                             <svg
                                                 className='w-3 h-3 text-white'
                                                 fill='currentColor'
@@ -139,12 +140,12 @@ export function QuizQuestion({ question, onAnswer, isAnswered, userAnswer }: Qui
                                 ) : (
                                     <div
                                         className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                            isOptionSelected(option.id)
+                                            isOptionSelected(option)
                                                 ? 'border-blue-500 bg-blue-500'
                                                 : 'border-gray-300'
                                         }`}
                                     >
-                                        {isOptionSelected(option.id) && (
+                                        {isOptionSelected(option) && (
                                             <div className='w-2 h-2 bg-white rounded-full'></div>
                                         )}
                                     </div>
@@ -152,7 +153,7 @@ export function QuizQuestion({ question, onAnswer, isAnswered, userAnswer }: Qui
                             </div>
 
                             {/* Texto da opção */}
-                            <span className='flex-1'>{option.text}</span>
+                            <span className='flex-1'>{option}</span>
                         </div>
                     </button>
                 ))}

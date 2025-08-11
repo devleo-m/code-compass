@@ -4,7 +4,7 @@ export interface QuizQuestionItem {
     id: string
     question: string
     type: 'multiple_choice' | 'true_false' | 'single_choice'
-    options: QuizOption[]
+    options: string[] // Mudado de QuizOption[] para string[]
     correctAnswer: string | string[]
     explanation?: string
     difficulty: 'easy' | 'medium' | 'hard'

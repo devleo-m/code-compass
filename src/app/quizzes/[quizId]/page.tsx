@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { QuizQuestion } from '@/features/quiz/components/QuizQuestion'
 import { Button, Card, Layout } from '@/shared/components'
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
-import { getQuizById } from '@/shared/data/quizzes'
+import { getQuiz } from '@/shared/data/quizzes'
 import type { QuizItem } from '@/shared/types/quiz'
 
 // 2. Tipos/Interfaces
@@ -166,7 +166,7 @@ export default function QuizPage({ params }: QuizPageProps) {
         const loadQuiz = async () => {
             try {
                 const { quizId } = await params
-                const quizData = getQuizById(quizId)
+                const quizData = getQuiz(quizId)
 
                 if (!quizData) {
                     setError('Quiz não encontrado')
