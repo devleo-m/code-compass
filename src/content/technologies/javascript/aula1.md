@@ -117,65 +117,11 @@ console.log("Olá, " + nome);
 console.log(`Olá, ${nome}! Bem-vindo ao JavaScript!`);
 ```
 
-## 🎯 Exercícios Práticos
+## 📚 Exercícios
 
-### Exercício 1: Primeiro Programa
-Crie um programa que:
-1. Declare uma variável com seu nome
-2. Declare uma variável com sua idade
-3. Imprima uma mensagem usando template literals
+Os exercícios desta aula foram movidos para o arquivo separado: `exercicios/aula1-exercicios.md`
 
-```javascript
-// Seu código aqui
-let meuNome = "João";
-let minhaIdade = 25;
-console.log(`Olá! Sou ${meuNome} e tenho ${minhaIdade} anos.`);
-```
-
-### Exercício 2: Calculadora Simples
-Crie um programa que:
-1. Declare duas variáveis com números
-2. Calcule a soma, subtração, multiplicação e divisão
-3. Imprima os resultados
-
-```javascript
-// Seu código aqui
-let a = 10;
-let b = 5;
-
-console.log(`Soma: ${a + b}`);
-console.log(`Subtração: ${a - b}`);
-console.log(`Multiplicação: ${a * b}`);
-console.log(`Divisão: ${a / b}`);
-```
-
-## 🔍 Quiz de Verificação
-
-### Pergunta 1
-JavaScript foi criado por qual empresa?
-- [ ] Microsoft
-- [ ] Google
-- [ ] **Netscape** ✅
-- [ ] Mozilla
-
-### Pergunta 2
-Qual é o nome oficial da linguagem JavaScript?
-- [ ] JavaScript
-- [ ] **ECMAScript** ✅
-- [ ] LiveScript
-- [ ] Mocha
-
-### Pergunta 3
-Em que ano foi lançado o ES6 (ES2015)?
-- [ ] 2009
-- [ ] 2010
-- [ ] **2015** ✅
-- [ ] 2020
-
-### Pergunta 4
-JavaScript pode ser usado apenas no navegador?
-- [ ] Sim
-- [ ] **Não** ✅
+Para praticar os conceitos aprendidos, acesse o arquivo de exercícios correspondente.
 
 ## 📚 Recursos Adicionais
 
