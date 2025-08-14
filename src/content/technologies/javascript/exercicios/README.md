@@ -9,6 +9,7 @@ Esta pasta contém todos os exercícios práticos das aulas de JavaScript, organ
 - **aula3-exercicios.md** - Exercícios de Tipos de Dados
 - **aula4-exercicios.md** - Exercícios de Type Casting e Type Conversion
 - **aula5-exercicios.md** - Exercícios de Estruturas de Dados
+- **aula6-exercicios.md** - Exercícios de Comparações de Igualdade
 
 ## 🎯 Como Usar
 
@@ -44,6 +45,11 @@ Esta pasta contém todos os exercícios práticos das aulas de JavaScript, organ
 - Quiz de conhecimento
 - Foco em Map, Set, WeakMap, WeakSet, Arrays Tipados e JSON
 
+### Aula 6: Comparações de Igualdade
+- 15 exercícios práticos interativos
+- Quiz de conhecimento
+- Foco em ==, ===, Object.is() e algoritmos de igualdade
+
 ## 💡 Dicas para Prática
 
 1. **Execute cada exercício** no console do navegador
@@ -61,6 +67,6 @@ Após completar os exercícios de uma aula, você estará pronto para:
 
 ---
 
-**⏱️ Tempo estimado total de prática**: 14-18 horas
+**⏱️ Tempo estimado total de prática**: 17-22 horas
 **🏆 Nível**: Iniciante a Intermediário
 **📝 Tags**: #javascript #exercícios #prática #programação 
