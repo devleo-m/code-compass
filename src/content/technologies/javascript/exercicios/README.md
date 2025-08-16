@@ -10,6 +10,7 @@ Esta pasta contém todos os exercícios práticos das aulas de JavaScript, organ
 - **aula4-exercicios.md** - Exercícios de Type Casting e Type Conversion
 - **aula5-exercicios.md** - Exercícios de Estruturas de Dados
 - **aula6-exercicios.md** - Exercícios de Comparações de Igualdade
+- **aula7-exercicios.md** - Exercícios de Loops e Iterações
 
 ## 🎯 Como Usar
 
@@ -50,6 +51,11 @@ Esta pasta contém todos os exercícios práticos das aulas de JavaScript, organ
 - Quiz de conhecimento
 - Foco em ==, ===, Object.is() e algoritmos de igualdade
 
+### Aula 7: Loops e Iterações
+- 10 exercícios práticos abrangentes
+- Quiz de conhecimento
+- Foco em while, do...while, for, for...of, for...in, break, continue
+
 ## 💡 Dicas para Prática
 
 1. **Execute cada exercício** no console do navegador
@@ -67,6 +73,6 @@ Após completar os exercícios de uma aula, você estará pronto para:
 
 ---
 
-**⏱️ Tempo estimado total de prática**: 17-22 horas
+**⏱️ Tempo estimado total de prática**: 21-27 horas
 **🏆 Nível**: Iniciante a Intermediário
 **📝 Tags**: #javascript #exercícios #prática #programação 
