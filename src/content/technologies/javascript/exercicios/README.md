@@ -11,6 +11,7 @@ Esta pasta contém todos os exercícios práticos das aulas de JavaScript, organ
 - **aula5-exercicios.md** - Exercícios de Estruturas de Dados
 - **aula6-exercicios.md** - Exercícios de Comparações de Igualdade
 - **aula7-exercicios.md** - Exercícios de Loops e Iterações
+- **aula8-exercicios.md** - Exercícios de Controle de Fluxo
 
 ## 🎯 Como Usar
 
@@ -56,6 +57,11 @@ Esta pasta contém todos os exercícios práticos das aulas de JavaScript, organ
 - Quiz de conhecimento
 - Foco em while, do...while, for, for...of, for...in, break, continue
 
+### Aula 8: Controle de Fluxo
+- 8 exercícios práticos interativos
+- Quiz de conhecimento
+- Foco em if/else, switch, try/catch, throw, tipos de Error
+
 ## 💡 Dicas para Prática
 
 1. **Execute cada exercício** no console do navegador
@@ -73,6 +79,6 @@ Após completar os exercícios de uma aula, você estará pronto para:
 
 ---
 
-**⏱️ Tempo estimado total de prática**: 21-27 horas
+**⏱️ Tempo estimado total de prática**: 25-32 horas
 **🏆 Nível**: Iniciante a Intermediário
 **📝 Tags**: #javascript #exercícios #prática #programação 
